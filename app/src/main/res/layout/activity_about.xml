@@ -1,0 +1,295 @@
+ <?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:orientation="vertical">
+
+    <include
+        android:id="@+id/toolbar"
+        layout="@layout/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+    <ScrollView
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        >
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_below="@+id/headerImg"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="16dp"
+                android:background="@color/accent_brown"/>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_above="@+id/about_tv_info"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="16dp"
+                android:background="@color/accent_brown"/>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_above="@+id/about_tv_social"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="16dp"
+                android:background="@color/accent_brown"/>
+
+            <ImageView
+                android:id="@+id/headerImg"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:background="@drawable/tilerepeat"
+                android:padding="32dp"
+                android:src="@drawable/logo"/>
+
+            <TextView
+                android:id="@+id/about_tv_contact"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/headerImg"
+                android:layout_gravity="center_vertical|right"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="16dp"
+                android:layout_marginTop="32dp"
+                android:layout_weight="1"
+                android:fontFamily="sans-serif-light"
+                android:gravity="center_vertical|center_horizontal"
+                android:text="Contact"
+                android:textAlignment="gravity"
+                android:textColor="@color/accent_brown"
+                android:textSize="20sp"/>
+
+            <LinearLayout
+                android:id="@+id/ll_phone"
+                xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_below="@+id/about_tv_contact"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="16dp"
+                android:layout_marginTop="16dp"
+                android:background="?android:attr/selectableItemBackground"
+                android:clickable="true"
+                android:orientation="horizontal"
+                android:paddingLeft="16dp"
+                android:paddingRight="16dp">
+
+                <ImageView
+                    android:id="@+id/about_img_phone"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:layout_weight="0"
+                    android:scaleType="center"
+                    android:src="@drawable/ic_call_black_24dp"/>
+
+                <TextView
+                    android:id="@+id/about_tv_phone"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical|right"
+                    android:layout_marginLeft="16dp"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical|right"
+                    android:text="9819954448"
+                    android:textAlignment="gravity"
+                    android:textSize="16sp"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/ll_email"
+                xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_below="@+id/ll_phone"
+                android:layout_marginBottom="16dp"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="16dp"
+                android:orientation="horizontal"
+                android:paddingLeft="16dp"
+                android:paddingRight="16dp"
+                android:background="?android:attr/selectableItemBackground"
+                android:clickable="true">
+
+                <ImageView
+                    android:id="@+id/about_img_email"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:layout_weight="0"
+                    android:padding="12dp"
+                    android:src="@drawable/ic_mail_black_24dp"/>
+
+                <TextView
+                    android:id="@+id/about_tv_email"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical|right"
+                    android:layout_marginLeft="16dp"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical|right"
+                    android:text="tisserindia@gmail.com"
+                    android:textAlignment="gravity"
+                    android:textSize="16sp"/>
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/about_tv_info"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/ll_email"
+                android:layout_gravity="center_vertical|right"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_weight="1"
+                android:fontFamily="sans-serif-light"
+                android:gravity="center_vertical|center_horizontal"
+                android:text="About Tisser"
+                android:textAlignment="gravity"
+                android:textColor="@color/accent_brown"
+                android:textSize="20sp"/>
+
+            <TextView
+                android:id="@+id/about_tv_info_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/about_tv_info"
+                android:layout_gravity="center_vertical|right"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="16dp"
+                android:layout_weight="1"
+                android:fontFamily="sans-serif"
+                android:gravity="center_vertical|center_horizontal"
+                android:padding="16dp"
+                android:text="Tisser is a French word for weave. Tisser aims to weave a network of rural hand made products for the urban consumers to support the artisans and weavers directly , whichmeans Tisser won&apos;t work through middleman. As per the philosophy Tisser works with the original artists, artisans, handicraft makers on designs, product development and brings these products directly to the consumer. \n\nTisser&apos;s products are natural, handcrafted, contemporary, and affordable."
+                android:textAlignment="gravity"
+                android:textSize="14sp"/>
+
+            <TextView
+                android:id="@+id/about_tv_social"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/about_tv_info_text"
+                android:layout_gravity="center_vertical|right"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_weight="1"
+                android:fontFamily="sans-serif-light"
+                android:gravity="center_vertical|center_horizontal"
+                android:text="Social Connect"
+                android:textAlignment="gravity"
+                android:textColor="@color/accent_brown"
+                android:textSize="20sp"/>
+
+            <LinearLayout
+                android:id="@+id/ll_social_1"
+                xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_below="@+id/about_tv_social"
+                android:layout_marginTop="16dp"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:paddingLeft="16dp"
+                android:paddingRight="16dp">
+
+                <ImageView
+                    android:id="@+id/about_img_website"
+                    android:layout_width="64dp"
+                    android:layout_height="64dp"
+                    android:layout_weight="1"
+                    android:src="@drawable/domain"
+                    android:background="?android:attr/selectableItemBackground"
+                    android:clickable="true"/>
+
+                <ImageView
+                    android:id="@+id/about_img_fb"
+                    android:layout_width="64dp"
+                    android:layout_height="64dp"
+                    android:layout_weight="1"
+                    android:src="@drawable/facebook"
+                    android:background="?android:attr/selectableItemBackground"
+                    android:clickable="true"/>
+
+                <ImageView
+                    android:id="@+id/about_img_twitter"
+                    android:layout_width="64dp"
+                    android:layout_height="64dp"
+                    android:layout_weight="1"
+                    android:src="@drawable/twitter"
+                    android:background="?android:attr/selectableItemBackground"
+                    android:clickable="true"/>
+
+                <ImageView
+                    android:id="@+id/about_img_instagram"
+                    android:layout_width="64dp"
+                    android:layout_height="64dp"
+                    android:layout_weight="1"
+                    android:src="@drawable/instagram"
+                    android:background="?android:attr/selectableItemBackground"
+                    android:clickable="true"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/ll_social_2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_below="@+id/ll_social_1"
+                android:layout_marginBottom="16dp"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:paddingLeft="16dp"
+                android:paddingRight="16dp">
+
+                <ImageView
+                    android:id="@+id/about_img_linkedin"
+                    android:layout_width="64dp"
+                    android:layout_height="64dp"
+                    android:layout_weight="1"
+                    android:src="@drawable/linkedin"
+                    android:background="?android:attr/selectableItemBackground"
+                    android:clickable="true"/>
+
+                <ImageView
+                    android:id="@+id/about_img_pinterest"
+                    android:layout_width="64dp"
+                    android:layout_height="64dp"
+                    android:layout_weight="1"
+                    android:src="@drawable/pinterest"
+                    android:background="?android:attr/selectableItemBackground"
+                    android:clickable="true"/>
+
+                <ImageView
+                    android:id="@+id/about_img_blogspot"
+                    android:layout_width="64dp"
+                    android:layout_height="64dp"
+                    android:layout_weight="1"
+                    android:src="@drawable/blogspot"
+                    android:background="?android:attr/selectableItemBackground"
+                    android:clickable="true"/>
+            </LinearLayout>
+
+        </RelativeLayout>
+    </ScrollView>
+</LinearLayout>
