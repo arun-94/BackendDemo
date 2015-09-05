@@ -6,7 +6,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.widget.ImageView;
 
-import com.refocus.puneet.tisserindia.R;
+import com.tisser.puneet.tisserartisan.R;
 
 import java.io.File;
 import java.io.FileInputStream;
