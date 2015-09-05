@@ -15,6 +15,7 @@ import com.tisser.puneet.tisserartisan.R;
 
 public class AboutActivity extends BaseActivity
 {
+    //HELLO ARUN
     private ImageView headerImg;
     private TextView abouttvcontact;
     private ImageView aboutimgphone;
