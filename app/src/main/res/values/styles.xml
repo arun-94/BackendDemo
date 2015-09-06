@@ -3,11 +3,20 @@
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/primary_red</item>
-        <item name="colorPrimaryDark">@color/primary_dark_red</item>
+        <item name="colorPrimary">@color/primary_brown</item>
+        <item name="colorPrimaryDark">@color/primary_dark_brown</item>
         <item name="colorAccent">@color/accent_brown</item>
         <item name="android:windowActionBar">false</item>
     </style>
+
+    <style name="AppThemeWhite" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/primary_brown</item>
+        <item name="colorPrimaryDark">@color/white</item>
+        <item name="colorAccent">@color/accent_brown</item>
+        <item name="android:windowActionBar">false</item>
+    </style>
+
 
     <style name="ActionBarThemeOverlay" parent="">
         <item name="android:textColorPrimary">#fff</item>
@@ -29,6 +38,24 @@
 
     <style name="Widget.ActionBar.Transparent">
         <item name="android:background">@android:color/transparent</item>
+    </style>
+
+    <style name="Tisser_TextStyle_Subtitle" parent="@android:style/Widget.TextView">
+        <item name="android:textColor">@color/primary_brown</item>
+        <item name="android:textSize">14sp</item>
+    </style>
+
+    <style name="Tisser_TextStyle_Title" parent="@android:style/Widget.TextView">
+        <item name="android:textSize">16sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="Tisser_TextStyle_Medium" parent="@android:style/Widget.TextView">
+        <item name="android:textSize">18sp</item>
+    </style>
+
+    <style name="Tisser_TextStyle_Small" parent="@android:style/Widget.TextView">
+        <item name="android:textSize">14sp</item>
     </style>
 
 </resources>

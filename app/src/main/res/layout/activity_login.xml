@@ -1,111 +1,143 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context="com.refocus.puneet.axishackathon.Activities.LoginActivity"
-    android:background="@color/white"
-    android:orientation="vertical">
-
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              xmlns:tools="http://schemas.android.com/tools"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:background="@color/white"
+              android:orientation="vertical"
+              tools:context="com.refocus.puneet.axishackathon.Activities.LoginActivity"
+              android:gravity="center_vertical">
 
 
     <ImageView
-        android:orientation="horizontal"
+        android:id="@+id/login_logo_imageView"
+        android:layout_width="wrap_content"
+        android:layout_height="72dp"
+        android:layout_gravity="center"
+        android:layout_weight="0"
+        android:scaleType="centerInside"
+        android:src="@drawable/logo_light_brown_120"
+        />
+
+    <TextView
+        android:id="@+id/login_logo_textView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/linearLayout2"
-        android:layout_alignParentLeft="false"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentRight="true"
-        android:layout_above="@+id/linearLayout"
-        android:layout_alignParentTop="true"
         android:layout_gravity="center"
+        android:layout_weight="0"
+        android:focusableInTouchMode="true"
+        android:fontFamily="sans-serif-light"
+        android:gravity="center_horizontal"
         android:scaleType="center"
-        android:layout_weight="00"
-        android:layout_marginTop="20dp">
+        android:src="@drawable/logo"
+        android:text="Artisan"
+        android:textAlignment="center"
+        android:textColor="@color/primary_brown"
+        android:textSize="32dp"/>
 
-    </ImageView>
 
     <LinearLayout
-        android:orientation="vertical"
-        android:layout_width="265dp"
-        android:layout_height="wrap_content"
-        android:gravity="center_horizontal"
         android:id="@+id/linearLayout"
-        android:paddingBottom="60dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginTop="50dp">
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginTop="60dp"
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
+        android:layout_marginBottom="60dp">
 
         <com.rengwuxian.materialedittext.MaterialEditText
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            app:met_floatingLabel="highlight"
-            app:met_underlineColor="@color/primary_red"
-            android:hint="Login ID"
-            app:met_floatingLabelText="Login ID"
             android:id="@+id/editText_custid"
-            android:editable="true"
-            android:text="arun@arun.com"
-            app:met_primaryColor="@color/primary_red"
-            app:met_baseColor="@color/primary_red"
-            android:elegantTextHeight="false"
-            android:maxLines="1"
-            android:autoText="false"
-            android:layout_weight="1"
-            android:gravity="center_vertical|center_horizontal"
-            android:minLines="1"
-            android:lines="1"
-            android:inputType="textCapCharacters"/>
-
-        <com.rengwuxian.materialedittext.MaterialEditText
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            app:met_floatingLabel="highlight"
-            app:met_underlineColor="@color/primary_red"
-            android:hint="Password"
-            app:met_floatingLabelText="Password"
-            android:id="@+id/editText_password"
-            android:text="arun"
-            android:editable="true"
-            app:met_primaryColor="@color/primary_red"
-            app:met_baseColor="@color/primary_red"
-            android:elegantTextHeight="false"
-            android:maxLines="1"
-            android:autoText="false"
             android:layout_weight="1"
+            android:autoText="false"
+            android:editable="true"
+            android:elegantTextHeight="false"
             android:gravity="center_vertical|center_horizontal"
-            android:minLines="1"
+            android:hint="Login ID"
+            android:inputType="textCapCharacters"
             android:lines="1"
-            android:inputType="textCapCharacters"/>
+            android:maxLines="1"
+            android:minLines="1"
+            android:text="arun@arun.com"
+            app:met_baseColor="@color/primary_brown"
+            app:met_floatingLabel="highlight"
+            app:met_floatingLabelText="Login ID"
+            app:met_primaryColor="@color/primary_brown"
+            app:met_underlineColor="@color/primary_brown"/>
+
+        <com.rengwuxian.materialedittext.MaterialEditText
+            android:id="@+id/editText_password"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:autoText="false"
+            android:editable="true"
+            android:elegantTextHeight="false"
+            android:gravity="center_vertical|center_horizontal"
+            android:hint="Password"
+            android:inputType="textCapCharacters"
+            android:lines="1"
+            android:maxLines="1"
+            android:minLines="1"
+            android:text="arun"
+            app:met_baseColor="@color/primary_brown"
+            app:met_floatingLabel="highlight"
+            app:met_floatingLabelText="Password"
+            app:met_primaryColor="@color/primary_brown"
+            app:met_underlineColor="@color/primary_brown"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="16dp"/>
 
         <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/primary_red"
-            android:elevation="5dp"
-            android:layout_marginTop="20dp">
+            android:layout_marginTop="16dp"
+            android:background="@color/primary_brown"
+            android:elevation="5dp">
 
             <Button
-                style="?android:attr/buttonStyleSmall"
                 android:id="@+id/loginButton"
-                android:background="?android:attr/selectableItemBackground"
-                android:textColor="@android:color/white"
-                android:textAllCaps="true"
+                style="?android:attr/buttonStyleSmall"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:text="Login"
+                android:background="?android:attr/selectableItemBackground"
+                android:text="Log In"
+                android:textAllCaps="true"
+                android:textColor="@android:color/white"
                 />
 
             <com.github.rahatarmanahmed.cpv.CircularProgressView
-                xmlns:app="http://schemas.android.com/apk/res-auto"
                 android:id="@+id/progress_view"
+                xmlns:app="http://schemas.android.com/apk/res-auto"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
-                app:cpv_indeterminate="true"
-                app:cpv_color="@color/white"
-                app:cpv_thickness="2dp"
                 android:layout_gravity="center"
+                app:cpv_color="@color/white"
+                app:cpv_indeterminate="true"
+                app:cpv_thickness="2dp"
                 />
         </FrameLayout>
     </LinearLayout>
+
+    <TextView
+        android:id="@+id/login_note_textView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:layout_weight="0"
+        android:focusableInTouchMode="true"
+        android:scaleType="center"
+        android:src="@drawable/logo"
+        android:text="This app is meant for Tisser artisans only."
+        android:textAlignment="gravity"
+        android:textColor="@color/primary_brown"
+        android:textSize="16dp"
+        android:textAppearance="@style/Tisser_TextStyle_Small"
+        android:gravity="bottom|center_horizontal"
+        />
+
 </LinearLayout>
