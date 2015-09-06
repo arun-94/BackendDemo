@@ -1,0 +1,19 @@
+<android.support.v7.widget.CardView
+    android:id="@+id/product_card"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    android:layout_width="160dp"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="8dp"
+    android:clickable="true"
+    android:foreground="?android:attr/selectableItemBackground"
+    card_view:cardElevation="2dp">
+
+    <ImageView
+        android:id="@+id/gallery_image"
+        android:layout_width="match_parent"
+        android:layout_height="170dp"
+        android:layout_gravity="center"
+        android:src="@color/blue"/>
+
+</android.support.v7.widget.CardView>
