@@ -1,0 +1,111 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context="com.refocus.puneet.axishackathon.Activities.LoginActivity"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+
+
+    <ImageView
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/linearLayout2"
+        android:layout_alignParentLeft="false"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentRight="true"
+        android:layout_above="@+id/linearLayout"
+        android:layout_alignParentTop="true"
+        android:layout_gravity="center"
+        android:scaleType="center"
+        android:layout_weight="00"
+        android:layout_marginTop="20dp">
+
+    </ImageView>
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="265dp"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:id="@+id/linearLayout"
+        android:paddingBottom="60dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="50dp">
+
+        <com.rengwuxian.materialedittext.MaterialEditText
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            app:met_floatingLabel="highlight"
+            app:met_underlineColor="@color/primary_red"
+            android:hint="Login ID"
+            app:met_floatingLabelText="Login ID"
+            android:id="@+id/editText_custid"
+            android:editable="true"
+            android:text="arun@arun.com"
+            app:met_primaryColor="@color/primary_red"
+            app:met_baseColor="@color/primary_red"
+            android:elegantTextHeight="false"
+            android:maxLines="1"
+            android:autoText="false"
+            android:layout_weight="1"
+            android:gravity="center_vertical|center_horizontal"
+            android:minLines="1"
+            android:lines="1"
+            android:inputType="textCapCharacters"/>
+
+        <com.rengwuxian.materialedittext.MaterialEditText
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            app:met_floatingLabel="highlight"
+            app:met_underlineColor="@color/primary_red"
+            android:hint="Password"
+            app:met_floatingLabelText="Password"
+            android:id="@+id/editText_password"
+            android:text="arun"
+            android:editable="true"
+            app:met_primaryColor="@color/primary_red"
+            app:met_baseColor="@color/primary_red"
+            android:elegantTextHeight="false"
+            android:maxLines="1"
+            android:autoText="false"
+            android:layout_weight="1"
+            android:gravity="center_vertical|center_horizontal"
+            android:minLines="1"
+            android:lines="1"
+            android:inputType="textCapCharacters"/>
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/primary_red"
+            android:elevation="5dp"
+            android:layout_marginTop="20dp">
+
+            <Button
+                style="?android:attr/buttonStyleSmall"
+                android:id="@+id/loginButton"
+                android:background="?android:attr/selectableItemBackground"
+                android:textColor="@android:color/white"
+                android:textAllCaps="true"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:text="Login"
+                />
+
+            <com.github.rahatarmanahmed.cpv.CircularProgressView
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:id="@+id/progress_view"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                app:cpv_indeterminate="true"
+                app:cpv_color="@color/white"
+                app:cpv_thickness="2dp"
+                android:layout_gravity="center"
+                />
+        </FrameLayout>
+    </LinearLayout>
+</LinearLayout>
