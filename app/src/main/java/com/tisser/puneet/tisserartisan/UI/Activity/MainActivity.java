@@ -25,10 +25,8 @@ import butterknife.Bind;
 
 public class MainActivity extends BaseActivity_NavDrawer
 {
-    @Bind(R.id.upload_button)
-    Button mUploadButton;
-    @Bind(R.id.gallery_images_recycler)
-    RecyclerView mGalleryImagesRecycler;
+    @Bind(R.id.upload_button) Button mUploadButton;
+    @Bind(R.id.gallery_images_recycler) RecyclerView mGalleryImagesRecycler;
 
     private ArrayList<Image> images;
     private GridLayoutManager mLayoutManager;
@@ -86,8 +84,7 @@ public class MainActivity extends BaseActivity_NavDrawer
             images = data.getParcelableArrayListExtra(Constants.INTENT_EXTRA_IMAGES);
 
             mAdapter.addAll(images);
-            mGalleryImagesRecycler.getViewTreeObserver().addOnGlobalLayoutListener(
-                    new ViewTreeObserver.OnGlobalLayoutListener()
+            mGalleryImagesRecycler.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener()
                     {
                         @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
                         @Override

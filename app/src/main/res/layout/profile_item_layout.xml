@@ -12,10 +12,11 @@
         android:layout_marginRight="8dp"
         android:layout_weight="0"
         android:gravity="right"
+        android:id="@+id/profile_item_image"
         android:src="@drawable/ic_map_grey_24dp"/>
 
     <TextView
-        android:id="@+id/abc"
+        android:id="@+id/profile_item_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"

@@ -24,12 +24,9 @@ import butterknife.ButterKnife;
 
 public class BaseActivity_NavDrawer extends BaseActivity implements AsyncResponse
 {
-    @Bind(R.id.content_frame)
-    FrameLayout frameLayout;
-    @Bind(R.id.drawer_layout)
-    DrawerLayout mDrawerLayout;
-    @Bind(R.id.navigation_view)
-    NavigationView navigationView;
+    @Bind(R.id.content_frame) FrameLayout frameLayout;
+    @Bind(R.id.drawer_layout) DrawerLayout mDrawerLayout;
+    @Bind(R.id.navigation_view) NavigationView navigationView;
 
 
     @Override
@@ -37,10 +34,7 @@ public class BaseActivity_NavDrawer extends BaseActivity implements AsyncRespons
     {
         super.onCreate(savedInstanceState);
         ButterKnife.bind(this);
-        getFragmentManager().beginTransaction()
-                .replace(frameLayout.getId(), ProductListFragment.newInstance(), "ProductListFragment")
-                .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
-                .commit();
+        getFragmentManager().beginTransaction().replace(frameLayout.getId(), ProductListFragment.newInstance(), "ProductListFragment").setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN).commit();
     }
 
     @Override
@@ -52,7 +46,7 @@ public class BaseActivity_NavDrawer extends BaseActivity implements AsyncRespons
     @Override
     protected void setupToolbar()
     {
-       getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
     @Override
@@ -138,7 +132,7 @@ public class BaseActivity_NavDrawer extends BaseActivity implements AsyncRespons
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        if(id == android.R.id.home)
+        if (id == android.R.id.home)
         {
             mDrawerLayout.openDrawer(GravityCompat.START);
             return true;
@@ -150,10 +144,7 @@ public class BaseActivity_NavDrawer extends BaseActivity implements AsyncRespons
     private void openNewFragment(Fragment fragment)
     {
         String tag = fragment.getClass().getCanonicalName();
-        getFragmentManager().beginTransaction()
-                .replace(R.id.content_frame, fragment, tag)
-                .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
-                .commit();
+        getFragmentManager().beginTransaction().replace(R.id.content_frame, fragment, tag).setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN).commit();
     }
 
     private void openNewActivity(Activity activity)

@@ -25,8 +25,7 @@ import butterknife.ButterKnife;
 
 public abstract class BaseActivity extends AppCompatActivity implements AsyncResponse
 {
-    @Nullable @Bind(R.id.toolbar)
-    Toolbar toolbar;
+    @Nullable @Bind(R.id.toolbar) Toolbar toolbar;
     AppManager manager;
     CategoryListQuery categoryListQuery;
     SettingsQuery settingsQuery;
@@ -52,7 +51,6 @@ public abstract class BaseActivity extends AppCompatActivity implements AsyncRes
         setContentView(getLayoutResource());
         ButterKnife.bind(this);
 
-        //toolbar = (Toolbar) findViewById(R.id.toolbar);
         if (toolbar != null)
         {
             setSupportActionBar(toolbar);
@@ -60,12 +58,9 @@ public abstract class BaseActivity extends AppCompatActivity implements AsyncRes
         }
         setupLayout();
     }
-/*
-    protected ApplicationComponent getApplicationComponent() {
-        return ((AppManager) getApplication()).getApplicationComponent();
-    }*/
 
-    protected ActivityModule getActivityModule() {
+    protected ActivityModule getActivityModule()
+    {
         return new ActivityModule(this);
     }
 
@@ -115,17 +110,13 @@ public abstract class BaseActivity extends AppCompatActivity implements AsyncRes
     {
         if (!isFinishing())
         {
-            dialog = new AlertDialog.Builder(this)
-                    .setTitle("No Internet Connection")
-                    .setMessage("Try again")
-                    .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener()
-                    {
-                        public void onClick(DialogInterface dialog, int which)
-                        {
-                            // continue with delete
-                        }
-                    })
-                    .show();
+            dialog = new AlertDialog.Builder(this).setTitle("No Internet Connection").setMessage("Try again").setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener()
+            {
+                public void onClick(DialogInterface dialog, int which)
+                {
+                    // continue with delete
+                }
+            }).show();
         }
     }
 

@@ -25,12 +25,9 @@ import butterknife.Bind;
 
 public class ProductListActivity extends BaseActivity_NavDrawer
 {
-    @Bind(R.id.productsListRecycler)
-    RecyclerView mRecyclerView;
-    @Bind(R.id.empty_result_text)
-    TextView mEmptyText;
-    @Bind(R.id.progress_loading)
-    ProgressBar mProgressBar;
+    @Bind(R.id.productsListRecycler) RecyclerView mRecyclerView;
+    @Bind(R.id.empty_result_text) TextView mEmptyText;
+    @Bind(R.id.progress_loading) ProgressBar mProgressBar;
 
     ProductListAdapter mAdapter;
     GridLayoutManager mLayoutManager;
@@ -43,8 +40,7 @@ public class ProductListActivity extends BaseActivity_NavDrawer
     {
         super.onCreate(savedInstanceState);
 
-        final TypedArray styledAttributes = getTheme().obtainStyledAttributes(
-                new int[]{android.R.attr.actionBarSize});
+        final TypedArray styledAttributes = getTheme().obtainStyledAttributes(new int[]{android.R.attr.actionBarSize});
 
         Bundle extras = getIntent().getExtras();
         if (extras != null)
@@ -81,16 +77,14 @@ public class ProductListActivity extends BaseActivity_NavDrawer
         mAdapter = new ProductListAdapter(this, null);
         mRecyclerView.setAdapter(mAdapter);
 
-        mRecyclerView.addOnItemTouchListener(
-                new RecyclerItemClickListener(this, new RecyclerItemClickListener.OnItemClickListener()
+        mRecyclerView.addOnItemTouchListener(new RecyclerItemClickListener(this, new RecyclerItemClickListener.OnItemClickListener()
                 {
                     @Override
                     public void onItemClick(View view, int position)
                     {
                         Log.d("CLICK", "Clicked on item" + position);
                     }
-                })
-        );
+                }));
 
 
     }
@@ -162,8 +156,7 @@ public class ProductListActivity extends BaseActivity_NavDrawer
                 else
                 {
                     manager.productList.addAll(productArrayList);
-                    mRecyclerView.getViewTreeObserver().addOnGlobalLayoutListener(
-                            new ViewTreeObserver.OnGlobalLayoutListener()
+                    mRecyclerView.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener()
                             {
                                 @Override
                                 public void onGlobalLayout()
