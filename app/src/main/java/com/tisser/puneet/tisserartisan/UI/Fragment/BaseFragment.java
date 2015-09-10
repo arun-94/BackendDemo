@@ -10,6 +10,8 @@ import android.view.ViewGroup;
 import com.tisser.puneet.tisserartisan.Global.AppManager;
 import com.tisser.puneet.tisserartisan.UI.Activity.BaseActivity_NavDrawer;
 
+import butterknife.ButterKnife;
+
 /**
  * A simple {@link Fragment} subclass.
  * The BaseFragment class has been modeled to be used in such a way that the
@@ -38,7 +40,9 @@ public abstract class BaseFragment extends Fragment
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState)
     {
-        return inflater.inflate(getLayoutResource(), container, false);
+        View rootView = inflater.inflate(getLayoutResource(), container, false);
+        ButterKnife.bind(this, rootView);
+        return rootView;
     }
 
     @Override
@@ -46,15 +50,16 @@ public abstract class BaseFragment extends Fragment
     {
         if(((BaseActivity_NavDrawer) getActivity()).getSupportActionBar() != null)
             ((BaseActivity_NavDrawer) getActivity()).getSupportActionBar().setTitle(setupToolbarTitle());
-        initializeLayout(view);
         setupLayout();
+    }
+
+    @Override public void onDestroyView() {
+        super.onDestroyView();
+        ButterKnife.unbind(this);
     }
 
     /*** Get the title of the toolbar ***/
     protected abstract String setupToolbarTitle();
-
-    /*** Initialize the layout passing the view to it ***/
-    protected abstract void initializeLayout(View view);
 
     /*** Replace the frame layout with the given resource ID ***/
     protected abstract int getLayoutResource();

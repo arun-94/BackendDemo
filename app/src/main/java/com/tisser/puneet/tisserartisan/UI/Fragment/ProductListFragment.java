@@ -1,32 +1,31 @@
 package com.tisser.puneet.tisserartisan.UI.Fragment;
 
-import android.app.Activity;
-import android.net.Uri;
 import android.os.Bundle;
-import android.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.tisser.puneet.tisserartisan.Custom.MarginDecoration;
 import com.tisser.puneet.tisserartisan.Custom.RecyclerItemClickListener;
 import com.tisser.puneet.tisserartisan.R;
-import com.tisser.puneet.tisserartisan.UI.Activity.BaseActivity_NavDrawer;
 import com.tisser.puneet.tisserartisan.UI.Adapters.ProductListAdapter;
+
+import butterknife.Bind;
 
 public class ProductListFragment extends BaseFragment
 {
-    ProductListAdapter mAdapter;
+    @Bind(R.id.productsListRecycler)
     RecyclerView mRecyclerView;
-    GridLayoutManager mLayoutManager;
+    @Bind(R.id.empty_result_text)
     TextView mEmptyText;
-    private ProgressBar mProgressBar;
+    @Bind(R.id.progress_loading)
+    ProgressBar mProgressBar;
+
+    ProductListAdapter mAdapter;
+    GridLayoutManager mLayoutManager;
 
     public static ProductListFragment newInstance()
     {
@@ -49,14 +48,6 @@ public class ProductListFragment extends BaseFragment
     protected String setupToolbarTitle()
     {
         return "My Products";
-    }
-
-    @Override
-    protected void initializeLayout(View view)
-    {
-        mEmptyText = (TextView) view.findViewById(R.id.empty_result_text);
-        mProgressBar = (ProgressBar) view.findViewById(R.id.progress_loading);
-        mRecyclerView = (RecyclerView) view.findViewById(R.id.productsListRecycler);
     }
 
     @Override
