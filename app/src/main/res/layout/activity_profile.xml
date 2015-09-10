@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<android.support.design.widget.CoordinatorLayout
-    android:id="@+id/main_content"
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fitsSystemWindows="true">
+    android:orientation="vertical">
 
     <android.support.design.widget.AppBarLayout
         android:id="@+id/appbar"
@@ -19,63 +18,101 @@
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
             android:layout_marginBottom="16dp"
             android:fitsSystemWindows="true"
+            app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
             >
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="vertical"
                 android:fitsSystemWindows="true"
+                android:orientation="vertical"
                 >
+
                 <de.hdodenhof.circleimageview.CircleImageView
                     android:layout_width="100dp"
                     android:layout_height="100dp"
+                    android:layout_gravity="top|center_horizontal"
+                    android:layout_marginTop="40dp"
                     android:src="@drawable/photo"
                     app:border_color="@android:color/white"
-                    app:border_width="2dp"
-                    android:layout_gravity="top|center_horizontal"
-                    android:layout_marginTop="40dp"/>
+                    app:border_width="2dp"/>
+
                 <TextView
+                    android:id="@+id/tv_artisan_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="16dp"
+                    android:ellipsize="marquee"
+                    android:maxLines="1"
                     android:text="Puneet Kohli"
                     android:textColor="@android:color/white"
                     android:textSize="24sp"
-                    android:id="@+id/tv_artisan_name"
-                    android:maxLines="1"
-                    android:ellipsize="marquee"
-                    android:layout_marginTop="16dp"
                     />
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:fitsSystemWindows="true"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginTop="8dp">
-                <ImageView
-                    android:layout_width="14dp"
-                    android:layout_height="14dp"
-                    android:src="@drawable/ic_place_white_24dp"
-                    android:gravity="right"
-                    android:layout_gravity="center_vertical"
-                    android:layout_weight="0"
-                    android:layout_marginRight="4dp"/>
-                <TextView
+
+                <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:text="Maharashtra"
-                    android:textColor="@android:color/white"
-                    android:maxLines="1"
-                    android:ellipsize="marquee"
-                    android:textAppearance="@style/Tisser_TextStyle_Small"
-                    android:id="@+id/tv_artisan_location"
-                    android:layout_weight="1"
-                    android:layout_marginLeft="4dp"/>
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="8dp"
+                    android:fitsSystemWindows="true"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="14dp"
+                        android:layout_height="14dp"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginRight="4dp"
+                        android:layout_weight="0"
+                        android:gravity="right"
+                        android:src="@drawable/ic_library_books_white_24dp"/>
+
+                    <TextView
+                        android:id="@+id/tv_artisan_location"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginLeft="4dp"
+                        android:layout_weight="1"
+                        android:ellipsize="marquee"
+                        android:maxLines="1"
+                        android:text="72 products"
+                        android:textAppearance="@style/Tisser_TextStyle_Small"
+                        android:textColor="@android:color/white"/>
+
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="8dp"
+                    android:fitsSystemWindows="true"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="14dp"
+                        android:layout_height="14dp"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginRight="4dp"
+                        android:layout_weight="0"
+                        android:gravity="right"
+                        android:src="@drawable/ic_place_white_24dp"/>
+
+                    <TextView
+                        android:id="@+id/tv_artisan_location"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginLeft="4dp"
+                        android:layout_weight="1"
+                        android:ellipsize="marquee"
+                        android:maxLines="1"
+                        android:text="Maharashtra"
+                        android:textAppearance="@style/Tisser_TextStyle_Small"
+                        android:textColor="@android:color/white"/>
+
                 </LinearLayout>
             </LinearLayout>
 
@@ -83,22 +120,27 @@
 
     </android.support.design.widget.AppBarLayout>
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:paddingBottom="16dp"
-            android:paddingLeft="16dp"
-            android:paddingRight="16dp"
-            android:paddingTop="48dp">
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical"
-                android:paddingBottom="16dp"
-                android:paddingLeft="16dp"
-                android:paddingRight="16dp"
-                android:paddingTop="48dp">
-            </LinearLayout>
-        </LinearLayout>
-</android.support.design.widget.CoordinatorLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center_vertical"
+        android:gravity="center_vertical"
+        android:orientation="vertical"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp">
+
+        <include
+            android:id="@+id/profile_address_layout"
+            layout="@layout/profile_item_layout"/>
+
+        <include layout="@layout/divider"/>
+
+        <include layout="@layout/profile_item_layout"
+                 android:id="@+id/profile_phone_layout"/>
+
+        <include layout="@layout/divider"/>
+
+        <include layout="@layout/profile_item_layout"
+                 android:id="@+id/profile_email_layout"/>
+    </LinearLayout>
+</LinearLayout>

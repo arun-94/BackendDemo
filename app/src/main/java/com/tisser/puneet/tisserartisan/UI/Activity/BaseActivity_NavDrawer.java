@@ -22,8 +22,6 @@ import com.tisser.puneet.tisserartisan.UI.Fragment.ProductListFragment;
 
 public class BaseActivity_NavDrawer extends BaseActivity implements AsyncResponse
 {
-    Toolbar toolbar = null;
-
     protected FrameLayout frameLayout;
     private DrawerLayout mDrawerLayout;
     private NavigationView navigationView;
