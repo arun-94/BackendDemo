@@ -1,4 +1,4 @@
-package com.tisser.puneet.tisserartisan.Activity;
+package com.tisser.puneet.tisserartisan.UI.Activity;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;

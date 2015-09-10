@@ -8,6 +8,12 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/productsListRecycler"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/tilerepeat"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
 
         <android.support.design.widget.AppBarLayout
             android:layout_width="match_parent"
@@ -17,26 +23,10 @@
                 layout="@layout/toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:layout_scrollFlags="scroll|enterAlways"/>
+                app:layout_scrollFlags="scroll|enterAlways">
+            </include>
 
         </android.support.design.widget.AppBarLayout>
-
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/gallery_images_recycler"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@drawable/tilerepeat"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
-
-
-        <Button
-            android:id="@+id/upload_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:layout_centerVertical="true"
-            android:layout_gravity="center_horizontal"
-            android:text="Click Here"/>
 
         <TextView
             android:id="@+id/empty_result_text"
@@ -54,6 +44,18 @@
             android:textSize="18dp"
             android:visibility="invisible"/>
 
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/fab_takePhoto"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            android:clickable="true"
+            android:src="@drawable/ic_add_white_24dp"
+            app:borderWidth="0dp"
+            app:fabSize="normal"
+            app:layout_anchor="@id/productsListRecycler"
+            app:layout_anchorGravity="bottom|right|end"
+            />
 
     </android.support.design.widget.CoordinatorLayout>
 
@@ -64,11 +66,7 @@
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
         android:indeterminate="true"
-        android:visibility="invisible"
         android:max="100"
         android:progress="1"/>
 </RelativeLayout>
-
-
-
 

@@ -1,4 +1,4 @@
-package com.tisser.puneet.tisserartisan.Adapters;
+package com.tisser.puneet.tisserartisan.UI.Adapters;
 
 import android.content.Context;
 import android.net.Uri;
@@ -59,7 +59,7 @@ public class GalleryImagesAdapter extends RecyclerView.Adapter<GalleryImagesAdap
 
     public GalleryImage onCreateViewHolder(ViewGroup parent, int viewType)
     {
-        final View view = LayoutInflater.from(mContext).inflate(R.layout.gallery_image_item, parent, false);
+        final View view = LayoutInflater.from(mContext).inflate(R.layout.products_grid_item, parent, false);
         return new GalleryImage(view);
     }
 
@@ -98,7 +98,7 @@ public class GalleryImagesAdapter extends RecyclerView.Adapter<GalleryImagesAdap
         public GalleryImage(View view)
         {
             super(view);
-            image = (ImageView) view.findViewById(R.id.gallery_image);
+            image = (ImageView) view.findViewById(R.id.img_product_thumb);
         }
     }
 }

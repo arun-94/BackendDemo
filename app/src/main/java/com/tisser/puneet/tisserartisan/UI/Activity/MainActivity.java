@@ -1,4 +1,4 @@
-package com.tisser.puneet.tisserartisan.Activity;
+package com.tisser.puneet.tisserartisan.UI.Activity;
 
 import android.annotation.TargetApi;
 import android.content.Intent;
@@ -15,16 +15,15 @@ import android.widget.Button;
 import com.darsh.multipleimageselect.activities.AlbumSelectActivity;
 import com.darsh.multipleimageselect.helpers.Constants;
 import com.darsh.multipleimageselect.models.Image;
-import com.tisser.puneet.tisserartisan.Adapters.GalleryImagesAdapter;
+import com.tisser.puneet.tisserartisan.UI.Adapters.GalleryImagesAdapter;
 import com.tisser.puneet.tisserartisan.Custom.MarginDecoration;
 import com.tisser.puneet.tisserartisan.R;
 
 import java.util.ArrayList;
 
-public class MainActivity extends BaseActivity
+public class MainActivity extends BaseActivity_NavDrawer
 {
     private Button mUploadButton;
-    private int numberOfImagesToSelect = 5;
     private ArrayList<Image> images;
     private RecyclerView mGalleryImagesRecycler;
     private GridLayoutManager mLayoutManager;
@@ -65,7 +64,7 @@ public class MainActivity extends BaseActivity
             public void onClick(View v)
             {
                 Intent intent = new Intent(MainActivity.this, AlbumSelectActivity.class);
-                intent.putExtra("" + Constants.INTENT_EXTRA_LIMIT, numberOfImagesToSelect);
+                intent.putExtra("" + Constants.INTENT_EXTRA_LIMIT, com.tisser.puneet.tisserartisan.Global.Constants.GALLERY_NUM_IMGS_TO_SELECT);
                 startActivityForResult(intent, Constants.REQUEST_CODE);
             }
         });

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_home"
+            android:checked="false"
+            android:icon="@drawable/ic_account_circle_black_24dp"
+            android:title="Home" />
+        <item
+            android:id="@+id/nav_profile"
+            android:checked="false"
+            android:icon="@drawable/ic_account_circle_black_24dp"
+            android:title="My Profile" />
+
+        <item
+            android:id="@+id/nav_add_product"
+            android:checked="false"
+            android:icon="@drawable/ic_add_to_photos_black_24dp"
+            android:title="Add Product" />
+
+        <item
+            android:id="@+id/nav_about"
+            android:checked="false"
+            android:icon="@drawable/ic_info_black_24dp"
+            android:title="About Tisser" />
+
+        <item
+            android:id="@+id/nav_settings"
+            android:checked="false"
+            android:icon="@drawable/ic_settings_black_24dp"
+            android:title="Settings" />
+
+
+        <item
+            android:id="@+id/nav_logout"
+            android:checked="false"
+            android:icon="@drawable/ic_power_settings_new_black_24dp"
+            android:title="Logout" />
+    </group>
+</menu>

@@ -19,5 +19,5 @@ public final class Constants
     public static final int TYPE_DELEGATE_SHOWCASE = 2;
     public static final int TYPE_DELEGATE_STORE = 1;
     public static final int TYPE_DELEGATE_ERROR = 0;
-
+    public static final int GALLERY_NUM_IMGS_TO_SELECT = 5;
 }

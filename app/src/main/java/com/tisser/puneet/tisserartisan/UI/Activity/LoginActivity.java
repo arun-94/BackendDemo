@@ -1,4 +1,4 @@
-package com.tisser.puneet.tisserartisan.Activity;
+package com.tisser.puneet.tisserartisan.UI.Activity;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -29,9 +29,7 @@ public class LoginActivity extends BaseActivity
 
         if (settings.getBoolean("my_first_time", true))
         {
-            Intent SearchIntent = new Intent(LoginActivity.this, MainActivity.class);
-            SearchIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            startActivity(SearchIntent);
+            openNextActivity();
             settings.edit().putBoolean("my_first_time", false).commit();
         }
     }
@@ -65,10 +63,15 @@ public class LoginActivity extends BaseActivity
             @Override
             public void onClick(View view)
             {
-                Intent SearchIntent = new Intent(LoginActivity.this, MainActivity.class);
-                SearchIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                startActivity(SearchIntent);
+                openNextActivity();
             }
         });
+    }
+
+    void openNextActivity()
+    {
+        Intent SearchIntent = new Intent(LoginActivity.this, BaseActivity_NavDrawer.class);
+        SearchIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(SearchIntent);
     }
 }
