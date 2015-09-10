@@ -21,14 +21,19 @@ import com.tisser.puneet.tisserartisan.UI.Adapters.ProductListAdapter;
 import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
 
+import butterknife.Bind;
+
 public class ProductListActivity extends BaseActivity_NavDrawer
 {
+    @Bind(R.id.productsListRecycler)
+    RecyclerView mRecyclerView;
+    @Bind(R.id.empty_result_text)
+    TextView mEmptyText;
+    @Bind(R.id.progress_loading)
+    ProgressBar mProgressBar;
 
     ProductListAdapter mAdapter;
-    RecyclerView mRecyclerView;
     GridLayoutManager mLayoutManager;
-    TextView mEmptyText;
-    private ProgressBar mProgressBar;
     static int TYPE_SEARCH_QUERY = 1;
     int type = 0;
     String query;
@@ -67,9 +72,9 @@ public class ProductListActivity extends BaseActivity_NavDrawer
     @Override
     protected void initializeLayout()
     {
-        mEmptyText = (TextView) findViewById(R.id.empty_result_text);
+        /*mEmptyText = (TextView) findViewById(R.id.empty_result_text);
         mProgressBar = (ProgressBar) findViewById(R.id.progress_loading);
-        mRecyclerView = (RecyclerView) findViewById(R.id.productsListRecycler);
+        mRecyclerView = (RecyclerView) findViewById(R.id.productsListRecycler);*/
     }
 
     @Override

@@ -21,11 +21,16 @@ import com.tisser.puneet.tisserartisan.R;
 
 import java.util.ArrayList;
 
+import butterknife.Bind;
+
 public class MainActivity extends BaseActivity_NavDrawer
 {
-    private Button mUploadButton;
+    @Bind(R.id.upload_button)
+    Button mUploadButton;
+    @Bind(R.id.gallery_images_recycler)
+    RecyclerView mGalleryImagesRecycler;
+
     private ArrayList<Image> images;
-    private RecyclerView mGalleryImagesRecycler;
     private GridLayoutManager mLayoutManager;
     private GalleryImagesAdapter mAdapter;
 
@@ -51,8 +56,8 @@ public class MainActivity extends BaseActivity_NavDrawer
     @Override
     protected void initializeLayout()
     {
-        mUploadButton = (Button) findViewById(R.id.upload_button);
-        mGalleryImagesRecycler = (RecyclerView) findViewById(R.id.gallery_images_recycler);
+        /*mUploadButton = (Button) findViewById(R.id.upload_button);
+        mGalleryImagesRecycler = (RecyclerView) findViewById(R.id.gallery_images_recycler);*/
     }
 
     @Override

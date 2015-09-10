@@ -15,6 +15,13 @@ import java.util.ArrayList;
  */
 public class AppManager extends Application
 {
+
+    //private ApplicationComponent applicationComponent;
+
+    @Override public void onCreate() {
+        super.onCreate();
+    }
+
     public ArrayList<Category> categoryList = new ArrayList<>();
     public ArrayList<Product> productList = new ArrayList<>();
     public Category currentCategory = new Category();

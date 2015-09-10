@@ -1,4 +1,5 @@
 apply plugin: 'com.android.application'
+apply plugin: 'com.neenbedankt.android-apt'
 
 android {
     compileSdkVersion 22
@@ -37,7 +38,11 @@ dependencies {
     compile 'com.github.darsh2:MultipleImageSelect:v0.0.3'
     compile 'com.github.bumptech.glide:glide:3.6.1'
     compile 'com.android.support:support-v4:22.2.1'
+    compile 'com.google.dagger:dagger:2.1-SNAPSHOT'
+    apt 'com.google.dagger:dagger-compiler:2.1-SNAPSHOT'
+    provided 'org.glassfish:javax.annotation:10.0-b28'
     compile 'com.squareup.retrofit:retrofit:1.9.0'
     compile 'com.google.code.gson:gson:2.3'
     compile 'com.squareup.okhttp:okhttp:2.4.0'
+    compile 'com.jakewharton:butterknife:7.0.1'
 }

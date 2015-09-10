@@ -9,7 +9,6 @@ import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
-import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.FrameLayout;
@@ -20,18 +19,26 @@ import com.tisser.puneet.tisserartisan.R;
 import com.tisser.puneet.tisserartisan.UI.Fragment.AboutFragment;
 import com.tisser.puneet.tisserartisan.UI.Fragment.ProductListFragment;
 
+import butterknife.Bind;
+import butterknife.ButterKnife;
+
 public class BaseActivity_NavDrawer extends BaseActivity implements AsyncResponse
 {
-    protected FrameLayout frameLayout;
-    private DrawerLayout mDrawerLayout;
-    private NavigationView navigationView;
+    @Bind(R.id.content_frame)
+    FrameLayout frameLayout;
+    @Bind(R.id.drawer_layout)
+    DrawerLayout mDrawerLayout;
+    @Bind(R.id.navigation_view)
+    NavigationView navigationView;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
+        ButterKnife.bind(this);
         getFragmentManager().beginTransaction()
-                .replace(R.id.content_frame, ProductListFragment.newInstance(), "ProductListFragment")
+                .replace(frameLayout.getId(), ProductListFragment.newInstance(), "ProductListFragment")
                 .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
                 .commit();
     }
@@ -51,9 +58,11 @@ public class BaseActivity_NavDrawer extends BaseActivity implements AsyncRespons
     @Override
     protected void initializeLayout()
     {
+        /*
         frameLayout = (FrameLayout) findViewById(R.id.content_frame);
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         navigationView = (NavigationView) findViewById(R.id.navigation_view);
+        */
     }
 
     @Override

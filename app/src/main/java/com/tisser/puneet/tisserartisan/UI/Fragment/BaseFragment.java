@@ -1,15 +1,13 @@
 package com.tisser.puneet.tisserartisan.UI.Fragment;
 
 
-import android.os.Bundle;
 import android.app.Fragment;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import com.tisser.puneet.tisserartisan.Global.AppManager;
-import com.tisser.puneet.tisserartisan.R;
 import com.tisser.puneet.tisserartisan.UI.Activity.BaseActivity_NavDrawer;
 
 /**
@@ -46,7 +44,8 @@ public abstract class BaseFragment extends Fragment
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState)
     {
-        ((BaseActivity_NavDrawer) getActivity()).getSupportActionBar().setTitle(setupToolbarTitle());
+        if(((BaseActivity_NavDrawer) getActivity()).getSupportActionBar() != null)
+            ((BaseActivity_NavDrawer) getActivity()).getSupportActionBar().setTitle(setupToolbarTitle());
         initializeLayout(view);
         setupLayout();
     }

@@ -74,14 +74,6 @@ public class GalleryImagesAdapter extends RecyclerView.Adapter<GalleryImagesAdap
                 .centerCrop()
                 .into(holder.image);
 
-        /*File imgFile = new File(i.path);
-
-        if(imgFile.exists()){
-
-            Bitmap myBitmap = BitmapFactory.decodeFile(imgFile.getAbsolutePath());
-            holder.image.setImageBitmap(myBitmap);
-
-        }*/
     }
 
     @Override

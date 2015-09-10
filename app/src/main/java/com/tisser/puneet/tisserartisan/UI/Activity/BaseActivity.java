@@ -4,12 +4,14 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
 import com.tisser.puneet.tisserartisan.Global.AppManager;
+import com.tisser.puneet.tisserartisan.Module.ActivityModule;
 import com.tisser.puneet.tisserartisan.Queries.AsyncResponse;
 import com.tisser.puneet.tisserartisan.Queries.CategoryListQuery;
 import com.tisser.puneet.tisserartisan.Queries.ProductListQuery;
@@ -17,9 +19,14 @@ import com.tisser.puneet.tisserartisan.Queries.SearchQuery;
 import com.tisser.puneet.tisserartisan.Queries.SettingsQuery;
 import com.tisser.puneet.tisserartisan.R;
 
+import butterknife.Bind;
+import butterknife.ButterKnife;
+
+
 public abstract class BaseActivity extends AppCompatActivity implements AsyncResponse
 {
-    Toolbar toolbar = null;
+    @Nullable @Bind(R.id.toolbar)
+    Toolbar toolbar;
     AppManager manager;
     CategoryListQuery categoryListQuery;
     SettingsQuery settingsQuery;
@@ -43,7 +50,9 @@ public abstract class BaseActivity extends AppCompatActivity implements AsyncRes
         productListQuery = new ProductListQuery();
         productListQuery.delegate = this;
         setContentView(getLayoutResource());
-        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        ButterKnife.bind(this);
+
+        //toolbar = (Toolbar) findViewById(R.id.toolbar);
         if (toolbar != null)
         {
             setSupportActionBar(toolbar);
@@ -51,6 +60,14 @@ public abstract class BaseActivity extends AppCompatActivity implements AsyncRes
         }
         initializeLayout();
         setupLayout();
+    }
+/*
+    protected ApplicationComponent getApplicationComponent() {
+        return ((AppManager) getApplication()).getApplicationComponent();
+    }*/
+
+    protected ActivityModule getActivityModule() {
+        return new ActivityModule(this);
     }
 
     protected abstract int getLayoutResource();
