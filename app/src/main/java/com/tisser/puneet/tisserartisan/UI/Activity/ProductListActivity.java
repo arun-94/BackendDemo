@@ -70,14 +70,6 @@ public class ProductListActivity extends BaseActivity_NavDrawer
     }
 
     @Override
-    protected void initializeLayout()
-    {
-        /*mEmptyText = (TextView) findViewById(R.id.empty_result_text);
-        mProgressBar = (ProgressBar) findViewById(R.id.progress_loading);
-        mRecyclerView = (RecyclerView) findViewById(R.id.productsListRecycler);*/
-    }
-
-    @Override
     protected void setupLayout()
     {
         mRecyclerView.setHasFixedSize(true);

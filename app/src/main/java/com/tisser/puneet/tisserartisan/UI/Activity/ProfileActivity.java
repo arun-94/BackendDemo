@@ -14,7 +14,7 @@ public class ProfileActivity extends BaseActivity
 
     @Bind(R.id.appbar)
     AppBarLayout mAppBarLayout;
-    @Bind(R.id.profile_image)
+    @Bind(R.id.artisan_profile_image)
     ImageView mProfileImage;
 
     private CollapsingToolbarLayout mCollapsingToolbar;
@@ -35,13 +35,6 @@ public class ProfileActivity extends BaseActivity
     protected void setupToolbar()
     {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-    }
-
-    @Override
-    protected void initializeLayout()
-    {
-        /*mAppBarLayout = (AppBarLayout) findViewById(R.id.appbar);
-        mProfileImage = (ImageView) findViewById(R.id.profile_image);*/
     }
 
     @Override

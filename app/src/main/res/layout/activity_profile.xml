@@ -31,6 +31,7 @@
                 >
 
                 <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/artisan_profile_image"
                     android:layout_width="100dp"
                     android:layout_height="100dp"
                     android:layout_gravity="top|center_horizontal"
@@ -70,7 +71,7 @@
                         android:src="@drawable/ic_library_books_white_24dp"/>
 
                     <TextView
-                        android:id="@+id/tv_artisan_location"
+                        android:id="@+id/tv_artisan_product_count"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"

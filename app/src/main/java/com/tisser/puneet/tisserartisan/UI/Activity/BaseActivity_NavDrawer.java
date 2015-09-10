@@ -56,16 +56,6 @@ public class BaseActivity_NavDrawer extends BaseActivity implements AsyncRespons
     }
 
     @Override
-    protected void initializeLayout()
-    {
-        /*
-        frameLayout = (FrameLayout) findViewById(R.id.content_frame);
-        mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
-        navigationView = (NavigationView) findViewById(R.id.navigation_view);
-        */
-    }
-
-    @Override
     protected void setupLayout()
     {
         navigationView.getMenu().getItem(0).setChecked(true);

@@ -58,7 +58,6 @@ public abstract class BaseActivity extends AppCompatActivity implements AsyncRes
             setSupportActionBar(toolbar);
             setupToolbar();
         }
-        initializeLayout();
         setupLayout();
     }
 /*
@@ -73,8 +72,6 @@ public abstract class BaseActivity extends AppCompatActivity implements AsyncRes
     protected abstract int getLayoutResource();
 
     protected abstract void setupToolbar();
-
-    protected abstract void initializeLayout();
 
     protected abstract void setupLayout();
 

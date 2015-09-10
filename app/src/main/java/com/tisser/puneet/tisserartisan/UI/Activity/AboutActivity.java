@@ -79,32 +79,6 @@ public class AboutActivity extends BaseActivity
     }
 
     @Override
-    protected void initializeLayout()
-    {
-        /*this.llsocial2 = (LinearLayout) findViewById(R.id.ll_social_2);
-        this.aboutimgblogspot = (ImageView) findViewById(R.id.about_img_blogspot);
-        this.aboutimgpinterest = (ImageView) findViewById(R.id.about_img_pinterest);
-        this.aboutimglinkedin = (ImageView) findViewById(R.id.about_img_linkedin);
-        this.llsocial1 = (LinearLayout) findViewById(R.id.ll_social_1);
-        this.aboutimginstagram = (ImageView) findViewById(R.id.about_img_instagram);
-        this.aboutimgtwitter = (ImageView) findViewById(R.id.about_img_twitter);
-        this.aboutimgfb = (ImageView) findViewById(R.id.about_img_fb);
-        this.aboutimgwebsite = (ImageView) findViewById(R.id.about_img_website);
-        this.abouttvsocial = (TextView) findViewById(R.id.about_tv_social);
-        this.abouttvinfotext = (TextView) findViewById(R.id.about_tv_info_text);
-        this.abouttvinfo = (TextView) findViewById(R.id.about_tv_info);
-        this.llemail = (LinearLayout) findViewById(R.id.ll_email);
-        this.abouttvemail = (TextView) findViewById(R.id.about_tv_email);
-        this.aboutimgemail = (ImageView) findViewById(R.id.about_img_email);
-        this.llphone = (LinearLayout) findViewById(R.id.ll_phone);
-        this.abouttvphone = (TextView) findViewById(R.id.about_tv_phone);
-        this.aboutimgphone = (ImageView) findViewById(R.id.about_img_phone);
-        this.abouttvcontact = (TextView) findViewById(R.id.about_tv_contact);
-        this.headerImg = (ImageView) findViewById(R.id.headerImg);
-        */
-    }
-
-    @Override
     protected void setupLayout()
     {
         abouttvphone.setText(manager.settings.getContact());

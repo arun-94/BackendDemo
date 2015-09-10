@@ -48,16 +48,6 @@ public class ProfileActivity_2 extends BaseActivity implements AppBarLayout.OnOf
     }
 
     @Override
-    protected void initializeLayout()
-    {
-        mTitle          = (TextView) findViewById(R.id.main_textview_title);
-        mTitleContainer = (LinearLayout) findViewById(R.id.main_linearlayout_title);
-        mAppBarLayout   = (AppBarLayout) findViewById(R.id.main_appbar);
-        mImageparallax  = (ImageView) findViewById(R.id.main_imageview_placeholder);
-        mFrameParallax  = (FrameLayout) findViewById(R.id.main_framelayout_title);
-    }
-
-    @Override
     protected void setupLayout()
     {
         startAlphaAnimation(mTitle, 0, View.INVISIBLE);

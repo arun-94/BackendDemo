@@ -54,15 +54,6 @@ public class LoginActivity extends BaseActivity
     }
 
     @Override
-    protected void initializeLayout()
-    {
-        /*mLoginButton = (Button) findViewById(R.id.loginButton);
-        mUserNameEditText = (EditText) findViewById(R.id.editText_custid);
-        mPasswordEditText = (EditText) findViewById(R.id.editText_password);
-        mProgressBar = (CircularProgressView) findViewById(R.id.progress_view);*/
-    }
-
-    @Override
     protected void setupLayout()
     {
         mLoginButton.setOnClickListener(new View.OnClickListener()

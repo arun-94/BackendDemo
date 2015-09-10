@@ -54,13 +54,6 @@ public class MainActivity extends BaseActivity_NavDrawer
     }
 
     @Override
-    protected void initializeLayout()
-    {
-        /*mUploadButton = (Button) findViewById(R.id.upload_button);
-        mGalleryImagesRecycler = (RecyclerView) findViewById(R.id.gallery_images_recycler);*/
-    }
-
-    @Override
     protected void setupLayout()
     {
         mUploadButton.setOnClickListener(new View.OnClickListener()
