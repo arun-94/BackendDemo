@@ -12,34 +12,57 @@ import android.widget.Toast;
 
 import com.tisser.puneet.tisserartisan.R;
 
+import butterknife.Bind;
+import butterknife.ButterKnife;
+
 public class AboutActivity extends BaseActivity
 {
-    //HELLO ARUN
-    private ImageView headerImg;
-    private TextView abouttvcontact;
-    private ImageView aboutimgphone;
-    private TextView abouttvphone;
-    private LinearLayout llphone;
-    private ImageView aboutimgemail;
-    private TextView abouttvemail;
-    private LinearLayout llemail;
-    private TextView abouttvinfo;
-    private TextView abouttvinfotext;
-    private TextView abouttvsocial;
-    private ImageView aboutimgwebsite;
-    private ImageView aboutimgfb;
-    private ImageView aboutimgtwitter;
-    private ImageView aboutimginstagram;
-    private LinearLayout llsocial1;
-    private ImageView aboutimglinkedin;
-    private ImageView aboutimgpinterest;
-    private ImageView aboutimgblogspot;
-    private LinearLayout llsocial2;
+    @Bind(R.id.headerImg)
+    ImageView headerImg;
+    @Bind(R.id.about_tv_contact)
+    TextView abouttvcontact;
+    @Bind(R.id.about_img_phone)
+    ImageView aboutimgphone;
+    @Bind(R.id.about_tv_phone)
+    TextView abouttvphone;
+    @Bind(R.id.ll_phone)
+    LinearLayout llphone;
+    @Bind(R.id.about_img_email)
+    ImageView aboutimgemail;
+    @Bind(R.id.about_tv_email)
+    TextView abouttvemail;
+    @Bind(R.id.ll_email)
+    LinearLayout llemail;
+    @Bind(R.id.about_tv_info)
+    TextView abouttvinfo;
+    @Bind(R.id.about_tv_info_text)
+    TextView abouttvinfotext;
+    @Bind(R.id.about_tv_social)
+    TextView abouttvsocial;
+    @Bind(R.id.about_img_website)
+    ImageView aboutimgwebsite;
+    @Bind(R.id.about_img_fb)
+    ImageView aboutimgfb;
+    @Bind(R.id.about_img_twitter)
+    ImageView aboutimgtwitter;
+    @Bind(R.id.about_img_instagram)
+    ImageView aboutimginstagram;
+    @Bind(R.id.ll_social_1)
+    LinearLayout llsocial1;
+    @Bind(R.id.about_img_linkedin)
+    ImageView aboutimglinkedin;
+    @Bind(R.id.about_img_pinterest)
+    ImageView aboutimgpinterest;
+    @Bind(R.id.about_img_blogspot)
+    ImageView aboutimgblogspot;
+    @Bind(R.id.ll_social_2)
+    LinearLayout llsocial2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
+        ButterKnife.bind(this);
     }
 
     @Override
@@ -58,7 +81,7 @@ public class AboutActivity extends BaseActivity
     @Override
     protected void initializeLayout()
     {
-        this.llsocial2 = (LinearLayout) findViewById(R.id.ll_social_2);
+        /*this.llsocial2 = (LinearLayout) findViewById(R.id.ll_social_2);
         this.aboutimgblogspot = (ImageView) findViewById(R.id.about_img_blogspot);
         this.aboutimgpinterest = (ImageView) findViewById(R.id.about_img_pinterest);
         this.aboutimglinkedin = (ImageView) findViewById(R.id.about_img_linkedin);
@@ -78,6 +101,7 @@ public class AboutActivity extends BaseActivity
         this.aboutimgphone = (ImageView) findViewById(R.id.about_img_phone);
         this.abouttvcontact = (TextView) findViewById(R.id.about_tv_contact);
         this.headerImg = (ImageView) findViewById(R.id.headerImg);
+        */
     }
 
     @Override

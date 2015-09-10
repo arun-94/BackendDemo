@@ -10,11 +10,18 @@ import android.widget.EditText;
 import com.github.rahatarmanahmed.cpv.CircularProgressView;
 import com.tisser.puneet.tisserartisan.R;
 
+import butterknife.Bind;
+
 public class LoginActivity extends BaseActivity
 {
 
-    private Button mLoginButton;
-    private EditText mUserNameEditText, mPasswordEditText;
+    @Bind(R.id.loginButton)
+    Button mLoginButton;
+    @Bind(R.id.editText_custid)
+    EditText mCustIdEditText;
+    @Bind(R.id.editText_password)
+    EditText mPasswordEditText;
+
     private CircularProgressView mProgressBar;
     boolean allowLogin = true;
 
@@ -49,10 +56,10 @@ public class LoginActivity extends BaseActivity
     @Override
     protected void initializeLayout()
     {
-        mLoginButton = (Button) findViewById(R.id.loginButton);
+        /*mLoginButton = (Button) findViewById(R.id.loginButton);
         mUserNameEditText = (EditText) findViewById(R.id.editText_custid);
         mPasswordEditText = (EditText) findViewById(R.id.editText_password);
-        mProgressBar = (CircularProgressView) findViewById(R.id.progress_view);
+        mProgressBar = (CircularProgressView) findViewById(R.id.progress_view);*/
     }
 
     @Override
