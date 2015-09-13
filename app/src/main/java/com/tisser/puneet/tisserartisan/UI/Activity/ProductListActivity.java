@@ -174,7 +174,6 @@ public class ProductListActivity extends BaseActivity_NavDrawer
                     mAdapter = new ProductListAdapter(this, manager.productList);
                     mRecyclerView.setAdapter(mAdapter);
                     mProgressBar.setVisibility(View.GONE);
-
                 }
             }
         }

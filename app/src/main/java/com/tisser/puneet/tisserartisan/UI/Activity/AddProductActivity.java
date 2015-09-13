@@ -11,6 +11,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewTreeObserver;
 import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.darsh.multipleimageselect.activities.AlbumSelectActivity;
 import com.darsh.multipleimageselect.helpers.Constants;
@@ -22,16 +24,21 @@ import com.tisser.puneet.tisserartisan.R;
 import java.util.ArrayList;
 
 import butterknife.Bind;
+import butterknife.ButterKnife;
 
 public class AddProductActivity extends BaseActivity
 {
     @Bind(R.id.upload_button) Button mUploadButton;
     @Bind(R.id.gallery_images_recycler) RecyclerView mGalleryImagesRecycler;
+    @Bind(R.id.ll_select_category) View selectCategoryLL;
+    @Bind(R.id.ll_select_color) View selectColorLL;
 
     private ArrayList<Image> images;
     private GridLayoutManager mLayoutManager;
     private GalleryImagesAdapter mAdapter;
 
+    ImageView categoryIcon, colorIcon;
+    TextView categoryText, colorText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -56,6 +63,17 @@ public class AddProductActivity extends BaseActivity
     @Override
     protected void setupLayout()
     {
+        categoryText = ButterKnife.findById(selectCategoryLL, R.id.selector_text);
+        colorText = ButterKnife.findById(selectColorLL, R.id.selector_text);
+        categoryText.setText("Select Category");
+        colorText.setText("Select Color(s)");
+
+        categoryIcon = ButterKnife.findById(selectCategoryLL, R.id.selector_icon);
+        colorIcon = ButterKnife.findById(selectColorLL, R.id.selector_icon);
+        categoryIcon.setImageDrawable(getResources().getDrawable(R.drawable.ic_help_grey_24dp));
+        colorIcon.setImageDrawable(getResources().getDrawable(R.drawable.ic_palette_grey_24dp));
+
+
         mUploadButton.setOnClickListener(new View.OnClickListener()
         {
             @Override
@@ -94,7 +112,7 @@ public class AddProductActivity extends BaseActivity
                         {
                             mGalleryImagesRecycler.getViewTreeObserver().removeOnGlobalLayoutListener(this);
                             int viewWidth = mGalleryImagesRecycler.getMeasuredWidth();
-                            float cardViewWidth = findViewById(R.id.product_card).getMeasuredWidth();
+                            float cardViewWidth = findViewById(R.id.img_product_thumb).getMeasuredWidth();
                             int newSpanCount = (int) Math.floor(viewWidth / cardViewWidth);
                             mLayoutManager.setSpanCount(newSpanCount);
                             mLayoutManager.requestLayout();

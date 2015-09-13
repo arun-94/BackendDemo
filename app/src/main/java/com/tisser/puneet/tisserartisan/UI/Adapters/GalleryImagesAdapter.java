@@ -59,7 +59,7 @@ public class GalleryImagesAdapter extends RecyclerView.Adapter<GalleryImagesAdap
 
     public GalleryImage onCreateViewHolder(ViewGroup parent, int viewType)
     {
-        final View view = LayoutInflater.from(mContext).inflate(R.layout.products_grid_item, parent, false);
+        final View view = LayoutInflater.from(mContext).inflate(R.layout.image_grid_item, parent, false);
         return new GalleryImage(view);
     }
 
