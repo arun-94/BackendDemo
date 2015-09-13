@@ -23,7 +23,7 @@ import java.util.ArrayList;
 
 import butterknife.Bind;
 
-public class MainActivity extends BaseActivity_NavDrawer
+public class AddProductActivity extends BaseActivity
 {
     @Bind(R.id.upload_button) Button mUploadButton;
     @Bind(R.id.gallery_images_recycler) RecyclerView mGalleryImagesRecycler;
@@ -42,13 +42,15 @@ public class MainActivity extends BaseActivity_NavDrawer
     @Override
     protected int getLayoutResource()
     {
-        return R.layout.activity_main;
+        return R.layout.activity_add_product;
     }
 
     @Override
     protected void setupToolbar()
     {
-        getSupportActionBar().setTitle("Add Images From Gallery");
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        toolbar.setNavigationIcon(R.drawable.ic_close_white_24dp);
+        getSupportActionBar().setTitle("Add New Product");
     }
 
     @Override
@@ -59,7 +61,7 @@ public class MainActivity extends BaseActivity_NavDrawer
             @Override
             public void onClick(View v)
             {
-                Intent intent = new Intent(MainActivity.this, AlbumSelectActivity.class);
+                Intent intent = new Intent(AddProductActivity.this, AlbumSelectActivity.class);
                 intent.putExtra("" + Constants.INTENT_EXTRA_LIMIT, com.tisser.puneet.tisserartisan.Global.Constants.GALLERY_NUM_IMGS_TO_SELECT);
                 startActivityForResult(intent, Constants.REQUEST_CODE);
             }

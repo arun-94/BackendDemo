@@ -16,26 +16,9 @@ import butterknife.OnClick;
 
 public class AboutFragment extends BaseFragment
 {
-    @Bind(R.id.headerImg) ImageView headerImg;
-    @Bind(R.id.about_tv_contact) TextView abouttvcontact;
-    @Bind(R.id.about_img_phone) ImageView aboutimgphone;
+    /*** We set these below from the TisserSettings Model ***/
     @Bind(R.id.about_tv_phone) TextView abouttvphone;
-    @Bind(R.id.ll_phone) LinearLayout llphone;
-    @Bind(R.id.about_img_email) ImageView aboutimgemail;
     @Bind(R.id.about_tv_email) TextView abouttvemail;
-    @Bind(R.id.ll_email) LinearLayout llemail;
-    @Bind(R.id.about_tv_info) TextView abouttvinfo;
-    @Bind(R.id.about_tv_info_text) TextView abouttvinfotext;
-    @Bind(R.id.about_tv_social) TextView abouttvsocial;
-    @Bind(R.id.about_img_website) ImageView aboutimgwebsite;
-    @Bind(R.id.about_img_fb) ImageView aboutimgfb;
-    @Bind(R.id.about_img_twitter) ImageView aboutimgtwitter;
-    @Bind(R.id.about_img_instagram) ImageView aboutimginstagram;
-    @Bind(R.id.ll_social_1) LinearLayout llsocial1;
-    @Bind(R.id.about_img_linkedin) ImageView aboutimglinkedin;
-    @Bind(R.id.about_img_pinterest) ImageView aboutimgpinterest;
-    @Bind(R.id.about_img_blogspot) ImageView aboutimgblogspot;
-    @Bind(R.id.ll_social_2) LinearLayout llsocial2;
 
     @OnClick(R.id.ll_phone)
     void phoneIntent()

@@ -1,0 +1,171 @@
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <android.support.design.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+        <android.support.design.widget.AppBarLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <android.support.design.widget.CollapsingToolbarLayout
+                android:id="@+id/collapsingToolbarLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:elevation="0dp"
+                app:layout_scrollFlags="scroll|exitUntilCollapsed"
+                >
+
+                <android.support.v7.widget.Toolbar
+                    android:id="@+id/toolbar"
+                    android:layout_width="match_parent"
+                    android:layout_height="?attr/actionBarSize"
+                    android:background="?attr/colorPrimary"
+                    android:elevation="0dp"
+                    android:minHeight="?attr/actionBarSize"
+                    app:layout_collapseMode="pin"
+                    app:popupTheme="@style/ActionBarPopupThemeOverlay"
+                    app:theme="@style/ActionBarThemeOverlay"
+                    >
+                </android.support.v7.widget.Toolbar>
+
+
+                <LinearLayout
+                    xmlns:android="http://schemas.android.com/apk/res/android"
+                    xmlns:app="http://schemas.android.com/apk/res-auto"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:paddingLeft="72dp"
+                    android:paddingRight="16dp"
+                    android:paddingBottom="24dp"
+                    android:paddingTop="?android:attr/actionBarSize"
+                    app:layout_scrollFlags="scroll|enterAlwaysCollapsed"
+                    >
+
+                    <TextView
+                        android:id="@+id/textView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Name"
+                        android:textColor="@color/accent_white"
+                        android:textSize="12sp"/>
+
+                    <com.rengwuxian.materialedittext.MaterialEditText
+                        android:id="@+id/editText_productname"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="sans-serif-medium"
+                        android:hint="Product Name"
+                        android:inputType="text"
+                        android:maxLines="1"
+                        android:minLines="1"
+                        android:textColor="@color/accent_white"
+                        android:textSize="20sp"
+                        app:met_baseColor="@color/accent_white"
+                        app:met_primaryColor="@color/accent_white"
+                        app:met_underlineColor="@color/accent_white"/>
+
+                    <Space
+                        android:layout_width="match_parent"
+                        android:layout_height="16dp"></Space>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Price"
+                        android:textColor="@color/accent_white"
+                        android:textSize="12sp"
+                        />
+                <LinearLayout
+                    xmlns:android="http://schemas.android.com/apk/res/android"
+                    xmlns:app="http://schemas.android.com/apk/res-auto"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    app:layout_scrollFlags="scroll|enterAlwaysCollapsed"
+                    >
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Rs. "
+                        android:textColor="@color/accent_white"
+                        android:textSize="20sp"
+                        />
+
+                    <com.rengwuxian.materialedittext.MaterialEditText
+                        android:id="@+id/editText_price"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="sans-serif-medium"
+                        android:hint="Product Price (Rs.)"
+                        android:maxLines="1"
+                        android:minLines="1"
+                        android:textColor="@color/accent_white"
+                        android:textSize="20sp"
+                        app:met_baseColor="@color/accent_white"
+                        app:met_primaryColor="@color/accent_white"
+                        app:met_underlineColor="@color/accent_white"
+                        android:inputType="numberDecimal"/>
+                    </LinearLayout>
+                </LinearLayout>
+            </android.support.design.widget.CollapsingToolbarLayout>
+
+
+        </android.support.design.widget.AppBarLayout>
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/gallery_images_recycler"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/tilerepeat"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
+
+
+        <Button
+            android:id="@+id/upload_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:layout_gravity="center_horizontal"
+            android:text="Click Here"/>
+
+        <TextView
+            android:id="@+id/empty_result_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:layout_gravity="center_horizontal"
+            android:layout_margin="78dp"
+            android:gravity="center"
+            android:text="NO PRODUCTS AVAILABLE IN THIS CATEGORY"
+            android:textAlignment="gravity"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textColor="@color/primary_brown"
+            android:textSize="18dp"
+            android:visibility="invisible"/>
+
+
+    </android.support.design.widget.CoordinatorLayout>
+
+    <ProgressBar
+        android:id="@+id/progress_loading"
+        android:layout_width="36dp"
+        android:layout_height="36dp"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:indeterminate="true"
+        android:max="100"
+        android:progress="1"
+        android:visibility="invisible"/>
+</RelativeLayout>
+
+
+
+

@@ -33,7 +33,6 @@ public abstract class BaseActivity extends AppCompatActivity implements AsyncRes
     ProductListQuery productListQuery;
 
     AlertDialog dialog;
-    Menu menu;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -86,7 +85,6 @@ public abstract class BaseActivity extends AppCompatActivity implements AsyncRes
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings)
         {
             Intent i = new Intent(BaseActivity.this, AboutActivity.class);

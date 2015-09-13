@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:paddingTop="?attr/actionBarSize"
+    >
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingTop="56dp"
+        android:text="Store name"
+        android:textColor="#fff"
+        android:textSize="12sp"/>
+
+    <com.rengwuxian.materialedittext.MaterialEditText
+        android:id="@+id/editText_storename"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:elegantTextHeight="false"
+        android:hint="Store Name"
+        android:inputType="text"
+        android:maxLines="1"
+        android:minLines="1"
+        android:text="I love Kapda"
+        android:textColor="@color/white"
+        android:textSize="20sp"
+        app:met_baseColor="@color/white"
+        app:met_primaryColor="@color/white"
+        app:met_underlineColor="@color/white"
+        android:fontFamily="sans-serif-medium"/>
+
+</LinearLayout>

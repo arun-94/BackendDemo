@@ -37,6 +37,8 @@
             android:src="@drawable/ic_add_white_24dp"
             app:borderWidth="0dp"
             app:fabSize="normal"
+            app:fab_colorNormal="@color/primary_brown"
+            app:fab_colorPressed="@color/primary_brown"
             app:layout_anchor="@id/productsListRecycler"
             app:layout_anchorGravity="bottom|right|end"
             android:layout_alignParentBottom="true"

@@ -53,9 +53,9 @@ public class ProfileActivity extends BaseActivity
         phoneText = ButterKnife.findById(PhoneLayout, R.id.profile_item_text);
         addressText = ButterKnife.findById(AddressLayout, R.id.profile_item_text);
         emailText = ButterKnife.findById(EmailLayout, R.id.profile_item_text);
-        phoneText.setText("Yolo swag");
-        addressText.setText("Yo mana");
-        emailText.setText("Bhenchod");
+        phoneText.setText("+91 9819954448");
+        addressText.setText("XYZ Building, ABC Apartments, Shivaji Nagar, Pune 411-020, Maharashtra, India ");
+        emailText.setText("punkohl@gmail.com");
 
         phoneIcon = ButterKnife.findById(PhoneLayout, R.id.profile_item_image);
         emailIcon = ButterKnife.findById(EmailLayout, R.id.profile_item_image);
