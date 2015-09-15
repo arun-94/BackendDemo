@@ -26,6 +26,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
+                android:layout_marginTop="16dp"
+                android:layout_marginBottom="16dp"
                 >
 
                 <include layout="@layout/add_product_selector_layout"
@@ -39,18 +41,19 @@
                 <include layout="@layout/divider"/>
 
                 <com.rengwuxian.materialedittext.MaterialEditText
-                    android:padding="16dp"
+                    android:layout_margin="16dp"
                     android:id="@+id/editText_productname"
-                    android:layout_width="fill_parent"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:fontFamily="sans-serif-medium"
                     android:hint="Description (optional)"
-                    android:inputType="text"
                     android:lines="3"
                     android:textColor="@color/primary_brown"
                     android:textSize="20sp"
                     app:met_floatingLabel="highlight"
-                    app:met_primaryColor="@color/primary_brown"/>
+                    app:met_primaryColor="@color/primary_brown"
+                    android:gravity="top|left"
+                    android:inputType="textNoSuggestions|textMultiLine"
+                    android:maxLines="3"/>
 
                 <include layout="@layout/divider"/>
 

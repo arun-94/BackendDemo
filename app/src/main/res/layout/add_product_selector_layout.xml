@@ -15,22 +15,37 @@
         android:layout_height="40dp"
         android:layout_marginRight="16dp"
         android:layout_weight="0"
+        android:layout_gravity="center_vertical"
         android:src="@drawable/ic_help_grey_24dp"
         android:scaleType="centerCrop"/>
 
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                  android:layout_width="match_parent"
+                  android:layout_height="wrap_content"
+                  android:orientation="vertical"
+                  android:layout_weight="1"
+                  android:minHeight="40dp">
     <TextView
         android:id="@+id/selector_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_weight="1"
-        android:gravity="left"
+        android:gravity="left|center_vertical"
         android:text="Select Category"
         android:textAlignment="gravity"
+        android:layout_weight="1"
         android:textAppearance="@style/Tisser_TextStyle_Medium"
-        android:textColor="@color/primary_brown"
         />
-
+        <TextView
+            android:id="@+id/selected_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="left|center_vertical"
+            android:text="Accessories >  Jewelry > Tribal white metal"
+            android:textAlignment="gravity"
+            android:layout_weight="1"
+            android:textAppearance="@style/Tisser_TextStyle_Small"
+            android:visibility="gone"/>
+    </LinearLayout>
     <ImageView
         android:layout_width="24dp"
         android:layout_height="24dp"

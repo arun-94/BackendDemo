@@ -25,6 +25,7 @@ import java.util.ArrayList;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 public class AddProductActivity extends BaseActivity
 {
@@ -39,6 +40,7 @@ public class AddProductActivity extends BaseActivity
 
     ImageView categoryIcon, colorIcon;
     TextView categoryText, colorText;
+    TextView selected_categoryText, selected_colorText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -65,14 +67,15 @@ public class AddProductActivity extends BaseActivity
     {
         categoryText = ButterKnife.findById(selectCategoryLL, R.id.selector_text);
         colorText = ButterKnife.findById(selectColorLL, R.id.selector_text);
-        categoryText.setText("Select Category");
-        colorText.setText("Select Color(s)");
-
+        selected_categoryText = ButterKnife.findById(selectCategoryLL, R.id.selected_text);
+        selected_colorText = ButterKnife.findById(selectColorLL, R.id.selected_text);
         categoryIcon = ButterKnife.findById(selectCategoryLL, R.id.selector_icon);
         colorIcon = ButterKnife.findById(selectColorLL, R.id.selector_icon);
+
+        categoryText.setText("Select Category");
+        colorText.setText("Select Color(s)");
         categoryIcon.setImageDrawable(getResources().getDrawable(R.drawable.ic_help_grey_24dp));
         colorIcon.setImageDrawable(getResources().getDrawable(R.drawable.ic_palette_grey_24dp));
-
 
         mUploadButton.setOnClickListener(new View.OnClickListener()
         {
@@ -105,19 +108,19 @@ public class AddProductActivity extends BaseActivity
 
             mAdapter.addAll(images);
             mGalleryImagesRecycler.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener()
-                    {
-                        @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
-                        @Override
-                        public void onGlobalLayout()
-                        {
-                            mGalleryImagesRecycler.getViewTreeObserver().removeOnGlobalLayoutListener(this);
-                            int viewWidth = mGalleryImagesRecycler.getMeasuredWidth();
-                            float cardViewWidth = findViewById(R.id.img_product_thumb).getMeasuredWidth();
-                            int newSpanCount = (int) Math.floor(viewWidth / cardViewWidth);
-                            mLayoutManager.setSpanCount(newSpanCount);
-                            mLayoutManager.requestLayout();
-                        }
-                    });
+            {
+                @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
+                @Override
+                public void onGlobalLayout()
+                {
+                    mGalleryImagesRecycler.getViewTreeObserver().removeOnGlobalLayoutListener(this);
+                    int viewWidth = mGalleryImagesRecycler.getMeasuredWidth();
+                    float cardViewWidth = findViewById(R.id.img_product_thumb).getMeasuredWidth();
+                    int newSpanCount = (int) Math.floor(viewWidth / cardViewWidth);
+                    mLayoutManager.setSpanCount(newSpanCount);
+                    mLayoutManager.requestLayout();
+                }
+            });
             mGalleryImagesRecycler.setAdapter(mAdapter);
         }
     }
@@ -141,5 +144,19 @@ public class AddProductActivity extends BaseActivity
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @OnClick(R.id.ll_select_category)
+    void clickSelectCategory()
+    {
+        if (selected_categoryText.getVisibility() == View.VISIBLE)
+        {
+            selected_categoryText.setVisibility(View.GONE);
+        }
+        else
+        {
+            selected_categoryText.setVisibility(View.VISIBLE);
+        }
+        //selected_categoryText.setText("Accessories >  Jewelry > Tribal white metal");
     }
 }
