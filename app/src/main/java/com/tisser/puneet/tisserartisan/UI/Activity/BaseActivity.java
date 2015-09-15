@@ -2,7 +2,6 @@ package com.tisser.puneet.tisserartisan.UI.Activity;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -10,6 +9,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.tisser.puneet.tisserartisan.Component.ApplicationComponent;
 import com.tisser.puneet.tisserartisan.Global.AppManager;
 import com.tisser.puneet.tisserartisan.Module.ActivityModule;
 import com.tisser.puneet.tisserartisan.Queries.AsyncResponse;
@@ -19,12 +19,16 @@ import com.tisser.puneet.tisserartisan.Queries.SearchQuery;
 import com.tisser.puneet.tisserartisan.Queries.SettingsQuery;
 import com.tisser.puneet.tisserartisan.R;
 
+import javax.inject.Inject;
+
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
 
 public abstract class BaseActivity extends AppCompatActivity implements AsyncResponse
 {
+    @Inject
+    public Navigator navigator;
     @Nullable @Bind(R.id.toolbar) Toolbar toolbar;
     AppManager manager;
     CategoryListQuery categoryListQuery;
@@ -38,6 +42,7 @@ public abstract class BaseActivity extends AppCompatActivity implements AsyncRes
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
+        this.getApplicationComponent().inject(this);
         manager = (AppManager) getApplication();
         categoryListQuery = new CategoryListQuery();
         categoryListQuery.delegate = this;
@@ -57,6 +62,11 @@ public abstract class BaseActivity extends AppCompatActivity implements AsyncRes
         }
         setupLayout();
     }
+
+    protected ApplicationComponent getApplicationComponent() {
+        return ((AppManager)getApplication()).getApplicationComponent();
+    }
+
 
     protected ActivityModule getActivityModule()
     {
@@ -87,9 +97,9 @@ public abstract class BaseActivity extends AppCompatActivity implements AsyncRes
 
         if (id == R.id.action_settings)
         {
-            Intent i = new Intent(BaseActivity.this, AboutActivity.class);
+            /*Intent i = new Intent(BaseActivity.this, AboutActivity.class);
             startActivity(i);
-            return true;
+            return true;*/
         }
         else if (id == android.R.id.home)
         {

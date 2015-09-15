@@ -3,6 +3,7 @@ package com.tisser.puneet.tisserartisan.UI.Activity;
 import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentTransaction;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
@@ -28,6 +29,11 @@ public class BaseActivity_NavDrawer extends BaseActivity implements AsyncRespons
     @Bind(R.id.drawer_layout) DrawerLayout mDrawerLayout;
     @Bind(R.id.navigation_view) NavigationView navigationView;
 
+
+    public static Intent getLaunchIntent(final Context context) {
+        Intent intent = new Intent(context, BaseActivity_NavDrawer.class);
+        return intent;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState)

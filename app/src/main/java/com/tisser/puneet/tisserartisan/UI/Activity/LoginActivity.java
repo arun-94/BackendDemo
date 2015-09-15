@@ -1,6 +1,5 @@
 package com.tisser.puneet.tisserartisan.UI.Activity;
 
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
@@ -68,8 +67,9 @@ public class LoginActivity extends BaseActivity
 
     void openNextActivity()
     {
-        Intent SearchIntent = new Intent(LoginActivity.this, BaseActivity_NavDrawer.class);
-        SearchIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        startActivity(SearchIntent);
+        navigator.navigateToBaseActivity_NavDrawer(LoginActivity.this);
+        /*Intent SearchIntent = new Intent(LoginActivity.this, BaseActivity_NavDrawer.class);
+        SearchIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);z
+        startActivity(SearchIntent);*/
     }
 }

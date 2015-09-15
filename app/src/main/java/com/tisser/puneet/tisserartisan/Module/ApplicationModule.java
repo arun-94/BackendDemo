@@ -3,6 +3,7 @@ package com.tisser.puneet.tisserartisan.Module;
 import android.content.Context;
 
 import com.tisser.puneet.tisserartisan.Global.AppManager;
+import com.tisser.puneet.tisserartisan.UI.Activity.Navigator;
 
 import javax.inject.Singleton;
 
@@ -13,17 +14,21 @@ import dagger.Provides;
 public class ApplicationModule
 {
 
-    private  AppManager application;
+    private final AppManager application;
 
-    public ApplicationModule(AppManager application) {
+    public ApplicationModule(AppManager application)
+    {
         this.application = application;
     }
 
     @Provides
     @Singleton
-    Context provideApplicationContext() {
+    Context provideApplicationContext()
+    {
         return this.application;
     }
 
-
+    @Provides @Singleton Navigator provideNavigator() {
+        return new Navigator();
+    }
 }
