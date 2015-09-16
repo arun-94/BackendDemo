@@ -35,7 +35,7 @@
             android:label="@string/app_name">
         </activity>
         <activity
-            android:name=".UI.Activity.ColorListActivity"
+            android:name=".UI.Activity.ColorSelectionActivity"
             android:label="@string/app_name">
         </activity>
         <activity

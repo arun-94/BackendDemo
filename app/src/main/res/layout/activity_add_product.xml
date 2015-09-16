@@ -19,12 +19,12 @@
 
         <android.support.v4.widget.NestedScrollView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_marginBottom="16dp"
                 android:layout_marginTop="16dp"
                 android:orientation="vertical"
@@ -41,13 +41,8 @@
                     android:stretchMode="columnWidth"
                     android:gravity="center"
                     android:verticalSpacing="2.5dp"
-                    android:choiceMode="singleChoice"
-                    android:clickable="false"
-                    android:nestedScrollingEnabled="false"
                     android:numColumns="4"
                     />
-
-                <include layout="@layout/divider"/>
 
                 <include
                     android:id="@+id/ll_select_category"
@@ -106,16 +101,6 @@
         android:max="100"
         android:progress="1"
         android:visibility="invisible"/>
-
-    <!--<Button
-        android:id="@+id/upload_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_gravity="center_horizontal"
-        android:text="Click Here"/>-->
-
 
 </RelativeLayout>
 

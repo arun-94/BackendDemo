@@ -35,6 +35,9 @@
         <item name="colorControlHighlight">#3fff</item>
     </style>
 
+    <style name="WhiteActionBarThemeOverlay" parent="">
+    </style>
+
     <style name="ActionBarPopupThemeOverlay" parent="ThemeOverlay.AppCompat.Light">
         <item name="android:background">@android:color/white</item>
         <item name="android:textColor">#000</item>

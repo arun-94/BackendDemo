@@ -25,6 +25,24 @@ public class AppManager extends Application
     @Override public void onCreate() {
         super.onCreate();
         initializeDependencies();
+
+        TisserColor c = new TisserColor();
+        c.setColor("Yo");
+        c.setCode("#ffffff");
+        colorList.add(c);
+        c = new TisserColor();
+        c.setColor("Yo2");
+        c.setCode("#ff00ff");
+        colorList.add(c);
+        c = new TisserColor();
+        c.setColor("Yo3");
+        c.setCode("#0000ff");
+        colorList.add(c);
+        c = new TisserColor();
+        c.setColor("Yo4");
+        c.setCode("#ff0000");
+        colorList.add(c);
+
     }
 
     private void initializeDependencies()
@@ -50,4 +68,6 @@ public class AppManager extends Application
     public String hello = "hello";
     public int currentCategoryID;
     public Drawable currentImage;
+
+
 }

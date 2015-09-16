@@ -13,9 +13,9 @@
     <color name="primary_dark_brown">#944e35</color>
     <color name="primary_light_brown">#c76944</color>
     <color name="light_grey">#E0E0E0</color>
-<!--    <color name="primary_red">#F44336</color>
-    <color name="primary_dark_red">#D32F2F</color>
-    <color name="primary_light_red">#FFCDD2</color>-->
+<!--    <color colorName="primary_red">#F44336</color>
+    <color colorName="primary_dark_red">#D32F2F</color>
+    <color colorName="primary_light_red">#FFCDD2</color>-->
     <color name="accent_brown">#A6553D</color>
     <color name="accent_white">#FFFFFF</color>
 </resources>

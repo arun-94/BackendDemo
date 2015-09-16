@@ -8,6 +8,8 @@ public class TisserColor
     private String id;
     private String name;
     private String code;
+    private boolean selected;
+
 
     public String getId()
     {
@@ -52,5 +54,15 @@ public class TisserColor
     public void setCode(String code)
     {
         this.code = code;
+    }
+
+    public boolean isSelected()
+    {
+        return selected;
+    }
+
+    public void setSelected(boolean selected)
+    {
+        this.selected = selected;
     }
 }

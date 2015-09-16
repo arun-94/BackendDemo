@@ -18,12 +18,9 @@ import android.widget.TextView;
 import com.darsh.multipleimageselect.activities.AlbumSelectActivity;
 import com.darsh.multipleimageselect.helpers.Constants;
 import com.darsh.multipleimageselect.models.Image;
-import com.tisser.puneet.tisserartisan.Model.Category;
 import com.tisser.puneet.tisserartisan.UI.Adapters.GalleryImagesAdapter;
-import com.tisser.puneet.tisserartisan.Custom.MarginDecoration;
 import com.tisser.puneet.tisserartisan.Custom.ExpandableHeightGridView;
 import com.tisser.puneet.tisserartisan.R;
-import com.tisser.puneet.tisserartisan.UI.Adapters.GalleryImagesAdapter;
 
 import java.util.ArrayList;
 
@@ -128,15 +125,18 @@ public class AddProductActivity extends BaseActivity
         }
         else if (requestCode == com.tisser.puneet.tisserartisan.Global.Constants.REQUEST_SELECT_COLOR && resultCode == RESULT_OK)
         {
-            String[] arrayExtra = data.getStringArrayExtra(com.tisser.puneet.tisserartisan.Global.Constants.RESULT_COLOR_LIST);
-            String s = "";
-            for (int i = 0; i < arrayExtra.length; i++)
+            String stringExtra = data.getStringExtra(com.tisser.puneet.tisserartisan.Global.Constants.RESULT_COLOR_LIST);
+            if(!stringExtra.equals(""))
             {
-                s += arrayExtra[i] + ", ";
+                selected_colorText.setVisibility(View.VISIBLE);
+                selected_colorText.setText(stringExtra);
+                colorIcon.setImageDrawable(getResources().getDrawable(R.drawable.ic_check_circle_black_24dp));
             }
-            s = s.substring(0, s.length() - 2);
-            selected_colorText.setVisibility(View.VISIBLE);
-            selected_colorText.setText(s);
+            else
+            {
+                selected_colorText.setVisibility(View.GONE);
+                colorIcon.setImageDrawable(getResources().getDrawable(R.drawable.ic_palette_grey_24dp));
+            }
         }
     }
 
@@ -171,7 +171,7 @@ public class AddProductActivity extends BaseActivity
     @OnClick(R.id.ll_select_color)
     void clickSelectColor()
     {
-        Intent i = new Intent(this, ColorListActivity.class);
+        Intent i = new Intent(this, ColorSelectionActivity.class);
         startActivityForResult(i, com.tisser.puneet.tisserartisan.Global.Constants.REQUEST_SELECT_COLOR);
     }
 
