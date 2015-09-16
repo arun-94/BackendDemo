@@ -2,25 +2,27 @@ package com.tisser.puneet.tisserartisan.UI.Adapters;
 
 import android.content.Context;
 import android.net.Uri;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.BaseAdapter;
 import android.widget.ImageView;
+import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
 import com.darsh.multipleimageselect.models.Image;
+import com.squareup.picasso.Picasso;
 import com.tisser.puneet.tisserartisan.R;
 
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
-public class GalleryImagesAdapter extends RecyclerView.Adapter<GalleryImagesAdapter.GalleryImage>
+public class GalleryImagesAdapter extends BaseAdapter
 {
 
     private final Context mContext;
     private List<Image> mGalleryImages;
+    private int reqWidth = 0;
 
     public GalleryImagesAdapter(Context context, ArrayList<Image> data)
     {
@@ -35,62 +37,117 @@ public class GalleryImagesAdapter extends RecyclerView.Adapter<GalleryImagesAdap
         }
     }
 
-    public void add(Image s, int position)
+    public void add(Image s, int position, int width)
     {
-        position = position == -1 ? getItemCount() : position;
+        reqWidth = width;
+        position = position == -1 ? getCount() : position;
         mGalleryImages.add(position, s);
-        notifyItemInserted(position);
+        notifyDataSetChanged();
     }
 
-    public void addAll(ArrayList<Image> s)
+    public void addAll(ArrayList<Image> s, int reqWidth)
     {
+        this.reqWidth = reqWidth;
+        for(int i = 0; i < mGalleryImages.size(); i++) {
+            if(mGalleryImages.get(i) == null)
+                mGalleryImages.remove(i);
+        }
+
         mGalleryImages.addAll(s);
+        //mGalleryImages.add(null);
         notifyDataSetChanged();
     }
 
     public void remove(int position)
     {
-        if (position < getItemCount())
+        if (position < getCount())
         {
             mGalleryImages.remove(position);
-            notifyItemRemoved(position);
+            notifyDataSetChanged();
         }
     }
 
-    public GalleryImage onCreateViewHolder(ViewGroup parent, int viewType)
+   /* public GalleryImage onCreateViewHolder(ViewGroup parent, int viewType)
     {
         final View view = LayoutInflater.from(mContext).inflate(R.layout.image_grid_item, parent, false);
         return new GalleryImage(view);
     }
 
-    @Override
     public void onBindViewHolder(GalleryImage holder, int position)
     {
-        Image i = mGalleryImages.get(position);
-        Uri uri = Uri.fromFile(new File(i.path));
-        Glide.with(mContext)
-                .load(uri)
-                .asBitmap()
-                .centerCrop()
-                .into(holder.image);
-
-    }
+        if(mGalleryImages.get(position) == null) {
+            Glide.with(mContext)
+                    .load(R.drawable.logo)
+                    .asBitmap().fitCenter()
+                    .into(holder.image);
+        }
+        else
+        {
+            Image i = mGalleryImages.get(position);
+            Uri uri = Uri.fromFile(new File(i.path));
+            Glide.with(mContext).load(uri).asBitmap().fitCenter().into(holder.image);
+        }
+    }*/
 
     @Override
-    public int getItemCount()
+    public int getCount()
     {
         return mGalleryImages.size();
     }
 
-
-    public static class GalleryImage extends RecyclerView.ViewHolder
+    @Override
+    public Object getItem(int position)
     {
-        public final ImageView image;
+        return mGalleryImages.get(position);
+    }
 
-        public GalleryImage(View view)
-        {
-            super(view);
-            image = (ImageView) view.findViewById(R.id.img_product_thumb);
+    @Override
+    public long getItemId(int position)
+    {
+        return position;
+    }
+
+    @Override
+    public View getView(int position, View convertView, ViewGroup parent)
+    {
+        GalleryImage viewHolder;
+
+        if(convertView == null) {
+            LayoutInflater inflater = LayoutInflater.from(mContext);
+            if(mGalleryImages.get(0) != null)
+            {
+                convertView = inflater.inflate(R.layout.image_grid_item, parent, false);
+                viewHolder = new GalleryImage();
+                viewHolder.image = (ImageView) convertView.findViewById(R.id.img_product_thumb);
+                viewHolder.image.getLayoutParams().height = reqWidth / 4;
+                viewHolder.image.getLayoutParams().width = reqWidth / 4;
+            }
+            else {
+                convertView = inflater.inflate(R.layout.grid_empty_text, parent, false);
+                viewHolder = new GalleryImage();
+                viewHolder.text = (TextView) convertView.findViewById(R.id.empty_grid_text);
+                viewHolder.text.getLayoutParams().height = reqWidth / 4;
+            }
+            convertView.setTag(viewHolder);
         }
+        else {
+            viewHolder = (GalleryImage) convertView.getTag();
+        }
+
+
+        if(mGalleryImages.get(0) != null) {
+            Image i = mGalleryImages.get(position);
+            Uri uri = Uri.fromFile(new File(i.path));
+            Picasso.with(mContext).load(uri).fit().into(viewHolder.image);
+        }
+
+        return convertView;
+    }
+
+
+    public static class GalleryImage
+    {
+        public ImageView image;
+        public TextView text;
     }
 }

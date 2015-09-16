@@ -2,24 +2,25 @@ package com.tisser.puneet.tisserartisan.UI.Activity;
 
 import android.annotation.TargetApi;
 import android.content.Intent;
+import android.graphics.Point;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.RecyclerView;
+import android.util.DisplayMetrics;
+import android.view.Display;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewTreeObserver;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.darsh.multipleimageselect.activities.AlbumSelectActivity;
 import com.darsh.multipleimageselect.helpers.Constants;
 import com.darsh.multipleimageselect.models.Image;
-import com.tisser.puneet.tisserartisan.UI.Adapters.GalleryImagesAdapter;
-import com.tisser.puneet.tisserartisan.Custom.MarginDecoration;
+import com.tisser.puneet.tisserartisan.Custom.ExpandableHeightGridView;
 import com.tisser.puneet.tisserartisan.R;
+import com.tisser.puneet.tisserartisan.UI.Adapters.GalleryImagesAdapter;
 
 import java.util.ArrayList;
 
@@ -29,10 +30,16 @@ import butterknife.OnClick;
 
 public class AddProductActivity extends BaseActivity
 {
-    @Bind(R.id.upload_button) Button mUploadButton;
-    @Bind(R.id.gallery_images_recycler) RecyclerView mGalleryImagesRecycler;
+    @Bind(R.id.upload_button) FloatingActionButton mUploadButton;
+    @Bind(R.id.gallery_images_recycler) ExpandableHeightGridView mGalleryImagesRecycler;
     @Bind(R.id.ll_select_category) View selectCategoryLL;
     @Bind(R.id.ll_select_color) View selectColorLL;
+
+    @OnClick(R.id.upload_button) void uploadPhoto() {
+        Intent intent = new Intent(AddProductActivity.this, AlbumSelectActivity.class);
+        intent.putExtra("" + Constants.INTENT_EXTRA_LIMIT, com.tisser.puneet.tisserartisan.Global.Constants.GALLERY_NUM_IMGS_TO_SELECT);
+        startActivityForResult(intent, Constants.REQUEST_CODE);
+    }
 
     private ArrayList<Image> images;
     private GridLayoutManager mLayoutManager;
@@ -77,28 +84,20 @@ public class AddProductActivity extends BaseActivity
         categoryIcon.setImageDrawable(getResources().getDrawable(R.drawable.ic_help_grey_24dp));
         colorIcon.setImageDrawable(getResources().getDrawable(R.drawable.ic_palette_grey_24dp));
 
-        mUploadButton.setOnClickListener(new View.OnClickListener()
-        {
-            @Override
-            public void onClick(View v)
-            {
-                Intent intent = new Intent(AddProductActivity.this, AlbumSelectActivity.class);
-                intent.putExtra("" + Constants.INTENT_EXTRA_LIMIT, com.tisser.puneet.tisserartisan.Global.Constants.GALLERY_NUM_IMGS_TO_SELECT);
-                startActivityForResult(intent, Constants.REQUEST_CODE);
-            }
-        });
-
-        mGalleryImagesRecycler.addItemDecoration(new MarginDecoration(this));
-
-        mLayoutManager = new GridLayoutManager(this, 2);
-
-        mGalleryImagesRecycler.setLayoutManager(mLayoutManager);
-
+        mGalleryImagesRecycler.setExpanded(true);
         mAdapter = new GalleryImagesAdapter(this, null);
-        mGalleryImagesRecycler.setAdapter(mAdapter);
 
+        Display display = getWindowManager().getDefaultDisplay();
+        Point size = new Point();
+        display.getSize(size);
+        int width = size.x;
+        mAdapter.add(null, 0, width);
+        mGalleryImagesRecycler.setNumColumns(1);
+        mGalleryImagesRecycler.requestLayout();
+        mGalleryImagesRecycler.setAdapter(mAdapter);
     }
 
+    @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data)
     {
@@ -106,22 +105,15 @@ public class AddProductActivity extends BaseActivity
         {
             images = data.getParcelableArrayListExtra(Constants.INTENT_EXTRA_IMAGES);
 
-            mAdapter.addAll(images);
-            mGalleryImagesRecycler.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener()
-            {
-                @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
-                @Override
-                public void onGlobalLayout()
-                {
-                    mGalleryImagesRecycler.getViewTreeObserver().removeOnGlobalLayoutListener(this);
-                    int viewWidth = mGalleryImagesRecycler.getMeasuredWidth();
-                    float cardViewWidth = findViewById(R.id.img_product_thumb).getMeasuredWidth();
-                    int newSpanCount = (int) Math.floor(viewWidth / cardViewWidth);
-                    mLayoutManager.setSpanCount(newSpanCount);
-                    mLayoutManager.requestLayout();
-                }
-            });
+            Display display = getWindowManager().getDefaultDisplay();
+            Point size = new Point();
+            display.getSize(size);
+            int width = size.x;
+
+            mAdapter.addAll(images, width - 40);
+            mGalleryImagesRecycler.setNumColumns(4);
             mGalleryImagesRecycler.setAdapter(mAdapter);
+
         }
     }
 
@@ -158,5 +150,11 @@ public class AddProductActivity extends BaseActivity
             selected_categoryText.setVisibility(View.VISIBLE);
         }
         //selected_categoryText.setText("Accessories >  Jewelry > Tribal white metal");
+    }
+
+    public int dpToPx(long dp) {
+        DisplayMetrics displayMetrics = getApplicationContext().getResources().getDisplayMetrics();
+        int px = Math.round(dp * (displayMetrics.xdpi / DisplayMetrics.DENSITY_DEFAULT));
+        return px;
     }
 }

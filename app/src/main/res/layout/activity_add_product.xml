@@ -25,35 +25,54 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:layout_marginTop="16dp"
                 android:layout_marginBottom="16dp"
+                android:layout_marginTop="16dp"
+                android:orientation="vertical"
                 >
 
-                <include layout="@layout/add_product_selector_layout"
-                    android:id="@+id/ll_select_category"/>
+                <com.tisser.puneet.tisserartisan.Custom.ExpandableHeightGridView
+                    android:id="@+id/gallery_images_recycler"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_margin="5dp"
+                    android:padding="0dp"
+                    android:clipChildren="true"
+                    android:alwaysDrawnWithCache="true"
+                    android:stretchMode="columnWidth"
+                    android:gravity="center"
+                    android:verticalSpacing="2.5dp"
+                    android:choiceMode="singleChoice"
+                    android:clickable="false"
+                    android:nestedScrollingEnabled="false"
+                    android:numColumns="4"
+                    />
+
+                <include
+                    android:id="@+id/ll_select_category"
+                    layout="@layout/add_product_selector_layout"/>
 
                 <include layout="@layout/divider"/>
 
-                <include layout="@layout/add_product_selector_layout"
-                         android:id="@+id/ll_select_color"/>
+                <include
+                    android:id="@+id/ll_select_color"
+                    layout="@layout/add_product_selector_layout"/>
 
                 <include layout="@layout/divider"/>
 
                 <com.rengwuxian.materialedittext.MaterialEditText
-                    android:layout_margin="16dp"
                     android:id="@+id/editText_productname"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_margin="16dp"
+                    android:gravity="top|left"
                     android:hint="Description (optional)"
+                    android:inputType="textNoSuggestions|textMultiLine"
                     android:lines="3"
+                    android:maxLines="3"
                     android:textColor="@color/primary_brown"
                     android:textSize="20sp"
                     app:met_floatingLabel="highlight"
-                    app:met_primaryColor="@color/primary_brown"
-                    android:gravity="top|left"
-                    android:inputType="textNoSuggestions|textMultiLine"
-                    android:maxLines="3"/>
+                    app:met_primaryColor="@color/primary_brown"/>
 
                 <include layout="@layout/divider"/>
 
@@ -62,6 +81,7 @@
         </android.support.v4.widget.NestedScrollView>
 
         <android.support.design.widget.FloatingActionButton
+            android:id="@+id/upload_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="16dp"
@@ -85,20 +105,15 @@
         android:progress="1"
         android:visibility="invisible"/>
 
-    <Button
+    <!--<Button
         android:id="@+id/upload_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_gravity="center_horizontal"
-        android:text="Click Here"/>
+        android:text="Click Here"/>-->
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/gallery_images_recycler"
-        android:layout_width="match_parent"
-        android:layout_height="10dp"
-        />
 
 </RelativeLayout>
 
