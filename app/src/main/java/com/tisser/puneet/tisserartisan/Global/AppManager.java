@@ -8,6 +8,7 @@ import com.tisser.puneet.tisserartisan.Component.DaggerApplicationComponent;
 import com.tisser.puneet.tisserartisan.Model.Category;
 import com.tisser.puneet.tisserartisan.Model.Product;
 import com.tisser.puneet.tisserartisan.Model.ProductDetailed;
+import com.tisser.puneet.tisserartisan.Model.TisserColor;
 import com.tisser.puneet.tisserartisan.Model.TisserSettings;
 import com.tisser.puneet.tisserartisan.Module.ApplicationModule;
 
@@ -45,6 +46,7 @@ public class AppManager extends Application
     public Category currentSubsubCategory = new Category();
     public ProductDetailed currentProduct = new ProductDetailed();
     public TisserSettings settings = new TisserSettings();
+    public ArrayList<TisserColor> colorList = new ArrayList<>();
     public String hello = "hello";
     public int currentCategoryID;
     public Drawable currentImage;

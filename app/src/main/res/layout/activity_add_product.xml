@@ -47,6 +47,8 @@
                     android:numColumns="4"
                     />
 
+                <include layout="@layout/divider"/>
+
                 <include
                     android:id="@+id/ll_select_category"
                     layout="@layout/add_product_selector_layout"/>

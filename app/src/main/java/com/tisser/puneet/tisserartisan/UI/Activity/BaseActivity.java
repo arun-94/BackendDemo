@@ -36,6 +36,7 @@ public abstract class BaseActivity extends AppCompatActivity implements AsyncRes
     SearchQuery searchQuery;
     ProductListQuery productListQuery;
 
+
     AlertDialog dialog;
 
     @Override

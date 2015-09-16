@@ -18,6 +18,9 @@ import android.widget.TextView;
 import com.darsh.multipleimageselect.activities.AlbumSelectActivity;
 import com.darsh.multipleimageselect.helpers.Constants;
 import com.darsh.multipleimageselect.models.Image;
+import com.tisser.puneet.tisserartisan.Model.Category;
+import com.tisser.puneet.tisserartisan.UI.Adapters.GalleryImagesAdapter;
+import com.tisser.puneet.tisserartisan.Custom.MarginDecoration;
 import com.tisser.puneet.tisserartisan.Custom.ExpandableHeightGridView;
 import com.tisser.puneet.tisserartisan.R;
 import com.tisser.puneet.tisserartisan.UI.Adapters.GalleryImagesAdapter;
@@ -113,7 +116,27 @@ public class AddProductActivity extends BaseActivity
             mAdapter.addAll(images, width - 40);
             mGalleryImagesRecycler.setNumColumns(4);
             mGalleryImagesRecycler.setAdapter(mAdapter);
-
+        }
+        else if (requestCode == com.tisser.puneet.tisserartisan.Global.Constants.REQUEST_SELECT_CATEGORY && resultCode == RESULT_OK)
+        {
+            selected_categoryText.setVisibility(View.VISIBLE);
+            String s = data.getStringExtra(com.tisser.puneet.tisserartisan.Global.Constants.RESULT_CATEGORY_NAME);
+            s = s.concat(" > " + data.getStringExtra(com.tisser.puneet.tisserartisan.Global.Constants.RESULT_SUBCATEGORY_NAME));
+            s = s.concat(" > " + data.getStringExtra(com.tisser.puneet.tisserartisan.Global.Constants.RESULT_SUBSUBCATEGORY_NAME));
+            selected_categoryText.setText(s);
+            categoryIcon.setImageDrawable(getResources().getDrawable(R.drawable.ic_check_circle_black_24dp));
+        }
+        else if (requestCode == com.tisser.puneet.tisserartisan.Global.Constants.REQUEST_SELECT_COLOR && resultCode == RESULT_OK)
+        {
+            String[] arrayExtra = data.getStringArrayExtra(com.tisser.puneet.tisserartisan.Global.Constants.RESULT_COLOR_LIST);
+            String s = "";
+            for (int i = 0; i < arrayExtra.length; i++)
+            {
+                s += arrayExtra[i] + ", ";
+            }
+            s = s.substring(0, s.length() - 2);
+            selected_colorText.setVisibility(View.VISIBLE);
+            selected_colorText.setText(s);
         }
     }
 
@@ -141,15 +164,15 @@ public class AddProductActivity extends BaseActivity
     @OnClick(R.id.ll_select_category)
     void clickSelectCategory()
     {
-        if (selected_categoryText.getVisibility() == View.VISIBLE)
-        {
-            selected_categoryText.setVisibility(View.GONE);
-        }
-        else
-        {
-            selected_categoryText.setVisibility(View.VISIBLE);
-        }
-        //selected_categoryText.setText("Accessories >  Jewelry > Tribal white metal");
+        Intent i = new Intent(this, CategoryListActivity.class);
+        startActivityForResult(i, com.tisser.puneet.tisserartisan.Global.Constants.REQUEST_SELECT_CATEGORY);
+    }
+
+    @OnClick(R.id.ll_select_color)
+    void clickSelectColor()
+    {
+        Intent i = new Intent(this, ColorListActivity.class);
+        startActivityForResult(i, com.tisser.puneet.tisserartisan.Global.Constants.REQUEST_SELECT_COLOR);
     }
 
     public int dpToPx(long dp) {
