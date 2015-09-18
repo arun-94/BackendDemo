@@ -1,6 +1,8 @@
 package com.tisser.puneet.tisserartisan.UI.Activity;
 
 import android.annotation.TargetApi;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Point;
 import android.os.Build;
@@ -12,28 +14,42 @@ import android.view.Display;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.darsh.multipleimageselect.activities.AlbumSelectActivity;
 import com.darsh.multipleimageselect.helpers.Constants;
 import com.darsh.multipleimageselect.models.Image;
-import com.tisser.puneet.tisserartisan.UI.Adapters.GalleryImagesAdapter;
+import com.mobsandgeeks.saripaar.ValidationError;
+import com.mobsandgeeks.saripaar.Validator;
+import com.mobsandgeeks.saripaar.annotation.NotEmpty;
 import com.tisser.puneet.tisserartisan.Custom.ExpandableHeightGridView;
+import com.tisser.puneet.tisserartisan.CustomRules.IsCategorySelected;
 import com.tisser.puneet.tisserartisan.R;
+import com.tisser.puneet.tisserartisan.UI.Adapters.GalleryImagesAdapter;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class AddProductActivity extends BaseActivity
+public class AddProductActivity extends BaseActivity implements Validator.ValidationListener
 {
     @Bind(R.id.upload_button) FloatingActionButton mUploadButton;
     @Bind(R.id.gallery_images_recycler) ExpandableHeightGridView mGalleryImagesRecycler;
     @Bind(R.id.ll_select_category) View selectCategoryLL;
     @Bind(R.id.ll_select_color) View selectColorLL;
+
+    @NotEmpty @Bind(R.id.editText_price) EditText editTextPrice;
+    @NotEmpty @Bind(R.id.editText_productname) EditText editTextProductName;
+    @OnClick(R.id.button_save) void submit() {
+        userDetailsValidator.validate();
+    }
+
 
     @OnClick(R.id.upload_button) void uploadPhoto() {
         Intent intent = new Intent(AddProductActivity.this, AlbumSelectActivity.class);
@@ -44,15 +60,24 @@ public class AddProductActivity extends BaseActivity
     private ArrayList<Image> images;
     private GridLayoutManager mLayoutManager;
     private GalleryImagesAdapter mAdapter;
+    private Validator userDetailsValidator;
 
     ImageView categoryIcon, colorIcon;
     TextView categoryText, colorText;
-    TextView selected_categoryText, selected_colorText;
+
+
+    @IsCategorySelected TextView selected_categoryText;
+
+    @IsCategorySelected TextView selected_colorText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
+
+        Validator.registerAnnotation(IsCategorySelected.class);
+        userDetailsValidator = new Validator(this);
+        userDetailsValidator.setValidationListener(this);
     }
 
     @Override
@@ -179,5 +204,62 @@ public class AddProductActivity extends BaseActivity
         DisplayMetrics displayMetrics = getApplicationContext().getResources().getDisplayMetrics();
         int px = Math.round(dp * (displayMetrics.xdpi / DisplayMetrics.DENSITY_DEFAULT));
         return px;
+    }
+
+    @Override
+    public void onValidationSucceeded()
+    {
+        String message = "";
+
+        if(selected_categoryText.getVisibility() == View.GONE && selected_colorText.getVisibility() == View.GONE)
+           message = "Category & Color Must be Selected";
+
+        else if(selected_colorText.getVisibility() == View.GONE)
+            message = "Color Must be Selected";
+        else if(selected_categoryText.getVisibility() == View.GONE)
+            message = "Category Must be Selected";
+        else {
+            // further logic
+        }
+
+        AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
+
+        // Setting Dialog Title
+        alertDialog.setTitle("Field Empty!");
+        alertDialog.setMessage(message);
+        alertDialog.setPositiveButton("Ok", new DialogInterface.OnClickListener()
+        {
+            public void onClick(DialogInterface dialog, int which)
+            {
+                dialog.cancel();
+            }
+        });
+
+        alertDialog.show();
+
+
+    }
+
+    @Override
+    public void onValidationFailed(List<ValidationError> errors)
+    {
+        for (ValidationError error : errors) {
+            View view = error.getView();
+            String message = error.getCollatedErrorMessage(this);
+
+            // Display error messages ;)
+            if (view instanceof EditText) {
+                ((EditText) view).setError(message);
+            } else {
+                Toast.makeText(this, message, Toast.LENGTH_LONG).show();
+            }
+
+            if (view instanceof TextView) {
+                ((TextView) view).setError(message);
+            } else {
+                Toast.makeText(this, message, Toast.LENGTH_LONG).show();
+            }
+        }
+
     }
 }
