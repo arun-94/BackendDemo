@@ -46,7 +46,7 @@ public class BaseActivity_NavDrawer extends BaseActivity implements AsyncRespons
     @Override
     protected int getLayoutResource()
     {
-        return R.layout.navigation_drawer_base_layout;
+        return R.layout.activity_base_nav_drawer;
     }
 
     @Override
