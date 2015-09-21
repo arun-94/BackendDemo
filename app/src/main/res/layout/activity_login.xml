@@ -83,7 +83,7 @@
             android:lines="1"
             android:maxLines="1"
             android:minLines="1"
-            android:text="arun"
+            android:text="Arun123"
             app:met_baseColor="@color/primary_brown"
             app:met_floatingLabel="highlight"
             app:met_floatingLabelText="Password"
