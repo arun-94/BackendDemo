@@ -14,6 +14,7 @@ import android.view.Display;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -27,6 +28,7 @@ import com.mobsandgeeks.saripaar.Validator;
 import com.mobsandgeeks.saripaar.annotation.NotEmpty;
 import com.tisser.puneet.tisserartisan.Custom.ExpandableHeightGridView;
 import com.tisser.puneet.tisserartisan.CustomRules.IsCategorySelected;
+import com.tisser.puneet.tisserartisan.Model.ProductDetailed;
 import com.tisser.puneet.tisserartisan.R;
 import com.tisser.puneet.tisserartisan.UI.Adapters.GalleryImagesAdapter;
 
@@ -78,6 +80,18 @@ public class AddProductActivity extends BaseActivity implements Validator.Valida
         Validator.registerAnnotation(IsCategorySelected.class);
         userDetailsValidator = new Validator(this);
         userDetailsValidator.setValidationListener(this);
+
+        mGalleryImagesRecycler.setOnItemClickListener(new AdapterView.OnItemClickListener()
+        {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View v, int position, long id)
+            {
+                Intent i = new Intent(AddProductActivity.this, FullScreenViewActivity.class);
+                //i.putExtra("itemURL", image);
+                manager.currentImage =  ((ImageView) v).getDrawable();
+                AddProductActivity.this.startActivity(i);
+            }
+        });
     }
 
     @Override
@@ -211,16 +225,23 @@ public class AddProductActivity extends BaseActivity implements Validator.Valida
     {
         String message = "";
 
-        if(selected_categoryText.getVisibility() == View.GONE && selected_colorText.getVisibility() == View.GONE)
+        if(selected_categoryText.getVisibility() == View.GONE && selected_colorText.getVisibility() == View.GONE )
            message = "Category & Color Must be Selected";
-
         else if(selected_colorText.getVisibility() == View.GONE)
             message = "Color Must be Selected";
         else if(selected_categoryText.getVisibility() == View.GONE)
             message = "Category Must be Selected";
+        else if(images == null) {
+            message = "Please Upload Atleast 1 Photo";
+        }
         else {
             // further logic
+            ProductDetailed productDetailed = new ProductDetailed();
+            productDetailed.setProductName(editTextProductName.getText().toString());
+            productDetailed.setProductPrice(Integer.parseInt(editTextPrice.getText().toString()));
         }
+
+
 
         AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
 

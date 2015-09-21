@@ -5,23 +5,38 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.github.rahatarmanahmed.cpv.CircularProgressView;
+import com.mobsandgeeks.saripaar.ValidationError;
+import com.mobsandgeeks.saripaar.Validator;
+import com.mobsandgeeks.saripaar.annotation.Email;
+import com.mobsandgeeks.saripaar.annotation.Password;
 import com.tisser.puneet.tisserartisan.R;
 
-import butterknife.Bind;
+import java.util.List;
 
-public class LoginActivity extends BaseActivity
+import butterknife.Bind;
+import butterknife.OnClick;
+
+public class LoginActivity extends BaseActivity implements Validator.ValidationListener
 {
 
     @Bind(R.id.loginButton)
     Button mLoginButton;
-    @Bind(R.id.editText_custid)
+    @Email @Bind(R.id.editText_custid)
     EditText mCustIdEditText;
-    @Bind(R.id.editText_password)
+    @Password(min = 6, scheme = Password.Scheme.ALPHA_NUMERIC_MIXED_CASE) @Bind(R.id.editText_password)
     EditText mPasswordEditText;
 
+    @OnClick(R.id.loginButton) void login() {
+        loginValidator.validate();
+    }
+
     private CircularProgressView mProgressBar;
+    private Validator loginValidator;
+
     boolean allowLogin = true;
 
     @Override
@@ -30,6 +45,8 @@ public class LoginActivity extends BaseActivity
         super.onCreate(savedInstanceState);
 
         final String PREFS_NAME = "MyPrefsFile";
+        loginValidator = new Validator(this);
+        loginValidator.setValidationListener(this);
 
         SharedPreferences settings = getSharedPreferences(PREFS_NAME, 0);
 
@@ -55,14 +72,7 @@ public class LoginActivity extends BaseActivity
     @Override
     protected void setupLayout()
     {
-        mLoginButton.setOnClickListener(new View.OnClickListener()
-        {
-            @Override
-            public void onClick(View view)
-            {
-                openNextActivity();
-            }
-        });
+
     }
 
     void openNextActivity()
@@ -71,5 +81,33 @@ public class LoginActivity extends BaseActivity
         /*Intent SearchIntent = new Intent(LoginActivity.this, BaseActivity_NavDrawer.class);
         SearchIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);z
         startActivity(SearchIntent);*/
+    }
+
+    @Override
+    public void onValidationSucceeded()
+    {
+        navigator.navigateToBaseActivity_NavDrawer(LoginActivity.this);
+    }
+
+    @Override
+    public void onValidationFailed(List<ValidationError> errors)
+    {
+        for (ValidationError error : errors) {
+            View view = error.getView();
+            String message = error.getCollatedErrorMessage(this);
+
+            // Display error messages ;)
+            if (view instanceof EditText) {
+                ((EditText) view).setError(message);
+            } else {
+                Toast.makeText(this, message, Toast.LENGTH_LONG).show();
+            }
+
+            if (view instanceof TextView) {
+                ((TextView) view).setError(message);
+            } else {
+                Toast.makeText(this, message, Toast.LENGTH_LONG).show();
+            }
+        }
     }
 }
