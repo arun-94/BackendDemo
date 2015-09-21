@@ -3,6 +3,7 @@ package com.tisser.puneet.tisserartisan.UI.Activity;
 import android.app.FragmentManager;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -13,6 +14,7 @@ import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.Toast;
 
+import com.tisser.puneet.tisserartisan.Global.Constants;
 import com.tisser.puneet.tisserartisan.Queries.AsyncResponse;
 import com.tisser.puneet.tisserartisan.R;
 import com.tisser.puneet.tisserartisan.UI.Fragment.AboutFragment;
@@ -96,6 +98,11 @@ public class BaseActivity_NavDrawer extends BaseActivity implements AsyncRespons
                         return true;
                     case R.id.nav_about:
                         navigator.openNewFragment(BaseActivity_NavDrawer.this, AboutFragment.newInstance());
+                        return true;
+                    case R.id.nav_logout:
+                        SharedPreferences preferences = getSharedPreferences(Constants.PREFS_NAME, 0);
+                        preferences.edit().remove(Constants.PREFS_IS_LOGGED_IN).commit();
+                        navigator.openNewActivity(BaseActivity_NavDrawer.this, new LoginActivity());
                         return true;
                     default:
                         Toast.makeText(getApplicationContext(), "Somethings Wrong", Toast.LENGTH_SHORT).show();

@@ -201,15 +201,13 @@ public class AddProductActivity extends BaseActivity implements Validator.Valida
     @OnClick(R.id.ll_select_category)
     void clickSelectCategory()
     {
-        Intent i = new Intent(this, CategoryListActivity.class);
-        startActivityForResult(i, com.tisser.puneet.tisserartisan.Global.Constants.REQUEST_SELECT_CATEGORY);
+        navigator.openNewActivityForResult(this, new CategoryListActivity(), com.tisser.puneet.tisserartisan.Global.Constants.REQUEST_SELECT_CATEGORY);
     }
 
     @OnClick(R.id.ll_select_color)
     void clickSelectColor()
     {
-        Intent i = new Intent(this, ColorSelectionActivity.class);
-        startActivityForResult(i, com.tisser.puneet.tisserartisan.Global.Constants.REQUEST_SELECT_COLOR);
+        navigator.openNewActivityForResult(this, new ColorSelectionActivity(), com.tisser.puneet.tisserartisan.Global.Constants.REQUEST_SELECT_COLOR);
     }
 
     @Override

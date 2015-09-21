@@ -12,6 +12,7 @@ import com.mobsandgeeks.saripaar.ValidationError;
 import com.mobsandgeeks.saripaar.Validator;
 import com.mobsandgeeks.saripaar.annotation.Email;
 import com.mobsandgeeks.saripaar.annotation.Password;
+import com.tisser.puneet.tisserartisan.Global.Constants;
 import com.tisser.puneet.tisserartisan.R;
 
 import java.util.List;
@@ -34,6 +35,7 @@ public class LoginActivity extends BaseActivity implements Validator.ValidationL
 
     //private CircularProgressView mProgressBar;
     private Validator loginValidator;
+    private SharedPreferences settings;
 
     //boolean allowLogin = true;
 
@@ -42,16 +44,14 @@ public class LoginActivity extends BaseActivity implements Validator.ValidationL
     {
         super.onCreate(savedInstanceState);
 
-        final String PREFS_NAME = "MyPrefsFile";
         loginValidator = new Validator(this);
         loginValidator.setValidationListener(this);
 
-        SharedPreferences settings = getSharedPreferences(PREFS_NAME, 0);
+        settings = getSharedPreferences(Constants.PREFS_NAME, 0);
 
-        if (settings.getBoolean("my_first_time", true))
+        if (settings.getBoolean(Constants.PREFS_IS_LOGGED_IN, false))
         {
             openNextActivity();
-            settings.edit().putBoolean("my_first_time", false).apply();
         }
     }
 
@@ -81,7 +81,8 @@ public class LoginActivity extends BaseActivity implements Validator.ValidationL
     @Override
     public void onValidationSucceeded()
     {
-        navigator.navigateToBaseActivity_NavDrawer(LoginActivity.this);
+        settings.edit().putBoolean(Constants.PREFS_IS_LOGGED_IN, true).commit();
+        openNextActivity();
     }
 
     @Override
