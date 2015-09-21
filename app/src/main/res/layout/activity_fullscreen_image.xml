@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent" >
+                android:layout_height="match_parent">
 
-    <com.tisser.puneet.tisserartisan.Custom.TouchImageView
+    <com.tisser.puneet.tisserartisan.UI.Custom.TouchImageView
         android:id="@+id/imgDisplay"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:src="@drawable/logo"
+        android:background="#000000"
         android:scaleType="fitCenter"
-        android:background="#000000"/>
+        android:src="@drawable/logo"/>
 
     <Button
         android:id="@+id/btnClose"
@@ -17,11 +17,11 @@
         android:layout_height="30dp"
         android:layout_alignParentRight="true"
         android:layout_alignParentTop="true"
-        android:paddingTop="2dp"
-        android:paddingBottom="2dp"
+        android:layout_margin="15dp"
         android:background="@drawable/button_background"
-        android:textColor="#ffffff"
+        android:paddingBottom="2dp"
+        android:paddingTop="2dp"
         android:text="Close"
-        android:layout_margin="15dp"/>
+        android:textColor="#ffffff"/>
 
 </RelativeLayout>

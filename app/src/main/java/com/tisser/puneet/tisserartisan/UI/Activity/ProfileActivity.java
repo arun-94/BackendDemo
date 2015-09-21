@@ -1,18 +1,25 @@
 package com.tisser.puneet.tisserartisan.UI.Activity;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CollapsingToolbarLayout;
+import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.tisser.puneet.tisserartisan.R;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 public class ProfileActivity extends BaseActivity
 {
@@ -63,5 +70,55 @@ public class ProfileActivity extends BaseActivity
         phoneIcon.setImageDrawable(getResources().getDrawable(R.drawable.ic_action_call));
         emailIcon.setImageDrawable(getResources().getDrawable(R.drawable.ic_action_email));
         addressIcon.setImageDrawable(getResources().getDrawable(R.drawable.ic_map_grey_24dp));
+    }
+
+    String field = "";
+    TextView textView = null;
+    @OnClick({ R.id.profile_address_layout, R.id.profile_email_layout, R.id.profile_phone_layout })
+    public void showDetailFillAlert(LinearLayout view)
+    {
+
+        if(view == PhoneLayout)
+        {
+            field = "Phone number";
+            textView = phoneText;
+        }
+        else if (view == AddressLayout)
+        {
+            field = "Address";
+            textView = addressText;
+        }
+        else if (view == EmailLayout)
+        {
+            field = "Email";
+            textView = emailText;
+        }
+
+        AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
+
+        // Setting Dialog Title
+        LayoutInflater inflater = LayoutInflater.from(ProfileActivity.this);
+        AlertDialog.Builder builder = new AlertDialog.Builder(ProfileActivity.this);
+        builder.setTitle("Edit " + field);
+        View customDialogView = inflater.inflate(R.layout.profile_popup_edit_details, null, false);
+        final EditText popupEdittext = (EditText) customDialogView.findViewById(R.id.popup_editText);
+        popupEdittext.setText(textView.getText());
+        builder.setPositiveButton("Save", new DialogInterface.OnClickListener()
+        {
+            public void onClick(DialogInterface dialog, int whichButton)
+            {
+                if (popupEdittext.getText().toString().trim().length() == 0)
+                {
+                    Toast.makeText(ProfileActivity.this, "You can not leave this field Blank!", Toast.LENGTH_SHORT).show();
+                }
+                else
+                {
+                    textView.setText(popupEdittext.getText().toString());
+                }
+            }
+        });
+        builder.setView(customDialogView);
+        builder.create();
+        builder.show();
     }
 }

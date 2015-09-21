@@ -1,4 +1,4 @@
-package com.tisser.puneet.tisserartisan.Custom;
+package com.tisser.puneet.tisserartisan.UI.Custom;
 
 /*
  * Copyright (C) 2013 The Android Open Source Project

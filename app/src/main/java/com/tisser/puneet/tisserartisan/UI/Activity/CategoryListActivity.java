@@ -9,17 +9,16 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
-import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
 
 
-import com.tisser.puneet.tisserartisan.Custom.DividerItemDecoration;
-import com.tisser.puneet.tisserartisan.Custom.RecyclerItemClickListener;
-import com.tisser.puneet.tisserartisan.Custom.SimpleSectionedRecyclerViewAdapter;
-import com.tisser.puneet.tisserartisan.Custom.SlidingTabLayout;
+import com.tisser.puneet.tisserartisan.UI.Custom.DividerItemDecoration;
+import com.tisser.puneet.tisserartisan.UI.Custom.RecyclerItemClickListener;
+import com.tisser.puneet.tisserartisan.UI.Custom.SimpleSectionedRecyclerViewAdapter;
+import com.tisser.puneet.tisserartisan.UI.Custom.SlidingTabLayout;
 import com.tisser.puneet.tisserartisan.Global.Constants;
 import com.tisser.puneet.tisserartisan.Model.Category;
 import com.tisser.puneet.tisserartisan.Model.TisserSettings;
@@ -31,10 +30,6 @@ import com.tisser.puneet.tisserartisan.UI.Adapters.CategoryAdapter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
-
-import retrofit.Callback;
-import retrofit.RetrofitError;
-import retrofit.client.Response;
 
 
 public class CategoryListActivity extends BaseActivity

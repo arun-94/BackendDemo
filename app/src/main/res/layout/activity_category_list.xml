@@ -24,7 +24,7 @@
                     android:layout_height="wrap_content"
                     app:layout_scrollFlags="scroll|enterAlways"/>
 
-                <com.tisser.puneet.tisserartisan.Custom.SlidingTabLayout
+                <com.tisser.puneet.tisserartisan.UI.Custom.SlidingTabLayout
                     android:id="@+id/sliding_tabs"
                     style="@style/HeaderBar"
                     android:layout_width="match_parent"

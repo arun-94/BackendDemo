@@ -1,4 +1,4 @@
-package com.tisser.puneet.tisserartisan.Custom;
+package com.tisser.puneet.tisserartisan.UI.Custom;
 
 /**
  * Created by Arun on 07-Jun-15.

@@ -9,8 +9,8 @@ import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import com.tisser.puneet.tisserartisan.Custom.MarginDecoration;
-import com.tisser.puneet.tisserartisan.Custom.RecyclerItemClickListener;
+import com.tisser.puneet.tisserartisan.UI.Custom.MarginDecoration;
+import com.tisser.puneet.tisserartisan.UI.Custom.RecyclerItemClickListener;
 import com.tisser.puneet.tisserartisan.R;
 import com.tisser.puneet.tisserartisan.UI.Activity.AddProductActivity;
 import com.tisser.puneet.tisserartisan.UI.Adapters.ProductListAdapter;

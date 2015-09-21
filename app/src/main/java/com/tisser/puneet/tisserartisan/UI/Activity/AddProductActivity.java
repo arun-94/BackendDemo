@@ -26,11 +26,12 @@ import com.darsh.multipleimageselect.models.Image;
 import com.mobsandgeeks.saripaar.ValidationError;
 import com.mobsandgeeks.saripaar.Validator;
 import com.mobsandgeeks.saripaar.annotation.NotEmpty;
-import com.tisser.puneet.tisserartisan.Custom.ExpandableHeightGridView;
 import com.tisser.puneet.tisserartisan.CustomRules.IsCategorySelected;
+import com.tisser.puneet.tisserartisan.Model.Product;
 import com.tisser.puneet.tisserartisan.Model.ProductDetailed;
 import com.tisser.puneet.tisserartisan.R;
 import com.tisser.puneet.tisserartisan.UI.Adapters.GalleryImagesAdapter;
+import com.tisser.puneet.tisserartisan.UI.Custom.ExpandableHeightGridView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -48,12 +49,17 @@ public class AddProductActivity extends BaseActivity implements Validator.Valida
 
     @NotEmpty @Bind(R.id.editText_price) EditText editTextPrice;
     @NotEmpty @Bind(R.id.editText_productname) EditText editTextProductName;
-    @OnClick(R.id.button_save) void submit() {
+
+    @OnClick(R.id.button_save)
+    void submit()
+    {
         userDetailsValidator.validate();
     }
 
 
-    @OnClick(R.id.upload_button) void uploadPhoto() {
+    @OnClick(R.id.upload_button)
+    void uploadPhoto()
+    {
         Intent intent = new Intent(AddProductActivity.this, AlbumSelectActivity.class);
         intent.putExtra("" + Constants.INTENT_EXTRA_LIMIT, com.tisser.puneet.tisserartisan.Global.Constants.GALLERY_NUM_IMGS_TO_SELECT);
         startActivityForResult(intent, Constants.REQUEST_CODE);
@@ -88,7 +94,7 @@ public class AddProductActivity extends BaseActivity implements Validator.Valida
             {
                 Intent i = new Intent(AddProductActivity.this, FullScreenViewActivity.class);
                 //i.putExtra("itemURL", image);
-                manager.currentImage =  ((ImageView) v).getDrawable();
+                manager.currentImage = ((ImageView) v).getDrawable();
                 AddProductActivity.this.startActivity(i);
             }
         });
@@ -165,7 +171,7 @@ public class AddProductActivity extends BaseActivity implements Validator.Valida
         else if (requestCode == com.tisser.puneet.tisserartisan.Global.Constants.REQUEST_SELECT_COLOR && resultCode == RESULT_OK)
         {
             String stringExtra = data.getStringExtra(com.tisser.puneet.tisserartisan.Global.Constants.RESULT_COLOR_LIST);
-            if(!stringExtra.equals(""))
+            if (!stringExtra.equals(""))
             {
                 selected_colorText.setVisibility(View.VISIBLE);
                 selected_colorText.setText(stringExtra);
@@ -214,7 +220,8 @@ public class AddProductActivity extends BaseActivity implements Validator.Valida
         startActivityForResult(i, com.tisser.puneet.tisserartisan.Global.Constants.REQUEST_SELECT_COLOR);
     }
 
-    public int dpToPx(long dp) {
+    public int dpToPx(long dp)
+    {
         DisplayMetrics displayMetrics = getApplicationContext().getResources().getDisplayMetrics();
         int px = Math.round(dp * (displayMetrics.xdpi / DisplayMetrics.DENSITY_DEFAULT));
         return px;
@@ -225,22 +232,35 @@ public class AddProductActivity extends BaseActivity implements Validator.Valida
     {
         String message = "";
 
-        if(selected_categoryText.getVisibility() == View.GONE && selected_colorText.getVisibility() == View.GONE )
-           message = "Category & Color Must be Selected";
-        else if(selected_colorText.getVisibility() == View.GONE)
+        if (selected_categoryText.getVisibility() == View.GONE && selected_colorText.getVisibility() == View.GONE)
+        {
+            message = "Category & Color Must be Selected";
+        }
+        else if (selected_colorText.getVisibility() == View.GONE)
+        {
             message = "Color Must be Selected";
-        else if(selected_categoryText.getVisibility() == View.GONE)
+        }
+        else if (selected_categoryText.getVisibility() == View.GONE)
+        {
             message = "Category Must be Selected";
-        else if(images == null) {
+        }
+        else if (images == null)
+        {
             message = "Please Upload Atleast 1 Photo";
         }
-        else {
+        else
+        {
             // further logic
             ProductDetailed productDetailed = new ProductDetailed();
-            productDetailed.setProductName(editTextProductName.getText().toString());
+            productDetailed.setProductName(editTextProductName.getText().toString().trim());
             productDetailed.setProductPrice(Integer.parseInt(editTextPrice.getText().toString()));
+            productDetailed.setProductColor(selected_colorText.getText().toString().trim());
+            //productDetailed.setProductCategoryID();
+            manager.currentProduct = productDetailed;
+            Intent productDetailedIntent = new Intent(this, ProductDetailActivity.class);
+            startActivity(productDetailedIntent);
+            return;
         }
-
 
 
         AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
@@ -264,20 +284,27 @@ public class AddProductActivity extends BaseActivity implements Validator.Valida
     @Override
     public void onValidationFailed(List<ValidationError> errors)
     {
-        for (ValidationError error : errors) {
+        for (ValidationError error : errors)
+        {
             View view = error.getView();
             String message = error.getCollatedErrorMessage(this);
 
             // Display error messages ;)
-            if (view instanceof EditText) {
+            if (view instanceof EditText)
+            {
                 ((EditText) view).setError(message);
-            } else {
+            }
+            else
+            {
                 Toast.makeText(this, message, Toast.LENGTH_LONG).show();
             }
 
-            if (view instanceof TextView) {
+            if (view instanceof TextView)
+            {
                 ((TextView) view).setError(message);
-            } else {
+            }
+            else
+            {
                 Toast.makeText(this, message, Toast.LENGTH_LONG).show();
             }
         }
