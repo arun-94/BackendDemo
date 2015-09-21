@@ -8,8 +8,6 @@ import android.graphics.Point;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.v7.widget.GridLayoutManager;
-import android.util.DisplayMetrics;
 import android.view.Display;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -20,14 +18,12 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.darsh.multipleimageselect.activities.AlbumSelectActivity;
 import com.darsh.multipleimageselect.helpers.Constants;
 import com.darsh.multipleimageselect.models.Image;
 import com.mobsandgeeks.saripaar.ValidationError;
 import com.mobsandgeeks.saripaar.Validator;
 import com.mobsandgeeks.saripaar.annotation.NotEmpty;
 import com.tisser.puneet.tisserartisan.CustomRules.IsCategorySelected;
-import com.tisser.puneet.tisserartisan.Model.Product;
 import com.tisser.puneet.tisserartisan.Model.ProductDetailed;
 import com.tisser.puneet.tisserartisan.R;
 import com.tisser.puneet.tisserartisan.UI.Adapters.GalleryImagesAdapter;
@@ -60,13 +56,11 @@ public class AddProductActivity extends BaseActivity implements Validator.Valida
     @OnClick(R.id.upload_button)
     void uploadPhoto()
     {
-        Intent intent = new Intent(AddProductActivity.this, AlbumSelectActivity.class);
-        intent.putExtra("" + Constants.INTENT_EXTRA_LIMIT, com.tisser.puneet.tisserartisan.Global.Constants.GALLERY_NUM_IMGS_TO_SELECT);
+        Intent intent = navigator.openGallery(AddProductActivity.this);
         startActivityForResult(intent, Constants.REQUEST_CODE);
     }
 
     private ArrayList<Image> images;
-    private GridLayoutManager mLayoutManager;
     private GalleryImagesAdapter mAdapter;
     private Validator userDetailsValidator;
 
@@ -93,7 +87,6 @@ public class AddProductActivity extends BaseActivity implements Validator.Valida
             public void onItemClick(AdapterView<?> parent, View v, int position, long id)
             {
                 Intent i = new Intent(AddProductActivity.this, FullScreenViewActivity.class);
-                //i.putExtra("itemURL", image);
                 manager.currentImage = ((ImageView) v).getDrawable();
                 AddProductActivity.this.startActivity(i);
             }
@@ -109,7 +102,10 @@ public class AddProductActivity extends BaseActivity implements Validator.Valida
     @Override
     protected void setupToolbar()
     {
+
+        assert getSupportActionBar() != null;
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        assert toolbar != null;
         toolbar.setNavigationIcon(R.drawable.ic_close_white_24dp);
         getSupportActionBar().setTitle("Add New Product");
     }
@@ -198,12 +194,8 @@ public class AddProductActivity extends BaseActivity implements Validator.Valida
     {
         int id = item.getItemId();
 
-        if (id == R.id.action_settings)
-        {
-            return true;
-        }
+        return id == R.id.action_settings || super.onOptionsItemSelected(item);
 
-        return super.onOptionsItemSelected(item);
     }
 
     @OnClick(R.id.ll_select_category)
@@ -220,17 +212,10 @@ public class AddProductActivity extends BaseActivity implements Validator.Valida
         startActivityForResult(i, com.tisser.puneet.tisserartisan.Global.Constants.REQUEST_SELECT_COLOR);
     }
 
-    public int dpToPx(long dp)
-    {
-        DisplayMetrics displayMetrics = getApplicationContext().getResources().getDisplayMetrics();
-        int px = Math.round(dp * (displayMetrics.xdpi / DisplayMetrics.DENSITY_DEFAULT));
-        return px;
-    }
-
     @Override
     public void onValidationSucceeded()
     {
-        String message = "";
+        String message;
 
         if (selected_categoryText.getVisibility() == View.GONE && selected_colorText.getVisibility() == View.GONE)
         {

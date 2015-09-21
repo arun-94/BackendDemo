@@ -1,8 +1,6 @@
 package com.tisser.puneet.tisserartisan.UI.Activity;
 
-import android.app.Activity;
-import android.app.Fragment;
-import android.app.FragmentTransaction;
+import android.app.FragmentManager;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -30,8 +28,10 @@ public class BaseActivity_NavDrawer extends BaseActivity implements AsyncRespons
     @Bind(R.id.navigation_view) NavigationView navigationView;
 
 
-    public static Intent getLaunchIntent(final Context context) {
-        Intent intent = new Intent(context, BaseActivity_NavDrawer.class);
+    public static Intent getLaunchIntent(final Context context)
+    {
+        Intent intent;
+        intent = new Intent(context, BaseActivity_NavDrawer.class);
         return intent;
     }
 
@@ -40,7 +40,7 @@ public class BaseActivity_NavDrawer extends BaseActivity implements AsyncRespons
     {
         super.onCreate(savedInstanceState);
         ButterKnife.bind(this);
-        getFragmentManager().beginTransaction().replace(frameLayout.getId(), ProductListFragment.newInstance(), "ProductListFragment").setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN).commit();
+        navigator.openNewProductFragment(BaseActivity_NavDrawer.this, frameLayout);
     }
 
     @Override
@@ -52,6 +52,7 @@ public class BaseActivity_NavDrawer extends BaseActivity implements AsyncRespons
     @Override
     protected void setupToolbar()
     {
+        assert getSupportActionBar() != null;
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
@@ -80,22 +81,21 @@ public class BaseActivity_NavDrawer extends BaseActivity implements AsyncRespons
                 }
                 //Closing drawer on item click
                 mDrawerLayout.closeDrawers();
-                Intent navIntent;
                 //Check to see which item was being clicked and perform appropriate action
                 switch (menuItem.getItemId())
                 {
                     //Replacing the main content with ContentFragment Which is our Inbox View;
                     case R.id.nav_home:
-                        openNewFragment(ProductListFragment.newInstance());
+                        navigator.openNewFragment(BaseActivity_NavDrawer.this, ProductListFragment.newInstance());
                         return true;
                     case R.id.nav_profile:
-                        openNewActivity(new ProfileActivity());
+                        navigator.openNewActivity(BaseActivity_NavDrawer.this, new ProfileActivity());
                         return true;
                     case R.id.nav_add_product:
-                        openNewFragment(ProductListFragment.newInstance());
+                        navigator.openNewFragment(BaseActivity_NavDrawer.this, ProductListFragment.newInstance());
                         return true;
                     case R.id.nav_about:
-                        openNewFragment(AboutFragment.newInstance());
+                        navigator.openNewFragment(BaseActivity_NavDrawer.this, AboutFragment.newInstance());
                         return true;
                     default:
                         Toast.makeText(getApplicationContext(), "Somethings Wrong", Toast.LENGTH_SHORT).show();
@@ -147,16 +147,19 @@ public class BaseActivity_NavDrawer extends BaseActivity implements AsyncRespons
         return super.onOptionsItemSelected(item);
     }
 
-    private void openNewFragment(Fragment fragment)
+    @Override
+    public void onBackPressed()
     {
-        String tag = fragment.getClass().getCanonicalName();
-        getFragmentManager().beginTransaction().replace(R.id.content_frame, fragment, tag).setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN).commit();
-    }
+        FragmentManager fm = getFragmentManager();
+        if (fm.getBackStackEntryCount() > 0)
+        {
 
-    private void openNewActivity(Activity activity)
-    {
-        Intent i = new Intent(BaseActivity_NavDrawer.this, activity.getClass());
-        startActivity(i);
+            fm.getBackStackEntryAt(fm.getBackStackEntryCount() - 1);
+            fm.popBackStack();
+        }
+        else
+        {
+            super.onBackPressed();
+        }
     }
-
 }

@@ -11,7 +11,6 @@ import android.view.MenuItem;
 
 import com.tisser.puneet.tisserartisan.Component.ApplicationComponent;
 import com.tisser.puneet.tisserartisan.Global.AppManager;
-import com.tisser.puneet.tisserartisan.Module.ActivityModule;
 import com.tisser.puneet.tisserartisan.Queries.AsyncResponse;
 import com.tisser.puneet.tisserartisan.Queries.CategoryListQuery;
 import com.tisser.puneet.tisserartisan.Queries.ProductListQuery;
@@ -69,11 +68,6 @@ public abstract class BaseActivity extends AppCompatActivity implements AsyncRes
     }
 
 
-    protected ActivityModule getActivityModule()
-    {
-        return new ActivityModule(this);
-    }
-
     protected abstract int getLayoutResource();
 
     protected abstract void setupToolbar();
@@ -98,6 +92,7 @@ public abstract class BaseActivity extends AppCompatActivity implements AsyncRes
 
         if (id == R.id.action_settings)
         {
+            //TODO
             /*Intent i = new Intent(BaseActivity.this, AboutActivity.class);
             startActivity(i);
             return true;*/

@@ -11,10 +11,11 @@ import butterknife.OnClick;
 
 public class FullScreenViewActivity extends BaseActivity
 {
-    @Bind(R.id.imgDisplay)
-    ImageView imgDisplay;
+    @Bind(R.id.imgDisplay) ImageView imgDisplay;
 
-    @OnClick(R.id.btnClose) void close() {
+    @OnClick(R.id.btnClose)
+    void close()
+    {
         FullScreenViewActivity.this.finish();
     }
 

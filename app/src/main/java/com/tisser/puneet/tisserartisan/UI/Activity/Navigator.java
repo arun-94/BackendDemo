@@ -1,18 +1,23 @@
 package com.tisser.puneet.tisserartisan.UI.Activity;
 
+import android.app.Activity;
+import android.app.Fragment;
+import android.app.FragmentTransaction;
 import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
+import android.widget.FrameLayout;
 import android.widget.Toast;
 
+import com.darsh.multipleimageselect.activities.AlbumSelectActivity;
+import com.darsh.multipleimageselect.helpers.Constants;
 import com.tisser.puneet.tisserartisan.Qualifier.ActivityContext;
+import com.tisser.puneet.tisserartisan.R;
+import com.tisser.puneet.tisserartisan.UI.Fragment.ProductListFragment;
 
 import javax.inject.Inject;
 
-/**
- * Created by Arun on 13-Sep-15.
- */
 public class Navigator
 {
 
@@ -20,8 +25,13 @@ public class Navigator
 
 
     @Inject
-    public void Navigator(@ActivityContext Context activityContext) {
+    public Navigator(@ActivityContext Context activityContext) {
         this.activityContext = activityContext;
+    }
+
+    public Navigator()
+    {
+
     }
 
     public void navigateToBaseActivity_NavDrawer(Context mContext)
@@ -69,4 +79,37 @@ public class Navigator
         activityContext.startActivity(intent);
     }
 
+    public Intent openGallery(Context mContext)
+    {
+        activityContext = mContext;
+        Intent intent = new Intent(mContext, AlbumSelectActivity.class);
+        intent.putExtra("" + Constants.INTENT_EXTRA_LIMIT, com.tisser.puneet.tisserartisan.Global.Constants.GALLERY_NUM_IMGS_TO_SELECT);
+        return intent;
+    }
+
+    public void openNewActivity(Context mContext, Activity activity)
+    {
+        activityContext = mContext;
+        Intent i = new Intent(mContext, activity.getClass());
+        startActivity(i);
+    }
+
+    public void openNewFragment(Context mContext, Fragment mFragment)
+    {
+        activityContext = mContext;
+        String tag = mFragment.getClass().getCanonicalName();
+        ((Activity) mContext).getFragmentManager().beginTransaction().replace(R.id.content_frame, mFragment, tag).addToBackStack(tag).setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN).commit();
+    }
+
+    public void openNewProductFragment(Context mContext, FrameLayout frameLayout)
+    {
+        ((Activity) mContext).getFragmentManager().beginTransaction().replace(frameLayout.getId(), ProductListFragment.newInstance(), "ProductListFragment").addToBackStack("ProductListFragment").setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN).commit();
+    }
+
+    public void takePhoto(Context mContext)
+    {
+        activityContext = mContext;
+        Intent i = new Intent(mContext, AddProductActivity.class);
+        startActivity(i);
+    }
 }

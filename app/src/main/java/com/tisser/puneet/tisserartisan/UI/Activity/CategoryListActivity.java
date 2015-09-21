@@ -8,57 +8,48 @@ import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.SearchView;
 import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
 
-
-import com.tisser.puneet.tisserartisan.UI.Custom.DividerItemDecoration;
-import com.tisser.puneet.tisserartisan.UI.Custom.RecyclerItemClickListener;
-import com.tisser.puneet.tisserartisan.UI.Custom.SimpleSectionedRecyclerViewAdapter;
-import com.tisser.puneet.tisserartisan.UI.Custom.SlidingTabLayout;
 import com.tisser.puneet.tisserartisan.Global.Constants;
 import com.tisser.puneet.tisserartisan.Model.Category;
-import com.tisser.puneet.tisserartisan.Model.TisserSettings;
 import com.tisser.puneet.tisserartisan.Queries.CategoryListQuery;
 import com.tisser.puneet.tisserartisan.Queries.TisserParser;
 import com.tisser.puneet.tisserartisan.R;
 import com.tisser.puneet.tisserartisan.UI.Adapters.CategoryAdapter;
+import com.tisser.puneet.tisserartisan.UI.Custom.DividerItemDecoration;
+import com.tisser.puneet.tisserartisan.UI.Custom.RecyclerItemClickListener;
+import com.tisser.puneet.tisserartisan.UI.Custom.SimpleSectionedRecyclerViewAdapter;
+import com.tisser.puneet.tisserartisan.UI.Custom.SlidingTabLayout;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
+import butterknife.Bind;
+
 
 public class CategoryListActivity extends BaseActivity
 {
 
-    private ViewPager mViewPager;
-    private SlidingTabLayout mSlidingTabLayout;
-    private CategoryPagerAdapter mPagerAdapter;
+    @Bind(R.id.viewpager) ViewPager mViewPager;
+    @Bind(R.id.sliding_tabs) SlidingTabLayout mSlidingTabLayout;
+    //private CategoryPagerAdapter mPagerAdapter;
     private Context mContext;
-    private ProgressBar mProgressBar;
-    private SearchView searchView;
+    @Bind(R.id.progress_loading) ProgressBar mProgressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-
         categoryListQuery.execute();
-
         mContext = this;
-
-        mViewPager = (ViewPager) findViewById(R.id.viewpager);
         mViewPager.setVisibility(View.INVISIBLE);
         // Give the SlidingTabLayout the ViewPager, this must be done AFTER the ViewPager has had
         // it's PagerAdapter set.
-        mSlidingTabLayout = (SlidingTabLayout) findViewById(R.id.sliding_tabs);
         mSlidingTabLayout.setVisibility(View.GONE);
-
-        mProgressBar = (ProgressBar) findViewById(R.id.progress_loading);
 
         //settingsQuery.execute();
         /*getApiService().getSettings(new Callback<TisserSettings>()
@@ -102,7 +93,9 @@ public class CategoryListActivity extends BaseActivity
     @Override
     protected void setupToolbar()
     {
+        assert getSupportActionBar() != null;
         getSupportActionBar().setTitle("Tisser India");
+        assert toolbar != null;
         toolbar.setNavigationIcon(R.drawable.ic_action_logo_1);
         toolbar.canShowOverflowMenu();
     }
@@ -117,7 +110,7 @@ public class CategoryListActivity extends BaseActivity
     public boolean onCreateOptionsMenu(final Menu menu)
     {
         getMenuInflater().inflate(R.menu.menu_search, menu);
-        searchView = (SearchView) menu.findItem(R.id.action_search).getActionView();
+        //SearchView searchView = (SearchView) menu.findItem(R.id.action_search).getActionView();
 /*
         searchView.setIconified(true);
 */
@@ -197,7 +190,7 @@ public class CategoryListActivity extends BaseActivity
         }
     }
 
-    private void consumeApiData(TisserSettings tisserSettings)
+    /*private void consumeApiData(TisserSettings tisserSettings)
     {
         manager.settings = tisserSettings;
     }
@@ -210,7 +203,7 @@ public class CategoryListActivity extends BaseActivity
         mViewPager.setVisibility(View.VISIBLE);
         mViewPager.setAdapter(new CategoryPagerAdapter());
         mSlidingTabLayout.setViewPager(mViewPager);
-    }
+    }*/
 
     class CategoryPagerAdapter extends PagerAdapter
     {
@@ -249,7 +242,7 @@ public class CategoryListActivity extends BaseActivity
             }
             mAdapter.addAll(subsubcategories);
 
-            final List<SimpleSectionedRecyclerViewAdapter.Section> sections = new ArrayList<SimpleSectionedRecyclerViewAdapter.Section>();
+            final List<SimpleSectionedRecyclerViewAdapter.Section> sections = new ArrayList<>();
             int count = 0;
             for (int i = 0; i < subcategories.size(); i++)
             {

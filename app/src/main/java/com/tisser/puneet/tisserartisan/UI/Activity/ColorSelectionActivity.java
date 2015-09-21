@@ -18,6 +18,8 @@ import com.tisser.puneet.tisserartisan.UI.Adapters.ColorSelectionAdapter;
 
 import java.util.ArrayList;
 
+import butterknife.Bind;
+
 public class ColorSelectionActivity extends BaseActivity
 {
 
@@ -26,8 +28,9 @@ public class ColorSelectionActivity extends BaseActivity
     private static ArrayList<TisserColor> requiredTisserColors;
     private SearchView searchView;
     private ColorSelectionAdapter objAdapter;
-    private ListView lv = null;
-    private LinearLayout llContainer = null;
+
+    @Bind(R.id.data_container)
+    LinearLayout llContainer;
 
     @Override
     public void onCreate(Bundle savedInstanceState)
@@ -46,6 +49,7 @@ public class ColorSelectionActivity extends BaseActivity
     @Override
     protected void setupToolbar()
     {
+        assert getSupportActionBar() != null;
         getSupportActionBar().setTitle("Select Color");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
@@ -53,7 +57,6 @@ public class ColorSelectionActivity extends BaseActivity
     @Override
     protected void setupLayout()
     {
-        llContainer = (LinearLayout) findViewById(R.id.data_container);
         requiredTisserColors = new ArrayList<>();
         tisserColors = manager.colorList;
 
@@ -64,7 +67,7 @@ public class ColorSelectionActivity extends BaseActivity
 
         objAdapter = new ColorSelectionAdapter(this, tisserColors);
 
-        lv = new ListView(this);
+        ListView lv = new ListView(this);
         //lv.setDivider(getResources().getDrawable(R.layout.divider));
         llContainer.addView(lv);
         lv.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT));
@@ -95,7 +98,7 @@ public class ColorSelectionActivity extends BaseActivity
 
     private String getSelectedColorNames()
     {
-        StringBuffer sb = new StringBuffer();
+        StringBuilder sb = new StringBuilder();
 
         for (int i = 0; i < requiredTisserColors.size(); i++)
         {

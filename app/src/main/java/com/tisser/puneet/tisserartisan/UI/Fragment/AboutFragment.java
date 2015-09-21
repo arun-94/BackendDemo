@@ -74,8 +74,7 @@ public class AboutFragment extends BaseFragment
 
     public static AboutFragment newInstance()
     {
-        AboutFragment fragment = new AboutFragment();
-        return fragment;
+        return new AboutFragment();
     }
 
     public AboutFragment()
@@ -108,6 +107,5 @@ public class AboutFragment extends BaseFragment
         abouttvphone.setText(manager.settings.getContact());
         abouttvemail.setText(manager.settings.getEmail());
     }
-
 
 }

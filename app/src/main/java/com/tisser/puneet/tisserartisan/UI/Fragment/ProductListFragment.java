@@ -1,6 +1,5 @@
 package com.tisser.puneet.tisserartisan.UI.Fragment;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -9,11 +8,11 @@ import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.tisser.puneet.tisserartisan.R;
+import com.tisser.puneet.tisserartisan.UI.Activity.BaseActivity_NavDrawer;
+import com.tisser.puneet.tisserartisan.UI.Adapters.ProductListAdapter;
 import com.tisser.puneet.tisserartisan.UI.Custom.MarginDecoration;
 import com.tisser.puneet.tisserartisan.UI.Custom.RecyclerItemClickListener;
-import com.tisser.puneet.tisserartisan.R;
-import com.tisser.puneet.tisserartisan.UI.Activity.AddProductActivity;
-import com.tisser.puneet.tisserartisan.UI.Adapters.ProductListAdapter;
 
 import butterknife.Bind;
 import butterknife.OnClick;
@@ -80,8 +79,7 @@ public class ProductListFragment extends BaseFragment
     @OnClick(R.id.fab_takePhoto)
     void addProduct()
     {
-        Intent i = new Intent(getActivity(), AddProductActivity.class);
-        startActivity(i);
+        ((BaseActivity_NavDrawer) getActivity()).navigator.takePhoto(getActivity());
     }
 
 

@@ -4,8 +4,6 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.design.widget.AppBarLayout;
-import android.support.design.widget.CollapsingToolbarLayout;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -51,6 +49,7 @@ public class ProfileActivity extends BaseActivity
     @Override
     protected void setupToolbar()
     {
+        assert getSupportActionBar() != null;
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
@@ -94,7 +93,7 @@ public class ProfileActivity extends BaseActivity
             textView = emailText;
         }
 
-        AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
+        //AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
 
         // Setting Dialog Title
         LayoutInflater inflater = LayoutInflater.from(ProfileActivity.this);
