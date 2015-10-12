@@ -45,6 +45,7 @@ public class AddProductActivity extends BaseActivity implements Validator.Valida
 
     @NotEmpty @Bind(R.id.editText_price) EditText editTextPrice;
     @NotEmpty @Bind(R.id.editText_productname) EditText editTextProductName;
+    @Bind(R.id.editText_productdescription) EditText editTextProductDescription;
 
     @OnClick(R.id.button_save)
     void submit()
@@ -61,6 +62,7 @@ public class AddProductActivity extends BaseActivity implements Validator.Valida
     }
 
     private ArrayList<Image> images;
+    private ArrayList<String> imagePaths;
     private GalleryImagesAdapter mAdapter;
     private Validator userDetailsValidator;
 
@@ -136,6 +138,8 @@ public class AddProductActivity extends BaseActivity implements Validator.Valida
         mGalleryImagesRecycler.setNumColumns(1);
         mGalleryImagesRecycler.requestLayout();
         mGalleryImagesRecycler.setAdapter(mAdapter);
+
+        imagePaths = new ArrayList<>();
     }
 
     @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
@@ -145,7 +149,8 @@ public class AddProductActivity extends BaseActivity implements Validator.Valida
         if (requestCode == Constants.REQUEST_CODE && resultCode == RESULT_OK && data != null)
         {
             images = data.getParcelableArrayListExtra(Constants.INTENT_EXTRA_IMAGES);
-
+            for(int i = 0; i < images.size(); i++)
+                imagePaths.add(images.get(i).path);
             Display display = getWindowManager().getDefaultDisplay();
             Point size = new Point();
             display.getSize(size);
@@ -240,8 +245,11 @@ public class AddProductActivity extends BaseActivity implements Validator.Valida
             productDetailed.setProductName(editTextProductName.getText().toString().trim());
             productDetailed.setProductPrice(Integer.parseInt(editTextPrice.getText().toString()));
             productDetailed.setProductColor(selected_colorText.getText().toString().trim());
-            //productDetailed.setProductCategoryID();
+            productDetailed.setProductCategoryID(manager.currentCategoryID);
+            productDetailed.setProductImgPaths(imagePaths);
+            productDetailed.setProductDescription(editTextProductDescription.getText().toString().trim());
             manager.currentProduct = productDetailed;
+            manager.currentProduct.makePostURL();
             Intent productDetailedIntent = new Intent(this, ProductDetailActivity.class);
             startActivity(productDetailedIntent);
             return;
