@@ -94,6 +94,13 @@ public class Navigator
         startActivity(i);
     }
 
+    public void openNewActivityForResult(Context mContext, Activity activity, int requestCode)
+    {
+        activityContext = mContext;
+        Intent i = new Intent(mContext, activity.getClass());
+        ((Activity) mContext).startActivityForResult(i, requestCode);
+    }
+
     public void openNewFragment(Context mContext, Fragment mFragment)
     {
         activityContext = mContext;
@@ -103,7 +110,7 @@ public class Navigator
 
     public void openNewProductFragment(Context mContext, FrameLayout frameLayout)
     {
-        ((Activity) mContext).getFragmentManager().beginTransaction().replace(frameLayout.getId(), ProductListFragment.newInstance(), "ProductListFragment").addToBackStack("ProductListFragment").setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN).commit();
+        ((Activity) mContext).getFragmentManager().beginTransaction().replace(R.id.content_frame, ProductListFragment.newInstance(), "ProductListFragment").addToBackStack("ProductListFragment").setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN).commit();
     }
 
     public void takePhoto(Context mContext)
