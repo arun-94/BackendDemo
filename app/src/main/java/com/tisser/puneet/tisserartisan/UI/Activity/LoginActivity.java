@@ -2,6 +2,7 @@ package com.tisser.puneet.tisserartisan.UI.Activity;
 
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -13,12 +14,17 @@ import com.mobsandgeeks.saripaar.Validator;
 import com.mobsandgeeks.saripaar.annotation.Email;
 import com.mobsandgeeks.saripaar.annotation.Password;
 import com.tisser.puneet.tisserartisan.Global.Constants;
+import com.tisser.puneet.tisserartisan.HTTP.LoginService;
+import com.tisser.puneet.tisserartisan.HTTP.ServiceGenerator;
 import com.tisser.puneet.tisserartisan.R;
 
 import java.util.List;
 
 import butterknife.Bind;
 import butterknife.OnClick;
+import retrofit.Callback;
+import retrofit.RetrofitError;
+import retrofit.client.Response;
 
 public class LoginActivity extends BaseActivity implements Validator.ValidationListener
 {
@@ -82,7 +88,31 @@ public class LoginActivity extends BaseActivity implements Validator.ValidationL
     public void onValidationSucceeded()
     {
         settings.edit().putBoolean(Constants.PREFS_IS_LOGGED_IN, true).commit();
-        openNextActivity();
+        loginPostCall(mCustIdEditText.getText().toString(), mPasswordEditText.getText().toString());
+        //openNextActivity();
+    }
+
+    private void loginPostCall(String userId, String password)
+    {
+        String action = "validateUser";
+        LoginService service = ServiceGenerator.createService(LoginService.class, LoginService.BASE_URL);
+
+        service.validate(action, userId,  password, new Callback<String>()
+        {
+            @Override
+            public void success(String s, Response response)
+            {
+                Log.e("Login", "success" + s);
+                Log.e("Data", "" + response);
+            }
+
+            @Override
+            public void failure(RetrofitError error)
+            {
+                Log.e("Login", "error");
+                Log.e("Data", "" + error);
+            }
+        });
     }
 
     @Override
