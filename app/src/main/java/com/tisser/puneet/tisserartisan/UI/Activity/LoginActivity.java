@@ -10,19 +10,13 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.github.rahatarmanahmed.cpv.CircularProgressView;
 import com.mobsandgeeks.saripaar.ValidationError;
 import com.mobsandgeeks.saripaar.Validator;
 import com.mobsandgeeks.saripaar.annotation.Email;
 import com.mobsandgeeks.saripaar.annotation.Password;
 import com.tisser.puneet.tisserartisan.Global.Constants;
-import com.tisser.puneet.tisserartisan.HTTP.LoginService;
-import com.tisser.puneet.tisserartisan.HTTP.ServiceGenerator;
 import com.tisser.puneet.tisserartisan.R;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
 import java.util.List;
 
 import butterknife.Bind;
@@ -30,7 +24,6 @@ import butterknife.OnClick;
 import retrofit.Callback;
 import retrofit.RetrofitError;
 import retrofit.client.Response;
-import retrofit.mime.TypedByteArray;
 
 import static com.tisser.puneet.tisserartisan.HTTP.RestClient.getApiService;
 
@@ -125,6 +118,7 @@ public class LoginActivity extends BaseActivity implements Validator.ValidationL
                 Log.e("Data", "" + error);
             }
         });
+
     }
 
     @Override

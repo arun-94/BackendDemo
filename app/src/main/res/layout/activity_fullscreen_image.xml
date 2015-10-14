@@ -12,6 +12,19 @@
         android:src="@drawable/logo"/>
 
     <Button
+        android:id="@+id/deleteImage"
+        android:layout_width="wrap_content"
+        android:layout_height="30dp"
+        android:background="@drawable/button_background"
+        android:paddingBottom="2dp"
+        android:paddingTop="2dp"
+        android:text="Delete"
+        android:textColor="#ffffff"
+        android:layout_alignTop="@+id/btnClose"
+        android:layout_toLeftOf="@+id/btnClose"
+        android:layout_toStartOf="@+id/btnClose"/>
+
+    <Button
         android:id="@+id/btnClose"
         android:layout_width="wrap_content"
         android:layout_height="30dp"

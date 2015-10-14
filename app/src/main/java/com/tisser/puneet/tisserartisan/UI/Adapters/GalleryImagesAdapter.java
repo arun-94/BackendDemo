@@ -58,6 +58,7 @@ public class GalleryImagesAdapter extends BaseAdapter
         notifyDataSetChanged();
     }
 
+
     public void remove(int position)
     {
         if (position < getCount())

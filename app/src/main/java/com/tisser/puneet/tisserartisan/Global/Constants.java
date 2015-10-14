@@ -17,4 +17,5 @@ public final class Constants
     public static final String RESULT_SUBCATEGORY_NAME = "resultSubCategoryName";
     public static final String RESULT_SUBSUBCATEGORY_NAME = "resultSubsubCategoryName";
     public static final String RESULT_COLOR_LIST = "resultColorList";
+    public static final int RESULT_IMAGE_FULLSCREEN = 1;
 }

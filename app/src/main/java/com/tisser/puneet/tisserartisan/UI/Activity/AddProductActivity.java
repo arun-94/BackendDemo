@@ -27,8 +27,6 @@ import com.mobsandgeeks.saripaar.ValidationError;
 import com.mobsandgeeks.saripaar.Validator;
 import com.mobsandgeeks.saripaar.annotation.NotEmpty;
 import com.tisser.puneet.tisserartisan.CustomRules.IsCategorySelected;
-import com.tisser.puneet.tisserartisan.HTTP.ProductUploadService;
-import com.tisser.puneet.tisserartisan.HTTP.ServiceGenerator;
 import com.tisser.puneet.tisserartisan.Model.ProductDetailed;
 import com.tisser.puneet.tisserartisan.R;
 import com.tisser.puneet.tisserartisan.UI.Adapters.GalleryImagesAdapter;
@@ -90,8 +88,9 @@ public class AddProductActivity extends BaseActivity implements Validator.Valida
             public void onItemClick(AdapterView<?> parent, View v, int position, long id)
             {
                 Intent i = new Intent(AddProductActivity.this, FullScreenViewActivity.class);
+                i.putExtra("img_pos", position);
                 manager.currentImage = ((ImageView) v).getDrawable();
-                AddProductActivity.this.startActivity(i);
+                AddProductActivity.this.startActivityForResult(i, com.tisser.puneet.tisserartisan.Global.Constants.RESULT_IMAGE_FULLSCREEN);
             }
         });
     }
@@ -129,6 +128,7 @@ public class AddProductActivity extends BaseActivity implements Validator.Valida
 
         mGalleryImagesRecycler.setExpanded(true);
         mAdapter = new GalleryImagesAdapter(this, null);
+        images = new ArrayList<>();
 
         Display display = getWindowManager().getDefaultDisplay();
         Point size = new Point();
@@ -151,17 +151,35 @@ public class AddProductActivity extends BaseActivity implements Validator.Valida
     {
         if (requestCode == Constants.REQUEST_CODE && resultCode == RESULT_OK && data != null)
         {
-            images = data.getParcelableArrayListExtra(Constants.INTENT_EXTRA_IMAGES);
-            for (int i = 0; i < images.size(); i++)
+            ArrayList<Image> tempImages = data.getParcelableArrayListExtra(Constants.INTENT_EXTRA_IMAGES);
+            ArrayList<Image> temp1Images = new ArrayList<>();
+            for (int i = 0; i < tempImages.size(); i++)
             {
-                imagePaths.add(images.get(i).path);
+                if (tempImages.get(i) == null) tempImages.remove(i);
             }
+
+            int j = 0;
+            while (images.size() < 5 && j < tempImages.size())
+            {
+                images.add(tempImages.get(j));
+                temp1Images.add(tempImages.get(j));
+                j++;
+            }
+            if (j < tempImages.size())
+            {
+                Toast.makeText(AddProductActivity.this, "You can only add upto 5 images", Toast.LENGTH_SHORT).show();
+            }
+            for (int i = 0; i < temp1Images.size(); i++)
+            {
+                imagePaths.add(temp1Images.get(i).path);
+            }
+
             Display display = getWindowManager().getDefaultDisplay();
             Point size = new Point();
             display.getSize(size);
             int width = size.x;
 
-            mAdapter.addAll(images, width - 40);
+            mAdapter.addAll(temp1Images, width - 40);
             mGalleryImagesRecycler.setNumColumns(4);
             mGalleryImagesRecycler.setAdapter(mAdapter);
         }
@@ -187,6 +205,19 @@ public class AddProductActivity extends BaseActivity implements Validator.Valida
             {
                 selected_colorText.setVisibility(View.GONE);
                 colorIcon.setImageDrawable(getResources().getDrawable(R.drawable.ic_palette_grey_24dp));
+            }
+        }
+        else if (requestCode == com.tisser.puneet.tisserartisan.Global.Constants.RESULT_IMAGE_FULLSCREEN && resultCode == RESULT_OK)
+        {
+            int imagePos = data.getIntExtra("img_pos", -1);
+            Log.d(AddProductActivity.class.getCanonicalName(), "" + mAdapter.getItem(imagePos));
+            Log.d(AddProductActivity.class.getCanonicalName(), "" + images.get(imagePos));
+
+            if (imagePos != -1)
+            {
+                mAdapter.remove(imagePos);
+                images.remove(imagePos);
+                imagePaths.remove(imagePos);
             }
         }
     }
