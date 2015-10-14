@@ -13,6 +13,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.cocosw.bottomsheet.BottomSheet;
 import com.tisser.puneet.tisserartisan.R;
 
 import butterknife.Bind;
@@ -23,13 +24,28 @@ public class ProfileActivity extends BaseActivity
 {
 
     @Bind(R.id.appbar) AppBarLayout mAppBarLayout;
-    @Bind(R.id.artisan_profile_image) ImageView mProfileImage;
     @Bind(R.id.profile_address_layout) ViewGroup AddressLayout;
     @Bind(R.id.profile_email_layout) LinearLayout EmailLayout;
     @Bind(R.id.profile_phone_layout) LinearLayout PhoneLayout;
     @Bind(R.id.tv_artisan_name) TextView mArtisanName;
     @Bind(R.id.tv_artisan_location) TextView mArtisanLocation;
     @Bind(R.id.tv_artisan_product_count) TextView mArtisanProductCount;
+
+    @OnClick(R.id.artisan_profile_image)
+    void changeImage() {
+        new BottomSheet.Builder(this).title("Change Profile Picture").sheet(R.menu.menu_upload_profileimage).listener(new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                switch (which) {
+                    case R.id.uploadGallery:
+                        break;
+                    case R.id.uploadCamera:
+                        break;
+                }
+            }
+        }).show();
+    }
+
 
     ImageView phoneIcon, addressIcon, emailIcon;
     TextView phoneText, addressText, emailText;

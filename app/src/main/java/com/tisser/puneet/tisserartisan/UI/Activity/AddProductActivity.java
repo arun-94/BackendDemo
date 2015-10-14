@@ -158,7 +158,7 @@ public class AddProductActivity extends BaseActivity implements Validator.Valida
             }
 
             int j = 0;
-            while (images.size() < 5 && j < tempImages.size())
+            while (images.size() < com.tisser.puneet.tisserartisan.Global.Constants.GALLERY_NUM_IMGS_TO_SELECT && j < tempImages.size())
             {
                 images.add(tempImages.get(j));
                 temp1Images.add(tempImages.get(j));
@@ -166,7 +166,7 @@ public class AddProductActivity extends BaseActivity implements Validator.Valida
             }
             if (j < tempImages.size())
             {
-                Toast.makeText(AddProductActivity.this, "You can only add upto 5 images", Toast.LENGTH_SHORT).show();
+                Toast.makeText(AddProductActivity.this, "You can only add upto " + com.tisser.puneet.tisserartisan.Global.Constants.GALLERY_NUM_IMGS_TO_SELECT + " images", Toast.LENGTH_SHORT).show();
             }
             for (int i = 0; i < temp1Images.size(); i++)
             {
