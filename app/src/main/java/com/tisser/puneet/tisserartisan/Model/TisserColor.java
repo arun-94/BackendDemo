@@ -1,13 +1,14 @@
 package com.tisser.puneet.tisserartisan.Model;
 
-/**
- * Created by Puneet on 16-09-2015.
- */
-public class TisserColor
+import com.google.gson.annotations.SerializedName;
+
+import java.util.Objects;
+
+public class TisserColor implements Comparable
 {
-    private String id;
-    private String name;
-    private String code;
+    @SerializedName("id") private String id;
+    @SerializedName("color") private String name;
+    @SerializedName("code") private String code;
     private boolean selected;
 
 
@@ -16,41 +17,26 @@ public class TisserColor
         return id;
     }
 
-    /**
-     * @param id The id
-     */
     public void setId(String id)
     {
         this.id = id;
     }
 
-    /**
-     * @return The color
-     */
     public String getColor()
     {
         return name;
     }
 
-    /**
-     * @param color The color
-     */
     public void setColor(String color)
     {
         this.name = color;
     }
 
-    /**
-     * @return The code
-     */
     public String getCode()
     {
         return code;
     }
 
-    /**
-     * @param code The code
-     */
     public void setCode(String code)
     {
         this.code = code;
@@ -64,5 +50,18 @@ public class TisserColor
     public void setSelected(boolean selected)
     {
         this.selected = selected;
+    }
+
+    @Override
+    public int compareTo(Object compareColor)
+    {
+        String compareColorCode = ((TisserColor) compareColor).getCode();
+        /* For Ascending order*/
+        int res = String.CASE_INSENSITIVE_ORDER.compare(compareColorCode, this.code);
+        if (res == 0)
+        {
+            res = this.name.compareTo(compareColorCode);
+        }
+        return res;
     }
 }

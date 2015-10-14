@@ -29,8 +29,7 @@ public class ColorSelectionActivity extends BaseActivity
     private SearchView searchView;
     private ColorSelectionAdapter objAdapter;
 
-    @Bind(R.id.data_container)
-    LinearLayout llContainer;
+    @Bind(R.id.data_container) LinearLayout llContainer;
 
     @Override
     public void onCreate(Bundle savedInstanceState)
@@ -105,7 +104,7 @@ public class ColorSelectionActivity extends BaseActivity
             if (requiredTisserColors.get(i).isSelected())
             {
                 sb.append(requiredTisserColors.get(i).getColor());
-                sb.append(",");
+                sb.append(", ");
             }
         }
 

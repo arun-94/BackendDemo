@@ -1,20 +1,6 @@
 package com.tisser.puneet.tisserartisan.Model;
 
-import android.util.Log;
-
-import com.tisser.puneet.tisserartisan.HTTP.ProductUploadService;
-import com.tisser.puneet.tisserartisan.HTTP.ServiceGenerator;
-import com.tisser.puneet.tisserartisan.UI.Activity.Navigator;
-
-import java.io.File;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
-
-import retrofit.Callback;
-import retrofit.RetrofitError;
-import retrofit.client.Response;
-import retrofit.mime.TypedFile;
 
 
 /**

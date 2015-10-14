@@ -33,9 +33,8 @@
                 <com.tisser.puneet.tisserartisan.UI.Custom.ExpandableHeightGridView
                     android:id="@+id/gallery_images_recycler"
                     android:layout_width="match_parent"
-                    android:layout_height="50dp"
+                    android:layout_height="wrap_content"
                     android:layout_margin="5dp"
-                    android:padding="0dp"
                     android:clipChildren="false"
                     android:alwaysDrawnWithCache="true"
                     android:stretchMode="columnWidth"
@@ -45,7 +44,8 @@
                     android:nestedScrollingEnabled="false"
                     android:foreground="?android:attr/selectableItemBackground"
                     android:clickable="true"
-                    />
+                    android:paddingBottom="32dp"
+                    android:layout_weight="0"/>
 
                 <include layout="@layout/divider"/>
 

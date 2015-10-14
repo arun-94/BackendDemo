@@ -3,7 +3,7 @@
     android:layout_height="match_parent"
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:text="No Images Available"
+    android:text="No Images Added"
     android:gravity="center"
     android:textAlignment="gravity"
     android:id='@+id/empty_grid_text'>

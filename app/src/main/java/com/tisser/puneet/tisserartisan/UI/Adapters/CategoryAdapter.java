@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.tisser.puneet.tisserartisan.Model.Category;
+import com.tisser.puneet.tisserartisan.Model.Subsubcategory;
 import com.tisser.puneet.tisserartisan.R;
 
 import java.util.ArrayList;
@@ -18,29 +19,29 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.VHCate
 {
 
     private final Context mContext;
-    private List<Category> mData;
+    private List<Subsubcategory> mData;
 
-    public CategoryAdapter(Context context, ArrayList<Category> data)
+    public CategoryAdapter(Context context, ArrayList<Subsubcategory> data)
     {
         mContext = context;
         if (data != null)
         {
-            mData = new ArrayList<Category>(data);
+            mData = new ArrayList<Subsubcategory>(data);
         }
         else
         {
-            mData = new ArrayList<Category>();
+            mData = new ArrayList<Subsubcategory>();
         }
     }
 
-    public void add(Category s, int position)
+    public void add(Subsubcategory s, int position)
     {
         position = position == -1 ? getItemCount() : position;
         mData.add(position, s);
         notifyItemInserted(position);
     }
 
-    public void addAll(ArrayList<Category> s)
+    public void addAll(ArrayList<Subsubcategory> s)
     {
         mData.addAll(s);
         notifyDataSetChanged();

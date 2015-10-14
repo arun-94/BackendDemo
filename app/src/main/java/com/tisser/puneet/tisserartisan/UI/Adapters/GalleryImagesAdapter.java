@@ -48,9 +48,9 @@ public class GalleryImagesAdapter extends BaseAdapter
     public void addAll(ArrayList<Image> s, int reqWidth)
     {
         this.reqWidth = reqWidth;
-        for(int i = 0; i < mGalleryImages.size(); i++) {
-            if(mGalleryImages.get(i) == null)
-                mGalleryImages.remove(i);
+        for (int i = 0; i < mGalleryImages.size(); i++)
+        {
+            if (mGalleryImages.get(i) == null) mGalleryImages.remove(i);
         }
 
         mGalleryImages.addAll(s);
@@ -113,9 +113,10 @@ public class GalleryImagesAdapter extends BaseAdapter
     {
         GalleryImage viewHolder;
 
-        if(convertView == null) {
+        if (convertView == null)
+        {
             LayoutInflater inflater = LayoutInflater.from(mContext);
-            if(mGalleryImages.get(0) != null)
+            if (mGalleryImages.get(0) != null)
             {
                 convertView = inflater.inflate(R.layout.image_grid_item, parent, false);
                 viewHolder = new GalleryImage();
@@ -123,7 +124,8 @@ public class GalleryImagesAdapter extends BaseAdapter
                 viewHolder.image.getLayoutParams().height = reqWidth / 4;
                 viewHolder.image.getLayoutParams().width = reqWidth / 4;
             }
-            else {
+            else
+            {
                 convertView = inflater.inflate(R.layout.grid_empty_text, parent, false);
                 viewHolder = new GalleryImage();
                 viewHolder.text = (TextView) convertView.findViewById(R.id.empty_grid_text);
@@ -131,12 +133,14 @@ public class GalleryImagesAdapter extends BaseAdapter
             }
             convertView.setTag(viewHolder);
         }
-        else {
+        else
+        {
             viewHolder = (GalleryImage) convertView.getTag();
         }
 
 
-        if(mGalleryImages.get(0) != null) {
+        if (mGalleryImages.get(0) != null)
+        {
             Image i = mGalleryImages.get(position);
             Uri uri = Uri.fromFile(new File(i.path));
             Picasso.with(mContext).load(uri).fit().into(viewHolder.image);

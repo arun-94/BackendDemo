@@ -1,22 +1,31 @@
 package com.tisser.puneet.tisserartisan.Global;
 
 import android.app.Application;
+import android.graphics.Color;
 import android.graphics.drawable.Drawable;
+import android.util.Log;
+import android.view.View;
 
 import com.tisser.puneet.tisserartisan.Component.ApplicationComponent;
 import com.tisser.puneet.tisserartisan.Component.DaggerApplicationComponent;
 import com.tisser.puneet.tisserartisan.Model.Category;
 import com.tisser.puneet.tisserartisan.Model.Product;
 import com.tisser.puneet.tisserartisan.Model.ProductDetailed;
+import com.tisser.puneet.tisserartisan.Model.Subcategory;
+import com.tisser.puneet.tisserartisan.Model.Subsubcategory;
 import com.tisser.puneet.tisserartisan.Model.TisserColor;
 import com.tisser.puneet.tisserartisan.Model.TisserSettings;
 import com.tisser.puneet.tisserartisan.Module.ApplicationModule;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
-/**
- * Created by Puneet on 16-07-2015.
- */
+import retrofit.Callback;
+import retrofit.RetrofitError;
+import retrofit.client.Response;
+
+import static com.tisser.puneet.tisserartisan.HTTP.RestClient.getApiService;
+
 public class AppManager extends Application
 {
 
@@ -24,14 +33,15 @@ public class AppManager extends Application
     private String sessionID;
 
     public ArrayList<Category> categoryList = new ArrayList<>();
-    public ArrayList<Product> productList = new ArrayList<>();
-    public Category currentCategory = new Category();
-    public Category currentSubCategory = new Category();
-    public Category currentSubsubCategory = new Category();
-    public ProductDetailed currentProduct = new ProductDetailed();
-    public TisserSettings settings = new TisserSettings();
     public ArrayList<TisserColor> colorList = new ArrayList<>();
-    public String hello = "hello";
+    public ArrayList<Product> productList = new ArrayList<>();
+    public TisserSettings settings = new TisserSettings();
+
+    // Currently selected items
+    public Category currentCategory = new Category();
+    public Subcategory currentSubCategory = new Subcategory();
+    public Subsubcategory currentSubsubCategory = new Subsubcategory();
+    public ProductDetailed currentProduct = new ProductDetailed();
     public int currentCategoryID;
     public Drawable currentImage;
 
@@ -41,22 +51,45 @@ public class AppManager extends Application
         super.onCreate();
         initializeDependencies();
 
-        TisserColor c = new TisserColor();
-        c.setColor("Yo");
-        c.setCode("#ffffff");
-        colorList.add(c);
-        c = new TisserColor();
-        c.setColor("Yo2");
-        c.setCode("#ff00ff");
-        colorList.add(c);
-        c = new TisserColor();
-        c.setColor("Yo3");
-        c.setCode("#0000ff");
-        colorList.add(c);
-        c = new TisserColor();
-        c.setColor("Yo4");
-        c.setCode("#ff0000");
-        colorList.add(c);
+        getApiService().getColorsList(new Callback<ArrayList<TisserColor>>()
+        {
+
+            @Override
+            public void success(ArrayList<TisserColor> colors, Response response)
+            {
+                ArrayList<TisserColor> unneededColors = new ArrayList<TisserColor>();
+                for(TisserColor c : colors)
+                {
+                    if(!c.getCode().startsWith("#"))
+                        unneededColors.add(c);
+                }
+                colors.removeAll(unneededColors);
+                Collections.sort(colors);
+                colorList = colors;
+            }
+
+            @Override
+            public void failure(RetrofitError error)
+            {
+                //Alert for no internet!
+            }
+        });
+
+        getApiService().getCategoryList(new Callback<ArrayList<Category>>()
+        {
+
+            @Override
+            public void success(ArrayList<Category> categories, Response response)
+            {
+                categoryList = categories;
+            }
+
+            @Override
+            public void failure(RetrofitError error)
+            {
+                //Alert for no internet!
+            }
+        });
 
     }
 
@@ -81,6 +114,4 @@ public class AppManager extends Application
     {
         sessionID = sID;
     }
-
-
 }

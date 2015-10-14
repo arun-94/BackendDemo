@@ -12,29 +12,19 @@ import android.view.MenuItem;
 import com.tisser.puneet.tisserartisan.Component.ApplicationComponent;
 import com.tisser.puneet.tisserartisan.Global.AppManager;
 import com.tisser.puneet.tisserartisan.Queries.AsyncResponse;
-import com.tisser.puneet.tisserartisan.Queries.CategoryListQuery;
-import com.tisser.puneet.tisserartisan.Queries.ProductListQuery;
-import com.tisser.puneet.tisserartisan.Queries.SearchQuery;
-import com.tisser.puneet.tisserartisan.Queries.SettingsQuery;
 import com.tisser.puneet.tisserartisan.R;
 
 import javax.inject.Inject;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
-import static com.tisser.puneet.tisserartisan.HTTP.RestClient.getApiService;
 
 
 public abstract class BaseActivity extends AppCompatActivity implements AsyncResponse
 {
-    @Inject
-    public Navigator navigator;
+    @Inject public Navigator navigator;
     @Nullable @Bind(R.id.toolbar) Toolbar toolbar;
     AppManager manager;
-    CategoryListQuery categoryListQuery;
-    SettingsQuery settingsQuery;
-    SearchQuery searchQuery;
-    ProductListQuery productListQuery;
 
 
     AlertDialog dialog;
@@ -45,14 +35,6 @@ public abstract class BaseActivity extends AppCompatActivity implements AsyncRes
         super.onCreate(savedInstanceState);
         this.getApplicationComponent().inject(this);
         manager = (AppManager) getApplication();
-        categoryListQuery = new CategoryListQuery();
-        categoryListQuery.delegate = this;
-        settingsQuery = new SettingsQuery();
-        settingsQuery.delegate = this;
-        searchQuery = new SearchQuery();
-        searchQuery.delegate = this;
-        productListQuery = new ProductListQuery();
-        productListQuery.delegate = this;
         setContentView(getLayoutResource());
         ButterKnife.bind(this);
 
@@ -64,8 +46,9 @@ public abstract class BaseActivity extends AppCompatActivity implements AsyncRes
         setupLayout();
     }
 
-    protected ApplicationComponent getApplicationComponent() {
-        return ((AppManager)getApplication()).getApplicationComponent();
+    protected ApplicationComponent getApplicationComponent()
+    {
+        return ((AppManager) getApplication()).getApplicationComponent();
     }
 
 

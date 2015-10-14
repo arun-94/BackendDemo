@@ -15,8 +15,8 @@ import android.widget.ProgressBar;
 
 import com.tisser.puneet.tisserartisan.Global.Constants;
 import com.tisser.puneet.tisserartisan.Model.Category;
-import com.tisser.puneet.tisserartisan.Queries.CategoryListQuery;
-import com.tisser.puneet.tisserartisan.Queries.TisserParser;
+import com.tisser.puneet.tisserartisan.Model.Subcategory;
+import com.tisser.puneet.tisserartisan.Model.Subsubcategory;
 import com.tisser.puneet.tisserartisan.R;
 import com.tisser.puneet.tisserartisan.UI.Adapters.CategoryAdapter;
 import com.tisser.puneet.tisserartisan.UI.Custom.DividerItemDecoration;
@@ -29,6 +29,11 @@ import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import butterknife.Bind;
+import retrofit.Callback;
+import retrofit.RetrofitError;
+import retrofit.client.Response;
+
+import static com.tisser.puneet.tisserartisan.HTTP.RestClient.getApiService;
 
 
 public class CategoryListActivity extends BaseActivity
@@ -44,7 +49,7 @@ public class CategoryListActivity extends BaseActivity
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-        categoryListQuery.execute();
+        //categoryListQuery.execute();
         mContext = this;
         mViewPager.setVisibility(View.INVISIBLE);
         // Give the SlidingTabLayout the ViewPager, this must be done AFTER the ViewPager has had
@@ -67,21 +72,26 @@ public class CategoryListActivity extends BaseActivity
             }
         });*/
 
-        /*getApiService().getCategoryList(new Callback<ArrayList<Category>>()
+        if(manager.categoryList == null || manager.categoryList.size() == 0)
         {
-
-            @Override
-            public void success(ArrayList<Category> categories, Response response)
+            getApiService().getCategoryList(new Callback<ArrayList<Category>>()
             {
-                consumeApiData(categories);
-            }
 
-            @Override
-            public void failure(RetrofitError error)
-            {
-                showNoInternetAlert();
-            }
-        });*/
+                @Override
+                public void success(ArrayList<Category> categories, Response response)
+                {
+                    consumeApiData(categories, Constants.TYPE_NEW_CATEGORY_LIST);
+                }
+
+                @Override
+                public void failure(RetrofitError error)
+                {
+                    showNoInternetAlert();
+                }
+            });
+        }
+        else
+            consumeApiData(manager.categoryList, Constants.TYPE_OLD_CATEGORY_LIST);
     }
 
     @Override
@@ -142,68 +152,16 @@ public class CategoryListActivity extends BaseActivity
         return true;
     }
 
-    @Override
-    public void processFinish(String result, int type)
+    private void consumeApiData(ArrayList<Category> categories, int type)
     {
-        if (result == null || result.equals(""))
-        {
-            showNoInternetAlert();
-            new CountDownTimer(11000, 1000)
-            {
-
-                public void onTick(long millisUntilFinished)
-                {
-                    countdownInternetAlert(TimeUnit.MILLISECONDS.toSeconds(millisUntilFinished));
-                }
-
-                public void onFinish()
-                {
-                    closeInternetAlert();
-                    new CountDownTimer(1000, 1000)
-                    {
-                        @Override
-                        public void onTick(long millisUntilFinished)
-                        {
-
-                        }
-
-                        @Override
-                        public void onFinish()
-                        {
-                            categoryListQuery = new CategoryListQuery();
-                            categoryListQuery.delegate = CategoryListActivity.this;
-                            categoryListQuery.execute();
-                        }
-                    }.start();
-                }
-
-            }.start();
-        }
-        else if (type == 0)
-        {
-            manager.categoryList = TisserParser.parseTisserCategory(result, mContext);
-            mProgressBar.setVisibility(View.GONE);
-            mSlidingTabLayout.setVisibility(View.VISIBLE);
-            mViewPager.setVisibility(View.VISIBLE);
-            mViewPager.setAdapter(new CategoryPagerAdapter());
-            mSlidingTabLayout.setViewPager(mViewPager);
-        }
-    }
-
-    /*private void consumeApiData(TisserSettings tisserSettings)
-    {
-        manager.settings = tisserSettings;
-    }
-
-    private void consumeApiData(ArrayList<Category> categories)
-    {
-        manager.categoryList = categories;
+        if(type == Constants.TYPE_NEW_CATEGORY_LIST)
+            manager.categoryList = categories;
         mProgressBar.setVisibility(View.GONE);
         mSlidingTabLayout.setVisibility(View.VISIBLE);
         mViewPager.setVisibility(View.VISIBLE);
         mViewPager.setAdapter(new CategoryPagerAdapter());
         mSlidingTabLayout.setViewPager(mViewPager);
-    }*/
+    }
 
     class CategoryPagerAdapter extends PagerAdapter
     {
@@ -231,8 +189,8 @@ public class CategoryListActivity extends BaseActivity
             mRecyclerView.setLayoutManager(llm);
             mRecyclerView.addItemDecoration(new DividerItemDecoration(mContext, null));
 
-            ArrayList<Category> subcategories = manager.categoryList.get(position).getSubcategories();
-            final ArrayList<Category> subsubcategories = new ArrayList<>();
+            ArrayList<Subcategory> subcategories = manager.categoryList.get(position).getSubcategories();
+            final ArrayList<Subsubcategory> subsubcategories = new ArrayList<>();
 
             CategoryAdapter mAdapter = new CategoryAdapter(mContext, null);
 
@@ -286,7 +244,7 @@ public class CategoryListActivity extends BaseActivity
                     manager.currentCategoryID = manager.currentCategory.getCategoryID();
                     for (int i = 0; i < manager.categoryList.get(position).getSubcategories().size(); i++)
                     {
-                        Category currentSubcategory = manager.categoryList.get(position).getSubcategories().get(i);
+                        Subcategory currentSubcategory = manager.categoryList.get(position).getSubcategories().get(i);
                         if (currentSubcategory.getSubcategories().contains(subsubcategories.get(itempos)))
                         {
                             manager.currentSubCategory = currentSubcategory;

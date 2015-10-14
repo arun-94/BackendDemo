@@ -1,4 +1,4 @@
-package com.tisser.puneet.tisserartisan.HTTP;
+package com.tisser.puneet.tisserartisan.HTTP.Legacy;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;

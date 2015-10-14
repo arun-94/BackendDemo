@@ -1,12 +1,14 @@
 package com.tisser.puneet.tisserartisan.Model;
 
+import com.google.gson.annotations.SerializedName;
+
 import java.util.ArrayList;
 
 public class Category
 {
-    private String categoryName;
-    private int categoryID;
-    private ArrayList<Category> subcategories;
+    @SerializedName("category_name") private String categoryName;
+    @SerializedName("category_id") private int categoryID;
+    @SerializedName("subcategories") private ArrayList<Subcategory> subcategories;
 
     public Category()
     {
@@ -15,7 +17,7 @@ public class Category
         this.subcategories = new ArrayList<>();
     }
 
-    public Category(String categoryName, int categoryID, ArrayList<Category> subcategories)
+    public Category(String categoryName, int categoryID, ArrayList<Subcategory> subcategories)
     {
         this.categoryName = categoryName;
         this.categoryID = categoryID;
@@ -27,34 +29,26 @@ public class Category
         return categoryID;
     }
 
-    public void setCategoryID(int categoryID)
-    {
-        this.categoryID = categoryID;
-    }
-
     public String getCategoryName()
     {
         return categoryName;
     }
 
-    public void setCategoryName(String categoryName)
-    {
-        this.categoryName = categoryName;
-    }
-
-    public ArrayList<Category> getSubcategories()
+    public ArrayList<Subcategory> getSubcategories()
     {
         return subcategories;
     }
 
-    public void setSubcategories(ArrayList<Category> subcategories)
+    public void setSubcategories(ArrayList<Subcategory> subcategories)
     {
         this.subcategories = subcategories;
     }
 
     @Override
-    public boolean equals(Object o) {
+    public boolean equals(Object o)
+    {
         return (o instanceof Category && getCategoryID() == ((Category) o).getCategoryID());
-
     }
+
+
 }

@@ -13,6 +13,9 @@ public final class Constants
     public static final int GALLERY_NUM_IMGS_TO_SELECT = 8;
     public static final int REQUEST_SELECT_CATEGORY = 300;
     public static final int REQUEST_SELECT_COLOR = 301;
+    public static final int TYPE_NEW_CATEGORY_LIST = 1;
+    public static final int TYPE_OLD_CATEGORY_LIST = 0;
+
     public static final String RESULT_CATEGORY_NAME = "resultCategoryName";
     public static final String RESULT_SUBCATEGORY_NAME = "resultSubCategoryName";
     public static final String RESULT_SUBSUBCATEGORY_NAME = "resultSubsubCategoryName";

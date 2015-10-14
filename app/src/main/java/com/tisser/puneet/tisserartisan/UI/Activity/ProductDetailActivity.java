@@ -14,7 +14,6 @@ import android.widget.TextView;
 
 import com.daimajia.slider.library.SliderTypes.BaseSliderView;
 import com.tisser.puneet.tisserartisan.Model.ProductDetailed;
-import com.tisser.puneet.tisserartisan.Queries.ProductDetailQuery;
 import com.tisser.puneet.tisserartisan.R;
 import com.tisser.puneet.tisserartisan.UI.Adapters.ImageAdapter;
 import com.tisser.puneet.tisserartisan.UI.Adapters.ReviewAdapter;
@@ -49,7 +48,6 @@ public class ProductDetailActivity extends BaseActivity implements BaseSliderVie
 
     private int imageheaderHeight;
     private Drawable ActionBarBackgroundDrawable;
-    private ProductDetailQuery productDetailQuery;
     private String retreivingID;
     private ReviewAdapter mReviewAdapter;
     private LinearLayoutManager llm;
@@ -100,8 +98,6 @@ public class ProductDetailActivity extends BaseActivity implements BaseSliderVie
             retreivingID = extras.getString("productID");
         }
 
-        productDetailQuery = new ProductDetailQuery();
-        productDetailQuery.delegate = ProductDetailActivity.this;
         fetchProductDetail(retreivingID);
     }
 
@@ -143,8 +139,6 @@ public class ProductDetailActivity extends BaseActivity implements BaseSliderVie
                         @Override
                         public void onFinish()
                         {
-                            productDetailQuery = new ProductDetailQuery();
-                            productDetailQuery.delegate = ProductDetailActivity.this;
                             fetchProductDetail(retreivingID);
                         }
                     }.start();

@@ -1,4 +1,4 @@
-package com.tisser.puneet.tisserartisan.HTTP;
+package com.tisser.puneet.tisserartisan.HTTP.Legacy;
 
 import com.squareup.okhttp.OkHttpClient;
 

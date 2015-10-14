@@ -91,7 +91,7 @@ public class ColorSelectionAdapter extends BaseAdapter
         holder.colorCheck.setTag(position);
 
         holder.colorName.setText(mainDataList.get(position).getColor());
-        holder.colorCode.setText(mainDataList.get(position).getCode());
+        //holder.colorCode.setText(mainDataList.get(position).getCode());
         holder.colorCheck.setChecked(mainDataList.get(position).isSelected());
         holder.colorImage.setColorFilter(Color.parseColor(mainDataList.get(position).getCode()), PorterDuff.Mode.SRC_IN);
 
