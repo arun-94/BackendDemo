@@ -9,7 +9,6 @@ import android.graphics.Point;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.util.Log;
 import android.view.Display;
 import android.view.Menu;
@@ -210,8 +209,6 @@ public class AddProductActivity extends BaseActivity implements Validator.Valida
         else if (requestCode == com.tisser.puneet.tisserartisan.Global.Constants.RESULT_IMAGE_FULLSCREEN && resultCode == RESULT_OK)
         {
             int imagePos = data.getIntExtra("img_pos", -1);
-            Log.d(AddProductActivity.class.getCanonicalName(), "" + mAdapter.getItem(imagePos));
-            Log.d(AddProductActivity.class.getCanonicalName(), "" + images.get(imagePos));
 
             if (imagePos != -1)
             {

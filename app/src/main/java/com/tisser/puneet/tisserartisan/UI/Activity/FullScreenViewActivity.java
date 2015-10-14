@@ -1,7 +1,10 @@
 package com.tisser.puneet.tisserartisan.UI.Activity;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
+import android.view.View;
 import android.widget.ImageView;
 
 import com.tisser.puneet.tisserartisan.R;
@@ -24,10 +27,22 @@ public class FullScreenViewActivity extends BaseActivity
 
     @OnClick(R.id.deleteImage)
     void delete() {
-        Intent i = new Intent();
-        i.putExtra("img_pos", pos);
-        setResult(RESULT_OK, i);
-        finish();
+        View.OnClickListener mOnClickListener = new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                Intent i = new Intent();
+                i.putExtra("img_pos", pos);
+                setResult(RESULT_OK, i);
+                finish();
+            }
+        };
+        Snackbar.make(findViewById(android.R.id.content), "Are you sure you want to delete?", Snackbar.LENGTH_LONG)
+                .setAction("Yes", mOnClickListener)
+                .setActionTextColor(Color.RED)
+                .show();
+
     }
 
     @Override
