@@ -30,6 +30,9 @@ import static com.tisser.puneet.tisserartisan.HTTP.RestClient.getApiService;
 public class LoginActivity extends BaseActivity implements Validator.ValidationListener
 {
 
+
+    //TODO Handle Retrofit Timeout Error
+
     @Bind(R.id.loginButton) Button mLoginButton;
     @Email @Bind(R.id.editText_custid) EditText mCustIdEditText;
     @Password(min = 6, scheme = Password.Scheme.ALPHA_NUMERIC_MIXED_CASE) @Bind(R.id.editText_password) EditText mPasswordEditText;
