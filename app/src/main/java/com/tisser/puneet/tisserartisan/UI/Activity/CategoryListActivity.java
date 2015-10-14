@@ -283,6 +283,7 @@ public class CategoryListActivity extends BaseActivity
                     //Log.d("ONCLICK", "Offset is " + offset);
                     itempos -= offset;
                     manager.currentCategory = manager.categoryList.get(position);
+                    manager.currentCategoryID = manager.currentCategory.getCategoryID();
                     for (int i = 0; i < manager.categoryList.get(position).getSubcategories().size(); i++)
                     {
                         Category currentSubcategory = manager.categoryList.get(position).getSubcategories().get(i);

@@ -13,7 +13,7 @@ public interface ProductUploadService {
     public static final String BASE_URL = "http://tisserindia.com";
 
     @Multipart
-    @POST("/stores/mobileApi/mobileAPIArtist.php")
+    @POST("mobileAPIArtist.php")
     void upload(@Part("action") String action,
                 @Part("session_id") String sessionId,
                 @Part("user_id") String userId,

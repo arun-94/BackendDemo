@@ -44,7 +44,7 @@
                 android:singleLine="true"
                 android:text="Hand made Jute Folders"
                 android:textAlignment="gravity"
-                android:textColor="@color/accent_brown"
+                android:textColor="@color/app_accent"
                 android:textSize="14sp"/>
 
             <TextView
@@ -59,7 +59,7 @@
                 android:singleLine="true"
                 android:text="Rs. 376"
                 android:textAlignment="gravity"
-                android:textColor="@color/accent_brown"
+                android:textColor="@color/app_accent"
                 android:textSize="12sp"/>
         </RelativeLayout>
     </LinearLayout>

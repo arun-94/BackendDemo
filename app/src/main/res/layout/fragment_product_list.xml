@@ -24,7 +24,7 @@
             android:text="NO PRODUCTS AVAILABLE IN THIS CATEGORY"
             android:textAlignment="gravity"
             android:textAppearance="?android:attr/textAppearanceLarge"
-            android:textColor="@color/primary_brown"
+            android:textColor="@color/app_primary"
             android:textSize="18dp"
             android:visibility="invisible"/>
 
@@ -37,8 +37,8 @@
             android:src="@drawable/ic_add_white_24dp"
             app:borderWidth="0dp"
             app:fabSize="normal"
-            app:fab_colorNormal="@color/primary_brown"
-            app:fab_colorPressed="@color/primary_brown"
+            app:fab_colorNormal="@color/app_primary"
+            app:fab_colorPressed="@color/app_primary"
             app:layout_anchor="@id/productsListRecycler"
             app:layout_anchorGravity="bottom|right|end"
             android:layout_alignParentBottom="true"

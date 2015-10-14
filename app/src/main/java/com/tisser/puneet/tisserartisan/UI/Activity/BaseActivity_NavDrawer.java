@@ -22,6 +22,8 @@ import com.tisser.puneet.tisserartisan.UI.Fragment.ProductListFragment;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import static com.tisser.puneet.tisserartisan.HTTP.RestClient.getApiService;
+
 
 public class BaseActivity_NavDrawer extends BaseActivity implements AsyncResponse
 {

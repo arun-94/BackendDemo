@@ -21,8 +21,23 @@ public class AppManager extends Application
 {
 
     private ApplicationComponent applicationComponent;
+    private String sessionID;
 
-    @Override public void onCreate() {
+    public ArrayList<Category> categoryList = new ArrayList<>();
+    public ArrayList<Product> productList = new ArrayList<>();
+    public Category currentCategory = new Category();
+    public Category currentSubCategory = new Category();
+    public Category currentSubsubCategory = new Category();
+    public ProductDetailed currentProduct = new ProductDetailed();
+    public TisserSettings settings = new TisserSettings();
+    public ArrayList<TisserColor> colorList = new ArrayList<>();
+    public String hello = "hello";
+    public int currentCategoryID;
+    public Drawable currentImage;
+
+    @Override
+    public void onCreate()
+    {
         super.onCreate();
         initializeDependencies();
 
@@ -49,25 +64,23 @@ public class AppManager extends Application
     {
         //initializing an instance of application component and not the entire component
         //use the component to access various module functions wherever injected
-        this.applicationComponent = DaggerApplicationComponent.builder()
-                                    .applicationModule(new ApplicationModule(this)).build();
+        this.applicationComponent = DaggerApplicationComponent.builder().applicationModule(new ApplicationModule(this)).build();
     }
 
-    public ApplicationComponent getApplicationComponent() {
+    public ApplicationComponent getApplicationComponent()
+    {
         return this.applicationComponent;
     }
 
-    public ArrayList<Category> categoryList = new ArrayList<>();
-    public ArrayList<Product> productList = new ArrayList<>();
-    public Category currentCategory = new Category();
-    public Category currentSubCategory = new Category();
-    public Category currentSubsubCategory = new Category();
-    public ProductDetailed currentProduct = new ProductDetailed();
-    public TisserSettings settings = new TisserSettings();
-    public ArrayList<TisserColor> colorList = new ArrayList<>();
-    public String hello = "hello";
-    public int currentCategoryID;
-    public Drawable currentImage;
+    public String getSessionID()
+    {
+        return sessionID;
+    }
+
+    public void setSessionID(String sID)
+    {
+        sessionID = sID;
+    }
 
 
 }

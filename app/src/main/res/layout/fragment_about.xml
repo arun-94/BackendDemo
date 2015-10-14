@@ -28,7 +28,7 @@
                 android:layout_below="@+id/headerImg"
                 android:layout_marginLeft="16dp"
                 android:layout_marginRight="16dp"
-                android:background="@color/accent_brown"/>
+                android:background="@color/app_accent"/>
 
             <View
                 android:layout_width="match_parent"
@@ -36,7 +36,7 @@
                 android:layout_above="@+id/about_tv_info"
                 android:layout_marginLeft="16dp"
                 android:layout_marginRight="16dp"
-                android:background="@color/accent_brown"/>
+                android:background="@color/app_accent"/>
 
             <View
                 android:layout_width="match_parent"
@@ -44,7 +44,7 @@
                 android:layout_above="@+id/about_tv_social"
                 android:layout_marginLeft="16dp"
                 android:layout_marginRight="16dp"
-                android:background="@color/accent_brown"/>
+                android:background="@color/app_accent"/>
 
             <ImageView
                 android:id="@+id/headerImg"
@@ -69,7 +69,7 @@
                 android:gravity="center_vertical|center_horizontal"
                 android:text="Contact"
                 android:textAlignment="gravity"
-                android:textColor="@color/accent_brown"
+                android:textColor="@color/app_accent"
                 android:textSize="20sp"/>
 
             <LinearLayout
@@ -162,7 +162,7 @@
                 android:gravity="center_vertical|center_horizontal"
                 android:text="About Tisser"
                 android:textAlignment="gravity"
-                android:textColor="@color/accent_brown"
+                android:textColor="@color/app_accent"
                 android:textSize="20sp"/>
 
             <TextView
@@ -195,7 +195,7 @@
                 android:gravity="center_vertical|center_horizontal"
                 android:text="Social Connect"
                 android:textAlignment="gravity"
-                android:textColor="@color/accent_brown"
+                android:textColor="@color/app_accent"
                 android:textSize="20sp"/>
 
             <LinearLayout

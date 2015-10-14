@@ -4,6 +4,7 @@ import android.util.Log;
 
 import com.tisser.puneet.tisserartisan.HTTP.ProductUploadService;
 import com.tisser.puneet.tisserartisan.HTTP.ServiceGenerator;
+import com.tisser.puneet.tisserartisan.UI.Activity.Navigator;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -175,40 +176,5 @@ public class ProductDetailed
     {
         this.productReviews.addAll(productReviews);
     }
-
-    public void makePostURL() {
-        String action = "AddNewProduct";
-        String sessionID  = "xxx";
-        String userID = "xxx";
-        ArrayList<String> imagePaths = getProductImgPaths();
-
-        ProductUploadService service = ServiceGenerator.createService(ProductUploadService.class, ProductUploadService.BASE_URL);
-
-        Map<String, TypedFile> files = new HashMap<String, TypedFile>();
-
-        for(int i = 0; i < imagePaths.size(); i++) {
-            files.put("image" + i, new TypedFile("image/jpeg", new File(imagePaths.get(i))));
-        }
-
-        service.upload(action, sessionID, userID, files, getProductName(), "" + getProductPrice(), "" + getProductCategoryID(), getProductColor(), getProductDescription(), new Callback<String>()
-        {
-            @Override
-            public void success(String s, Response response)
-            {
-                Log.e("Upload", "success");
-                Log.e("Data", "" + response);
-            }
-
-            @Override
-            public void failure(RetrofitError error)
-            {
-                Log.e("Upload", "error");
-                Log.e("Data", "" + error);
-
-            }
-        });
-
-    }
-
 
 }

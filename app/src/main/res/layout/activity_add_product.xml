@@ -71,10 +71,10 @@
                     android:inputType="textNoSuggestions|textMultiLine"
                     android:lines="3"
                     android:maxLines="3"
-                    android:textColor="@color/primary_brown"
+                    android:textColor="@color/app_primary"
                     android:textSize="20sp"
                     app:met_floatingLabel="highlight"
-                    app:met_primaryColor="@color/primary_brown"/>
+                    app:met_primaryColor="@color/app_primary"/>
 
                 <include layout="@layout/divider"/>
                 <LinearLayout

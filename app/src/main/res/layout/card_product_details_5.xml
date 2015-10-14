@@ -28,7 +28,7 @@
             android:layout_gravity="left"
             android:layout_weight="0"
             android:fontFamily="sans-serif-medium"
-            android:textColor="@color/accent_brown"
+            android:textColor="@color/app_accent"
             android:gravity="left|center_vertical"
             android:text="Reviews"
             android:textAlignment="gravity"

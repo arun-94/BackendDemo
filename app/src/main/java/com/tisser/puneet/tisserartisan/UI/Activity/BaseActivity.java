@@ -22,6 +22,7 @@ import javax.inject.Inject;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import static com.tisser.puneet.tisserartisan.HTTP.RestClient.getApiService;
 
 
 public abstract class BaseActivity extends AppCompatActivity implements AsyncResponse

@@ -8,6 +8,7 @@ import android.graphics.Point;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
+import android.util.Log;
 import android.view.Display;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -24,17 +25,28 @@ import com.mobsandgeeks.saripaar.ValidationError;
 import com.mobsandgeeks.saripaar.Validator;
 import com.mobsandgeeks.saripaar.annotation.NotEmpty;
 import com.tisser.puneet.tisserartisan.CustomRules.IsCategorySelected;
+import com.tisser.puneet.tisserartisan.HTTP.ProductUploadService;
+import com.tisser.puneet.tisserartisan.HTTP.ServiceGenerator;
 import com.tisser.puneet.tisserartisan.Model.ProductDetailed;
 import com.tisser.puneet.tisserartisan.R;
 import com.tisser.puneet.tisserartisan.UI.Adapters.GalleryImagesAdapter;
 import com.tisser.puneet.tisserartisan.UI.Custom.ExpandableHeightGridView;
 
+import java.io.File;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import retrofit.Callback;
+import retrofit.RetrofitError;
+import retrofit.client.Response;
+import retrofit.mime.TypedFile;
+
+import static com.tisser.puneet.tisserartisan.HTTP.RestClient.getApiService;
 
 public class AddProductActivity extends BaseActivity implements Validator.ValidationListener
 {
@@ -149,8 +161,10 @@ public class AddProductActivity extends BaseActivity implements Validator.Valida
         if (requestCode == Constants.REQUEST_CODE && resultCode == RESULT_OK && data != null)
         {
             images = data.getParcelableArrayListExtra(Constants.INTENT_EXTRA_IMAGES);
-            for(int i = 0; i < images.size(); i++)
+            for (int i = 0; i < images.size(); i++)
+            {
                 imagePaths.add(images.get(i).path);
+            }
             Display display = getWindowManager().getDefaultDisplay();
             Point size = new Point();
             display.getSize(size);
@@ -243,13 +257,11 @@ public class AddProductActivity extends BaseActivity implements Validator.Valida
             productDetailed.setProductName(editTextProductName.getText().toString().trim());
             productDetailed.setProductPrice(Integer.parseInt(editTextPrice.getText().toString()));
             productDetailed.setProductColor(selected_colorText.getText().toString().trim());
-            productDetailed.setProductCategoryID(manager.currentCategoryID);
+            productDetailed.setProductCategoryID(manager.currentSubsubCategory.getCategoryID());
             productDetailed.setProductImgPaths(imagePaths);
             productDetailed.setProductDescription(editTextProductDescription.getText().toString().trim());
             manager.currentProduct = productDetailed;
-            manager.currentProduct.makePostURL();
-            Intent productDetailedIntent = new Intent(this, ProductDetailActivity.class);
-            startActivity(productDetailedIntent);
+            addNewProduct(productDetailed);
             return;
         }
 
@@ -299,6 +311,40 @@ public class AddProductActivity extends BaseActivity implements Validator.Valida
                 Toast.makeText(this, message, Toast.LENGTH_LONG).show();
             }
         }
+
+    }
+
+    public void addNewProduct(ProductDetailed p)
+    {
+        String action = "AddNewProduct";
+        ArrayList<String> imagePaths = p.getProductImgPaths();
+        Map<String, TypedFile> files = new HashMap<String, TypedFile>();
+        Map<String, String> colorIDs = new HashMap<String, String>();
+
+        for (int i = 0; i < imagePaths.size(); i++)
+        {
+            files.put("image" + i, new TypedFile("image/jpeg", new File(imagePaths.get(i))));
+        }
+
+        getApiService().addNewProduct(manager.getSessionID(), files, p.getProductName(), p.getProductPrice(), p.getProductCategoryID(), p.getProductColor(), p.getProductDescription(), new Callback<String>()
+        {
+            @Override
+            public void success(String s, Response response)
+            {
+                Log.d("Upload", "success");
+                Log.d("Data", "" + response);
+                Intent productDetailedIntent = new Intent(AddProductActivity.this, ProductDetailActivity.class);
+                startActivity(productDetailedIntent);
+            }
+
+            @Override
+            public void failure(RetrofitError error)
+            {
+                Log.e("Upload", "error");
+                Log.e("Data", "" + error);
+
+            }
+        });
 
     }
 }

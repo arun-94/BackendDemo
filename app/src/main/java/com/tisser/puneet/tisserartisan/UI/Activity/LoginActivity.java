@@ -6,9 +6,11 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.github.rahatarmanahmed.cpv.CircularProgressView;
 import com.mobsandgeeks.saripaar.ValidationError;
 import com.mobsandgeeks.saripaar.Validator;
 import com.mobsandgeeks.saripaar.annotation.Email;
@@ -18,6 +20,9 @@ import com.tisser.puneet.tisserartisan.HTTP.LoginService;
 import com.tisser.puneet.tisserartisan.HTTP.ServiceGenerator;
 import com.tisser.puneet.tisserartisan.R;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.List;
 
 import butterknife.Bind;
@@ -25,6 +30,9 @@ import butterknife.OnClick;
 import retrofit.Callback;
 import retrofit.RetrofitError;
 import retrofit.client.Response;
+import retrofit.mime.TypedByteArray;
+
+import static com.tisser.puneet.tisserartisan.HTTP.RestClient.getApiService;
 
 public class LoginActivity extends BaseActivity implements Validator.ValidationListener
 {
@@ -32,10 +40,13 @@ public class LoginActivity extends BaseActivity implements Validator.ValidationL
     @Bind(R.id.loginButton) Button mLoginButton;
     @Email @Bind(R.id.editText_custid) EditText mCustIdEditText;
     @Password(min = 6, scheme = Password.Scheme.ALPHA_NUMERIC_MIXED_CASE) @Bind(R.id.editText_password) EditText mPasswordEditText;
+    @Bind(R.id.progress_login) ProgressBar mProgressLogin;
 
     @OnClick(R.id.loginButton)
     void login()
     {
+        mLoginButton.setText("");
+        mProgressLogin.setVisibility(View.VISIBLE);
         loginValidator.validate();
     }
 
@@ -57,7 +68,7 @@ public class LoginActivity extends BaseActivity implements Validator.ValidationL
 
         if (settings.getBoolean(Constants.PREFS_IS_LOGGED_IN, false))
         {
-            openNextActivity();
+            //openNextActivity();
         }
     }
 
@@ -82,6 +93,8 @@ public class LoginActivity extends BaseActivity implements Validator.ValidationL
     void openNextActivity()
     {
         navigator.navigateToBaseActivity_NavDrawer(LoginActivity.this);
+        mProgressLogin.setVisibility(View.INVISIBLE);
+        mLoginButton.setText("LOG IN");
     }
 
     @Override
@@ -89,26 +102,25 @@ public class LoginActivity extends BaseActivity implements Validator.ValidationL
     {
         settings.edit().putBoolean(Constants.PREFS_IS_LOGGED_IN, true).commit();
         loginPostCall(mCustIdEditText.getText().toString(), mPasswordEditText.getText().toString());
-        //openNextActivity();
     }
 
     private void loginPostCall(String userId, String password)
     {
-        String action = "validateUser";
-        LoginService service = ServiceGenerator.createService(LoginService.class, LoginService.BASE_URL);
-
-        service.validate(action, userId,  password, new Callback<String>()
+        getApiService().validateLogin(userId, password, new Callback<String>()
         {
             @Override
-            public void success(String s, Response response)
+            public void success(String sessionID, Response response)
             {
-                Log.e("Login", "success" + s);
-                Log.e("Data", "" + response);
+                Log.d("LoginSuccess", "Success. Session Id is : " + sessionID);
+                manager.setSessionID(sessionID);
+                openNextActivity();
             }
 
             @Override
             public void failure(RetrofitError error)
             {
+                mProgressLogin.setVisibility(View.INVISIBLE);
+                mLoginButton.setText("LOG IN");
                 Log.e("Login", "error");
                 Log.e("Data", "" + error);
             }
@@ -118,6 +130,8 @@ public class LoginActivity extends BaseActivity implements Validator.ValidationL
     @Override
     public void onValidationFailed(List<ValidationError> errors)
     {
+        mProgressLogin.setVisibility(View.INVISIBLE);
+        mLoginButton.setText("LOG IN");
         for (ValidationError error : errors)
         {
             View view = error.getView();

@@ -3,10 +3,10 @@
               xmlns:tools="http://schemas.android.com/tools"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
-              android:background="@color/white"
               android:orientation="vertical"
               tools:context="com.refocus.puneet.axishackathon.Activities.LoginActivity"
-              android:gravity="center_vertical">
+              android:gravity="center_vertical"
+              android:background="@drawable/tisserpots">
 
 
     <ImageView
@@ -32,7 +32,7 @@
         android:src="@drawable/logo"
         android:text="Artisan"
         android:textAlignment="center"
-        android:textColor="@color/primary_brown"
+        android:textColor="@color/white"
         android:textSize="32dp"/>
 
 
@@ -48,6 +48,15 @@
         android:orientation="vertical"
         android:layout_marginBottom="60dp">
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="16dp"
+            android:orientation="vertical"
+            android:layout_weight="0"
+            android:padding="16dp"
+            android:background="@drawable/roundedrectangle">
         <com.rengwuxian.materialedittext.MaterialEditText
             android:id="@+id/editText_custid"
             android:layout_width="fill_parent"
@@ -63,11 +72,11 @@
             android:maxLines="1"
             android:minLines="1"
             android:text="arun@arun.com"
-            app:met_baseColor="@color/primary_brown"
+            app:met_baseColor="@color/white"
             app:met_floatingLabel="highlight"
             app:met_floatingLabelText="Login ID"
-            app:met_primaryColor="@color/primary_brown"
-            app:met_underlineColor="@color/primary_brown"/>
+            app:met_primaryColor="@color/white"
+            app:met_underlineColor="@color/white"/>
 
         <com.rengwuxian.materialedittext.MaterialEditText
             android:id="@+id/editText_password"
@@ -84,19 +93,18 @@
             android:maxLines="1"
             android:minLines="1"
             android:text="Arun123"
-            app:met_baseColor="@color/primary_brown"
+            app:met_baseColor="@color/white"
             app:met_floatingLabel="highlight"
             app:met_floatingLabelText="Password"
-            app:met_primaryColor="@color/primary_brown"
-            app:met_underlineColor="@color/primary_brown"
-            android:layout_marginTop="16dp"
-            android:layout_marginBottom="16dp"/>
+            app:met_primaryColor="@color/white"
+            app:met_underlineColor="@color/white"/>
+        </LinearLayout>
 
         <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            android:background="@color/primary_brown"
+            android:background="#ee602d"
             android:elevation="5dp">
 
             <Button
@@ -104,22 +112,24 @@
                 style="?android:attr/buttonStyleSmall"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:background="?android:attr/selectableItemBackground"
                 android:text="Log In"
                 android:textAllCaps="true"
-                android:textColor="@android:color/white"
+                android:background="?android:attr/selectableItemBackground"
+                android:textColor="@color/white"
                 />
 
-            <com.github.rahatarmanahmed.cpv.CircularProgressView
-                android:id="@+id/progress_view"
+            <ProgressBar
+                android:id="@+id/progress_login"
                 xmlns:app="http://schemas.android.com/apk/res-auto"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:layout_gravity="center"
-                app:cpv_color="@color/white"
-                app:cpv_indeterminate="true"
-                app:cpv_thickness="2dp"
-                />
+                android:indeterminate="true"
+                android:indeterminateTint="@color/white"
+                android:progressBackgroundTint="@color/white"
+                android:progressTint="@color/white"
+                android:visibility="invisible"/>
+
         </FrameLayout>
     </LinearLayout>
 
@@ -134,7 +144,7 @@
         android:src="@drawable/logo"
         android:text="This app is meant for Tisser artisans only."
         android:textAlignment="gravity"
-        android:textColor="@color/primary_brown"
+        android:textColor="@color/white"
         android:textSize="16dp"
         android:textAppearance="@style/Tisser_TextStyle_Small"
         android:gravity="bottom|center_horizontal"
