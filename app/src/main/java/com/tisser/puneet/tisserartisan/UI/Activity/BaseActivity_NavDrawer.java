@@ -96,7 +96,7 @@ public class BaseActivity_NavDrawer extends BaseActivity implements AsyncRespons
                         navigator.openNewActivity(BaseActivity_NavDrawer.this, new ProfileActivity());
                         return true;
                     case R.id.nav_add_product:
-                        navigator.openNewFragment(BaseActivity_NavDrawer.this, ProductListFragment.newInstance());
+                        navigator.openNewActivity(BaseActivity_NavDrawer.this, new AddProductActivity());
                         return true;
                     case R.id.nav_about:
                         navigator.openNewFragment(BaseActivity_NavDrawer.this, AboutFragment.newInstance());

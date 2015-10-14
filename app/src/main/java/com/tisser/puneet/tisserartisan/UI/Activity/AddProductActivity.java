@@ -2,12 +2,14 @@ package com.tisser.puneet.tisserartisan.UI.Activity;
 
 import android.annotation.TargetApi;
 import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Point;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.util.Log;
 import android.view.Display;
 import android.view.Menu;
@@ -59,19 +61,7 @@ public class AddProductActivity extends BaseActivity implements Validator.Valida
     @NotEmpty @Bind(R.id.editText_productname) EditText editTextProductName;
     @Bind(R.id.editText_productdescription) EditText editTextProductDescription;
 
-    @OnClick(R.id.button_save)
-    void submit()
-    {
-        userDetailsValidator.validate();
-    }
-
-
-    @OnClick(R.id.upload_button)
-    void uploadPhoto()
-    {
-        Intent intent = navigator.openGallery(AddProductActivity.this);
-        startActivityForResult(intent, Constants.REQUEST_CODE);
-    }
+    private ProgressDialog mProgress;
 
     private ArrayList<Image> images;
     private ArrayList<String> imagePaths;
@@ -80,7 +70,6 @@ public class AddProductActivity extends BaseActivity implements Validator.Valida
 
     ImageView categoryIcon, colorIcon;
     TextView categoryText, colorText;
-
 
     @IsCategorySelected TextView selected_categoryText;
 
@@ -116,7 +105,6 @@ public class AddProductActivity extends BaseActivity implements Validator.Valida
     @Override
     protected void setupToolbar()
     {
-
         assert getSupportActionBar() != null;
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         assert toolbar != null;
@@ -152,6 +140,9 @@ public class AddProductActivity extends BaseActivity implements Validator.Valida
         mGalleryImagesRecycler.setAdapter(mAdapter);
 
         imagePaths = new ArrayList<>();
+
+        mProgress = new ProgressDialog(AddProductActivity.this);
+        mProgress.setMessage("Saving New Product");
     }
 
     @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
@@ -227,6 +218,19 @@ public class AddProductActivity extends BaseActivity implements Validator.Valida
     void clickSelectColor()
     {
         navigator.openNewActivityForResult(this, new ColorSelectionActivity(), com.tisser.puneet.tisserartisan.Global.Constants.REQUEST_SELECT_COLOR);
+    }
+
+    @OnClick(R.id.button_save)
+    void submit()
+    {
+        userDetailsValidator.validate();
+    }
+
+    @OnClick(R.id.upload_button)
+    void uploadPhoto()
+    {
+        Intent intent = navigator.openGallery(AddProductActivity.this);
+        startActivityForResult(intent, Constants.REQUEST_CODE);
     }
 
     @Override
@@ -320,6 +324,7 @@ public class AddProductActivity extends BaseActivity implements Validator.Valida
         ArrayList<String> imagePaths = p.getProductImgPaths();
         Map<String, TypedFile> files = new HashMap<String, TypedFile>();
         Map<String, String> colorIDs = new HashMap<String, String>();
+        mProgress.show();
 
         for (int i = 0; i < imagePaths.size(); i++)
         {
@@ -331,6 +336,7 @@ public class AddProductActivity extends BaseActivity implements Validator.Valida
             @Override
             public void success(String s, Response response)
             {
+                mProgress.dismiss();
                 Log.d("Upload", "success");
                 Log.d("Data", "" + response);
                 Intent productDetailedIntent = new Intent(AddProductActivity.this, ProductDetailActivity.class);
@@ -340,9 +346,10 @@ public class AddProductActivity extends BaseActivity implements Validator.Valida
             @Override
             public void failure(RetrofitError error)
             {
+                mProgress.dismiss();
+                Toast.makeText(AddProductActivity.this, "Failed to Add Product", Toast.LENGTH_LONG);
                 Log.e("Upload", "error");
                 Log.e("Data", "" + error);
-
             }
         });
 
