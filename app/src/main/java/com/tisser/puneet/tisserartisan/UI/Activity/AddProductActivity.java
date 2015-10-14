@@ -215,6 +215,18 @@ public class AddProductActivity extends BaseActivity implements Validator.Valida
                 mAdapter.remove(imagePos);
                 images.remove(imagePos);
                 imagePaths.remove(imagePos);
+
+                if(images.size() == 0)
+                {
+                    Display display = getWindowManager().getDefaultDisplay();
+                    Point size = new Point();
+                    display.getSize(size);
+                    int width = size.x;
+                    mAdapter.add(null, 0, width);
+                    mGalleryImagesRecycler.setNumColumns(1);
+                    mGalleryImagesRecycler.requestLayout();
+                    mGalleryImagesRecycler.setAdapter(mAdapter);
+                }
             }
         }
     }
