@@ -42,7 +42,8 @@
             android:textSize="20sp"
             app:met_baseColor="@color/accent_white"
             app:met_primaryColor="@color/accent_white"
-            app:met_underlineColor="@color/accent_white"/>
+            app:met_underlineColor="@color/accent_white"
+            app:met_errorColor="@color/accent_white" />
 
         <Space
             android:layout_width="match_parent"
@@ -94,8 +95,12 @@
                 app:met_primaryColor="@color/accent_white"
                 app:met_underlineColor="@color/accent_white"
                 android:textAlignment="gravity"
-                android:inputType="number|textNoSuggestions"
-                android:maxWidth="80dp"/>
+                android:inputType="number|none"
+                android:maxLength="3"
+                android:digits="0123456789"
+                android:maxWidth="80dp"
+                app:met_errorColor="@color/accent_white"
+                />
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -123,6 +128,7 @@
                     android:minLines="1"
                     android:textColor="@color/accent_white"
                     android:textSize="20sp"
+                    app:met_errorColor="@color/accent_white"
                     app:met_baseColor="@color/accent_white"
                     app:met_primaryColor="@color/accent_white"
                     app:met_underlineColor="@color/accent_white"

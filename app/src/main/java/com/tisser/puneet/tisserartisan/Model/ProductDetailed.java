@@ -16,8 +16,9 @@ public class ProductDetailed
     private String productEstimatedDelivery;
     private String productEstimatedCost;
     private int productBaseColor;
+    private int productQuantity;
     private String productColor;
-    private int productPrice;
+    private double productPrice;
     private ArrayList<String> productImgPaths;
     private int productCategoryID;
     private int productSubcategoryID;
@@ -113,12 +114,12 @@ public class ProductDetailed
         this.productColor = productColor;
     }
 
-    public int getProductPrice()
+    public double getProductPrice()
     {
         return productPrice;
     }
 
-    public void setProductPrice(int productPrice)
+    public void setProductPrice(double productPrice)
     {
         this.productPrice = productPrice;
     }
@@ -163,4 +164,13 @@ public class ProductDetailed
         this.productReviews.addAll(productReviews);
     }
 
+    public int getProductQuantity()
+    {
+        return productQuantity;
+    }
+
+    public void setProductQuantity(int productQuantity)
+    {
+        this.productQuantity = productQuantity;
+    }
 }

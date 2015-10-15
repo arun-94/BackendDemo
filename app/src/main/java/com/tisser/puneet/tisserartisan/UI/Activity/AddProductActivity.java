@@ -24,6 +24,8 @@ import com.darsh.multipleimageselect.helpers.Constants;
 import com.darsh.multipleimageselect.models.Image;
 import com.mobsandgeeks.saripaar.ValidationError;
 import com.mobsandgeeks.saripaar.Validator;
+import com.mobsandgeeks.saripaar.annotation.DecimalMax;
+import com.mobsandgeeks.saripaar.annotation.DecimalMin;
 import com.mobsandgeeks.saripaar.annotation.NotEmpty;
 import com.tisser.puneet.tisserartisan.CustomRules.IsCategorySelected;
 import com.tisser.puneet.tisserartisan.Model.ProductDetailed;
@@ -56,6 +58,7 @@ public class AddProductActivity extends BaseActivity implements Validator.Valida
 
     @NotEmpty @Bind(R.id.editText_price) EditText editTextPrice;
     @NotEmpty @Bind(R.id.editText_productname) EditText editTextProductName;
+    @DecimalMin(value = 0, message = "Min Quantity 0") @DecimalMax(value = 100, message = "Max Quantity 100") @NotEmpty @Bind(R.id.editText_quantity) EditText editTextQuantity;
     @Bind(R.id.editText_productdescription) EditText editTextProductDescription;
 
     private ProgressDialog mProgress;
@@ -305,8 +308,9 @@ public class AddProductActivity extends BaseActivity implements Validator.Valida
             // further logic
             ProductDetailed productDetailed = new ProductDetailed();
             productDetailed.setProductName(editTextProductName.getText().toString().trim());
-            productDetailed.setProductPrice(Integer.parseInt(editTextPrice.getText().toString()));
+            productDetailed.setProductPrice(Double.parseDouble(String.format("%.2f", Double.parseDouble(editTextPrice.getText().toString()))));
             productDetailed.setProductColor(selected_colorText.getText().toString().trim());
+            productDetailed.setProductQuantity(Integer.parseInt(editTextQuantity.getText().toString()));
             productDetailed.setProductCategoryID(manager.currentSubsubCategory.getCategoryID());
             productDetailed.setProductImgPaths(imagePaths);
             productDetailed.setProductDescription(editTextProductDescription.getText().toString().trim());
@@ -377,7 +381,7 @@ public class AddProductActivity extends BaseActivity implements Validator.Valida
             files.put("image" + i, new TypedFile("image/jpeg", new File(imagePaths.get(i))));
         }
 
-        getApiService().addNewProduct(manager.getSessionID(), files, p.getProductName(), p.getProductPrice(), p.getProductCategoryID(), p.getProductColor(), p.getProductDescription(), new Callback<String>()
+        getApiService().addNewProduct(manager.getSessionID(), files, p.getProductName(), p.getProductPrice(), p.getProductQuantity(), p.getProductCategoryID(), p.getProductColor(), p.getProductDescription(), new Callback<String>()
         {
             @Override
             public void success(String s, Response response)

@@ -1,10 +1,7 @@
 package com.tisser.puneet.tisserartisan.HTTP;
 
 import com.tisser.puneet.tisserartisan.Model.Category;
-import com.tisser.puneet.tisserartisan.Model.Product;
-import com.tisser.puneet.tisserartisan.Model.ProductDetailed;
 import com.tisser.puneet.tisserartisan.Model.TisserColor;
-import com.tisser.puneet.tisserartisan.Model.TisserSettings;
 
 import java.util.ArrayList;
 import java.util.Map;
@@ -17,7 +14,6 @@ import retrofit.http.Multipart;
 import retrofit.http.POST;
 import retrofit.http.Part;
 import retrofit.http.PartMap;
-import retrofit.http.Query;
 import retrofit.mime.TypedFile;
 
 public interface TisserApiInterface
@@ -41,7 +37,7 @@ public interface TisserApiInterface
 
     @Multipart
     @POST("/mobileAPIArtist.php?action=AddNewProduct")
-    void addNewProduct(@Part("session_id") String sessionId, @PartMap Map<String, TypedFile> files, @Part("product_name") String productName, @Part("product_price") int productPrice, @Part("product_category_id") int productCategoryId, @Part("product_color") String productColor, @Part("product_description") String productDescription, Callback<String> cb);
+    void addNewProduct(@Part("session_id") String sessionId, @PartMap Map<String, TypedFile> files, @Part("product_name") String productName, @Part("product_price") double productPrice, @Part("product_quantity") int productQuantity, @Part("product_category_id") int productCategoryId, @Part("product_color") String productColor, @Part("product_description") String productDescription, Callback<String> cb);
 
     @FormUrlEncoded
     @POST("/mobileAPIArtist.php?action=validateUser")
