@@ -2,12 +2,16 @@ package com.tisser.puneet.tisserartisan.UI.Activity;
 
 import android.content.Intent;
 import android.graphics.Color;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.view.View;
 import android.widget.ImageView;
 
+import com.squareup.picasso.Picasso;
 import com.tisser.puneet.tisserartisan.R;
+
+import java.io.File;
 
 import butterknife.Bind;
 import butterknife.OnClick;
@@ -67,7 +71,8 @@ public class FullScreenViewActivity extends BaseActivity
     @Override
     protected void setupLayout()
     {
-        imgDisplay.setImageDrawable(manager.currentImage);
+        Uri uri = Uri.fromFile(new File(manager.currentImagePath));
+        Picasso.with(FullScreenViewActivity.this).load(uri).into(imgDisplay);
     }
 
     @Override

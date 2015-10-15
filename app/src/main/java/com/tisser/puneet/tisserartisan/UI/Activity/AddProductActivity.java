@@ -86,10 +86,12 @@ public class AddProductActivity extends BaseActivity implements Validator.Valida
             @Override
             public void onItemClick(AdapterView<?> parent, View v, int position, long id)
             {
-                Intent i = new Intent(AddProductActivity.this, FullScreenViewActivity.class);
-                i.putExtra("img_pos", position);
-                manager.currentImage = ((ImageView) v).getDrawable();
-                AddProductActivity.this.startActivityForResult(i, com.tisser.puneet.tisserartisan.Global.Constants.RESULT_IMAGE_FULLSCREEN);
+                if(v instanceof ImageView) {
+                    Intent i = new Intent(AddProductActivity.this, FullScreenViewActivity.class);
+                    i.putExtra("img_pos", position);
+                    manager.currentImagePath = imagePaths.get(position);
+                    AddProductActivity.this.startActivityForResult(i, com.tisser.puneet.tisserartisan.Global.Constants.RESULT_IMAGE_FULLSCREEN);
+                }
             }
         });
     }

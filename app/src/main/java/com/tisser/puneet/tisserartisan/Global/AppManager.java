@@ -1,10 +1,7 @@
 package com.tisser.puneet.tisserartisan.Global;
 
 import android.app.Application;
-import android.graphics.Color;
 import android.graphics.drawable.Drawable;
-import android.util.Log;
-import android.view.View;
 
 import com.tisser.puneet.tisserartisan.Component.ApplicationComponent;
 import com.tisser.puneet.tisserartisan.Component.DaggerApplicationComponent;
@@ -43,6 +40,7 @@ public class AppManager extends Application
     public Subsubcategory currentSubsubCategory = new Subsubcategory();
     public ProductDetailed currentProduct = new ProductDetailed();
     public int currentCategoryID;
+    public String currentImagePath;
     public Drawable currentImage;
 
     @Override
