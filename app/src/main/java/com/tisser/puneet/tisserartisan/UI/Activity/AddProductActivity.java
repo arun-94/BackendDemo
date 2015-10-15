@@ -92,6 +92,10 @@ public class AddProductActivity extends BaseActivity implements Validator.Valida
                     manager.currentImagePath = imagePaths.get(position);
                     AddProductActivity.this.startActivityForResult(i, com.tisser.puneet.tisserartisan.Global.Constants.RESULT_IMAGE_FULLSCREEN);
                 }
+                else if(v instanceof TextView) {
+                    Intent intent = navigator.openGallery(AddProductActivity.this);
+                    startActivityForResult(intent, Constants.REQUEST_CODE);
+                }
             }
         });
     }
