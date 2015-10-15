@@ -5,17 +5,26 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewTreeObserver;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.tisser.puneet.tisserartisan.Model.Product;
 import com.tisser.puneet.tisserartisan.R;
 import com.tisser.puneet.tisserartisan.UI.Activity.BaseActivity_NavDrawer;
 import com.tisser.puneet.tisserartisan.UI.Adapters.ProductListAdapter;
 import com.tisser.puneet.tisserartisan.UI.Custom.MarginDecoration;
 import com.tisser.puneet.tisserartisan.UI.Custom.RecyclerItemClickListener;
 
+import java.util.ArrayList;
+
 import butterknife.Bind;
 import butterknife.OnClick;
+import retrofit.Callback;
+import retrofit.RetrofitError;
+import retrofit.client.Response;
+
+import static com.tisser.puneet.tisserartisan.HTTP.RestClient.getApiService;
 
 public class ProductListFragment extends BaseFragment
 {
@@ -41,6 +50,20 @@ public class ProductListFragment extends BaseFragment
     public void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
+        getApiService().getProductList(15, new Callback<ArrayList<Product>>()
+        {
+            @Override
+            public void success(ArrayList<Product> products, Response response)
+            {
+                consumeApiData(products);
+            }
+
+            @Override
+            public void failure(RetrofitError error)
+            {
+                //showNoInternetAlert();
+            }
+        });
     }
 
     @Override
@@ -82,5 +105,31 @@ public class ProductListFragment extends BaseFragment
         ((BaseActivity_NavDrawer) getActivity()).navigator.takePhoto(getActivity());
     }
 
+    private void consumeApiData(ArrayList<Product> products)
+    {
+        manager.productList.clear();
+        Log.d("SEARCHRETRO", products.get(0).getProductName());
+        mProgressBar.setVisibility(View.GONE);
+        //Error case where there is no data!
+        manager.productList.addAll(products);
+        mRecyclerView.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener()
+                {
+                    @Override
+                    public void onGlobalLayout()
+                    {
+                        mRecyclerView.getViewTreeObserver().removeOnGlobalLayoutListener(this);
+                        int viewWidth = mRecyclerView.getMeasuredWidth();
+                        Log.d("WIDTH", "Value of recycler view is " + viewWidth);
+                        float cardViewWidth = getView().findViewById(R.id.product_card).getMeasuredWidth();
+                        int newSpanCount = (int) Math.floor(viewWidth / cardViewWidth);
+                        mLayoutManager.setSpanCount(newSpanCount);
+                        mLayoutManager.requestLayout();
+                    }
+                });
+        mRecyclerView.setLayoutManager(mLayoutManager);
+        mAdapter = new ProductListAdapter(getActivity(), manager.productList);
+        mRecyclerView.setAdapter(mAdapter);
+        mProgressBar.setVisibility(View.GONE);
+    }
 
 }

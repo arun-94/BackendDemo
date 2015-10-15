@@ -28,7 +28,7 @@ public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.
         mContext = context;
         if (data != null)
         {
-            mData = new ArrayList<Product>(data);
+            mData = data;
         }
         else
         {
@@ -75,7 +75,9 @@ public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.
                     .load("http://tisserindia.com/stores/thumb_gen.php?file=" + product.getProductImgPath() + "&maxw=300&maxh=300")
                     .asBitmap()
                     .centerCrop()
+                    .placeholder(R.drawable.logo_small)
                     .into(holder.image);
+
             holder.image.setScaleType(ImageView.ScaleType.CENTER_CROP);
         }
         holder.title.setText(mData.get(position).getProductName());

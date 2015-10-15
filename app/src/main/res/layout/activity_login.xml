@@ -1,12 +1,16 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
               xmlns:app="http://schemas.android.com/apk/res-auto"
               xmlns:tools="http://schemas.android.com/tools"
               android:layout_width="match_parent"
-              android:layout_height="wrap_content"
+              android:layout_height="match_parent"
               android:orientation="vertical"
               tools:context="com.refocus.puneet.axishackathon.Activities.LoginActivity"
               android:gravity="center_vertical"
               android:background="@drawable/tisserpots">
+<LinearLayout android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:orientation="vertical"
+              android:gravity="center_vertical">
 
 
     <ImageView
@@ -43,7 +47,6 @@
         android:layout_gravity="center"
         android:layout_marginLeft="16dp"
         android:layout_marginRight="16dp"
-        android:layout_marginTop="60dp"
         android:gravity="center_horizontal"
         android:orientation="vertical"
         android:layout_marginBottom="60dp">
@@ -150,3 +153,4 @@
         />
 
 </LinearLayout>
+</RelativeLayout>

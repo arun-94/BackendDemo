@@ -8,6 +8,7 @@ import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.SearchView;
 import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
@@ -51,10 +52,6 @@ public class CategoryListActivity extends BaseActivity
         super.onCreate(savedInstanceState);
         //categoryListQuery.execute();
         mContext = this;
-        mViewPager.setVisibility(View.INVISIBLE);
-        // Give the SlidingTabLayout the ViewPager, this must be done AFTER the ViewPager has had
-        // it's PagerAdapter set.
-        mSlidingTabLayout.setVisibility(View.GONE);
 
         //settingsQuery.execute();
         /*getApiService().getSettings(new Callback<TisserSettings>()
@@ -104,28 +101,29 @@ public class CategoryListActivity extends BaseActivity
     protected void setupToolbar()
     {
         assert getSupportActionBar() != null;
-        getSupportActionBar().setTitle("Tisser India");
+        getSupportActionBar().setTitle("Select Category");
         assert toolbar != null;
-        toolbar.setNavigationIcon(R.drawable.ic_action_logo_1);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         toolbar.canShowOverflowMenu();
     }
 
     @Override
     protected void setupLayout()
     {
-
+        mViewPager.setVisibility(View.INVISIBLE);
+        mSlidingTabLayout.setVisibility(View.GONE);
     }
 
-    @Override
+/*    @Override
     public boolean onCreateOptionsMenu(final Menu menu)
     {
         getMenuInflater().inflate(R.menu.menu_search, menu);
-        //SearchView searchView = (SearchView) menu.findItem(R.id.action_search).getActionView();
-/*
-        searchView.setIconified(true);
-*/
+        final SearchView searchView = (SearchView) menu.findItem(R.id.action_search).getActionView();
 
-        /*searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener()
+        searchView.setIconified(true);
+
+
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener()
         {
             @Override
             public boolean onQueryTextSubmit(String query)
@@ -148,9 +146,9 @@ public class CategoryListActivity extends BaseActivity
             {
                 return true;
             }
-        });*/
+        });
         return true;
-    }
+    }*/
 
     private void consumeApiData(ArrayList<Category> categories, int type)
     {

@@ -1,6 +1,7 @@
 package com.tisser.puneet.tisserartisan.HTTP;
 
 import com.tisser.puneet.tisserartisan.Model.Category;
+import com.tisser.puneet.tisserartisan.Model.Product;
 import com.tisser.puneet.tisserartisan.Model.TisserColor;
 
 import java.util.ArrayList;
@@ -14,6 +15,7 @@ import retrofit.http.Multipart;
 import retrofit.http.POST;
 import retrofit.http.Part;
 import retrofit.http.PartMap;
+import retrofit.http.Query;
 import retrofit.mime.TypedFile;
 
 public interface TisserApiInterface
@@ -21,19 +23,20 @@ public interface TisserApiInterface
     /*    @GET("/mobileAPI.php?action=settings")
         void getSettings(Callback<TisserSettings> cb);
 
-        @GET("/mobileAPI.php?action=categoryDetails")
-        void getProductList(@Query("id") int categoryID, Callback<ArrayList<Product>> cb);
-
         @GET("/mobileAPI.php?action=searchList")
         void getSearchList(@Query("q") String query, Callback<ArrayList<Product>> cb);
 
         @GET("/mobileAPI.php?action=productDetails")
         void getProductDetailed(@Query("id") String productID, Callback<ProductDetailed> cb);*/
+
     @GET("/mobileAPI.php?action=categoryList")
     void getCategoryList(Callback<ArrayList<Category>> cb);
 
     @GET("/mobileAPI.php?action=productColors")
     void getColorsList(Callback<ArrayList<TisserColor>> colors);
+
+    @GET("/mobileAPI.php?action=categoryDetails")
+    void getProductList(@Query("id") int categoryID, Callback<ArrayList<Product>> cb);
 
     @Multipart
     @POST("/mobileAPIArtist.php?action=AddNewProduct")

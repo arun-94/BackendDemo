@@ -1,14 +1,22 @@
 package com.tisser.puneet.tisserartisan.Model;
 
 
+import com.google.gson.annotations.SerializedName;
+
 public class Product
 {
-    private String productName;
-    private String productCode;
-    private String productID;
+    @SerializedName("product_name") private String productName;
+
+    @SerializedName("product_code") private String productCode;
+
+    @SerializedName("product_id") private String productID;
+
     private int productColor;
-    private int productPrice;
-    private String productImgPath;
+
+    @SerializedName("product_price") private int productPrice;
+
+    @SerializedName("product_img") private String productImgPath;
+
     private int productCategoryID;
 
     public Product()
