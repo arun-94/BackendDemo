@@ -22,7 +22,7 @@
             android:layout_gravity="center_horizontal"
             android:layout_margin="78dp"
             android:gravity="center"
-            android:text="NO PRODUCTS AVAILABLE IN THIS CATEGORY"
+            android:text="You have not uploaded any products yet!"
             android:textAlignment="gravity"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:textColor="@color/app_primary"

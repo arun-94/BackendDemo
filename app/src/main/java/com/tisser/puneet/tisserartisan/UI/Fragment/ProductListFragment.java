@@ -50,7 +50,7 @@ public class ProductListFragment extends BaseFragment
     public void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-        getApiService().getProductList(15, new Callback<ArrayList<Product>>()
+        getApiService().showMyProducts(manager.getSessionID(), new Callback<ArrayList<Product>>()
         {
             @Override
             public void success(ArrayList<Product> products, Response response)
@@ -107,28 +107,36 @@ public class ProductListFragment extends BaseFragment
 
     private void consumeApiData(ArrayList<Product> products)
     {
-        manager.productList.clear();
-        Log.d("SEARCHRETRO", products.get(0).getProductName());
-        mProgressBar.setVisibility(View.GONE);
-        //Error case where there is no data!
-        manager.productList.addAll(products);
-        mRecyclerView.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener()
+        if(products != null)
+        {
+            manager.productList.clear();
+            Log.d("SEARCHRETRO", products.get(0).getProductName());
+            mProgressBar.setVisibility(View.GONE);
+            //Error case where there is no data!
+            manager.productList.addAll(products);
+            mRecyclerView.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener()
+            {
+                @Override
+                public void onGlobalLayout()
                 {
-                    @Override
-                    public void onGlobalLayout()
-                    {
-                        mRecyclerView.getViewTreeObserver().removeOnGlobalLayoutListener(this);
-                        int viewWidth = mRecyclerView.getMeasuredWidth();
-                        Log.d("WIDTH", "Value of recycler view is " + viewWidth);
-                        float cardViewWidth = getView().findViewById(R.id.product_card).getMeasuredWidth();
-                        int newSpanCount = (int) Math.floor(viewWidth / cardViewWidth);
-                        mLayoutManager.setSpanCount(newSpanCount);
-                        mLayoutManager.requestLayout();
-                    }
-                });
-        mRecyclerView.setLayoutManager(mLayoutManager);
-        mAdapter = new ProductListAdapter(getActivity(), manager.productList);
-        mRecyclerView.setAdapter(mAdapter);
+                    mRecyclerView.getViewTreeObserver().removeOnGlobalLayoutListener(this);
+                    int viewWidth = mRecyclerView.getMeasuredWidth();
+                    Log.d("WIDTH", "Value of recycler view is " + viewWidth);
+                    float cardViewWidth = getView().findViewById(R.id.product_card).getMeasuredWidth();
+                    int newSpanCount = (int) Math.floor(viewWidth / cardViewWidth);
+                    mLayoutManager.setSpanCount(newSpanCount);
+                    mLayoutManager.requestLayout();
+                }
+            });
+            mRecyclerView.setLayoutManager(mLayoutManager);
+            mAdapter = new ProductListAdapter(getActivity(), manager.productList);
+            mRecyclerView.setAdapter(mAdapter);
+            mEmptyText.setVisibility(View.INVISIBLE);
+        }
+        else
+        {
+            mEmptyText.setVisibility(View.VISIBLE);
+        }
         mProgressBar.setVisibility(View.GONE);
     }
 

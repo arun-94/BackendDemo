@@ -382,7 +382,8 @@ public class AddProductActivity extends BaseActivity implements Validator.Valida
             files.put("image" + i, new TypedFile("image/jpeg", new File(imagePaths.get(i))));
         }
 
-        getApiService().addNewProduct(manager.getSessionID(), files, p.getProductName(), p.getProductPrice(), p.getProductQuantity(), p.getProductCategoryID(), p.getProductColor(), p.getProductDescription(), new Callback<String>()
+        //Pass sessionID twice - once for query, once for multipart
+        getApiService().addNewProduct(manager.getSessionID(), manager.getSessionID(), files, p.getProductName(), p.getProductPrice(), p.getProductQuantity(), p.getProductCategoryID(), p.getProductColor(), p.getProductDescription(), new Callback<String>()
         {
             @Override
             public void success(String s, Response response)
