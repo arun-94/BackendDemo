@@ -20,8 +20,7 @@ public class RestClient
             RestAdapter restAdapter = new RestAdapter.Builder()
                     .setLogLevel(RestAdapter.LogLevel.FULL)
                     .setEndpoint(BASE_URL)
-                    .setConverter(new GsonConverter(gson))
-
+                    .setConverter(new LenientGsonConverter(gson))
                     .build();
 
             apiService = restAdapter.create(TisserApiInterface.class);

@@ -17,7 +17,11 @@ import com.mobsandgeeks.saripaar.annotation.Email;
 import com.mobsandgeeks.saripaar.annotation.NotEmpty;
 import com.mobsandgeeks.saripaar.annotation.Password;
 import com.tisser.puneet.tisserartisan.Global.Constants;
+import com.tisser.puneet.tisserartisan.Model.LoginData;
 import com.tisser.puneet.tisserartisan.R;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 import java.util.List;
 
@@ -60,7 +64,6 @@ public class LoginActivity extends BaseActivity implements Validator.ValidationL
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-        openNextActivity();
 
         loginValidator = new Validator(this);
         loginValidator.setValidationListener(this);
@@ -107,28 +110,29 @@ public class LoginActivity extends BaseActivity implements Validator.ValidationL
 
     private void loginPostCall(String userId, String password)
     {
-        getApiService().validateLogin(userId, password, new Callback<JsonElement>()
+        getApiService().validateLogin(userId, password, new Callback<LoginData>()
         {
             @Override
-            public void success(JsonElement jsonElement, Response response)
+            public void success(LoginData loginData, Response response)
             {
-                String sessionID = jsonElement.toString();
-                Log.d("Response", "Response string is  : " + sessionID);
-                if(!sessionID.contains("FAILED"))
+                Log.d("Response", "Response string is  : " + loginData.getSessionID());
+                if (loginData.getError() == 0)
                 {
-                    Log.d("LoginSuccess", "Success. Session Id is : " + sessionID);
-                    manager.setSessionID(sessionID);
+                    Log.d("LoginSuccess", "Success. Session Id is : " + loginData.getSessionID());
+                    manager.setSessionID(loginData.getSessionID());
                     openNextActivity();
                 }
                 else
-                    Toast.makeText(LoginActivity.this, "Failed to login - " + sessionID.substring(6), Toast.LENGTH_SHORT);
+                {
+                    Toast.makeText(LoginActivity.this, loginData.getSessionID(), Toast.LENGTH_SHORT).show();
+                    resetButton();
+                }
             }
 
             @Override
             public void failure(RetrofitError error)
             {
-                mProgressLogin.setVisibility(View.INVISIBLE);
-                mLoginButton.setText("LOG IN");
+                resetButton();
                 Log.e("Login", "error");
                 Log.e("Data", "" + error);
             }
@@ -165,5 +169,11 @@ public class LoginActivity extends BaseActivity implements Validator.ValidationL
                 Toast.makeText(this, message, Toast.LENGTH_LONG).show();
             }
         }
+    }
+
+    void resetButton()
+    {
+        mProgressLogin.setVisibility(View.INVISIBLE);
+        mLoginButton.setText("LOG IN");
     }
 }
