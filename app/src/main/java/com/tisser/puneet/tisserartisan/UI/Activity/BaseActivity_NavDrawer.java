@@ -1,10 +1,13 @@
 package com.tisser.puneet.tisserartisan.UI.Activity;
 
+import android.annotation.TargetApi;
 import android.app.FragmentManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -22,7 +25,6 @@ import com.tisser.puneet.tisserartisan.UI.Fragment.ProductListFragment;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
-import static com.tisser.puneet.tisserartisan.HTTP.RestClient.getApiService;
 
 
 public class BaseActivity_NavDrawer extends BaseActivity implements AsyncResponse
@@ -30,6 +32,7 @@ public class BaseActivity_NavDrawer extends BaseActivity implements AsyncRespons
     @Bind(R.id.content_frame) FrameLayout frameLayout;
     @Bind(R.id.drawer_layout) DrawerLayout mDrawerLayout;
     @Bind(R.id.navigation_view) NavigationView navigationView;
+    private Boolean exit = false;
 
 
     public static Intent getLaunchIntent(final Context context)
@@ -156,15 +159,46 @@ public class BaseActivity_NavDrawer extends BaseActivity implements AsyncRespons
         return super.onOptionsItemSelected(item);
     }
 
+    @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
     @Override
     public void onBackPressed()
     {
         FragmentManager fm = getFragmentManager();
         if (fm.getBackStackEntryCount() > 0)
         {
+            int currentBackStackCount = fm.getBackStackEntryCount();
+            FragmentManager.BackStackEntry lastEntry = fm.getBackStackEntryAt(fm.getBackStackEntryCount() - 1);
 
-            fm.getBackStackEntryAt(fm.getBackStackEntryCount() - 1);
-            fm.popBackStack();
+            switch (lastEntry.getName())
+            {
+                case "ProductListFragment":
+                    if (exit)
+                    {
+                        this.finishAffinity();
+                    }
+                    else
+                    {
+                        Toast.makeText(this, "Press Back again to Exit.", Toast.LENGTH_SHORT).show();
+                        exit = true;
+                        new Handler().postDelayed(new Runnable()
+                        {
+                            @Override
+                            public void run()
+                            {
+                                exit = false;
+                            }
+                        }, 3 * 1000);
+                    }
+
+                    break;
+                default:
+                    while (currentBackStackCount > 0)
+                    {
+                        fm.popBackStack();
+                        currentBackStackCount--;
+                    }
+                    navigator.openNewProductFragment(BaseActivity_NavDrawer.this, frameLayout);
+            }
         }
         else
         {

@@ -60,6 +60,7 @@ public class LoginActivity extends BaseActivity implements Validator.ValidationL
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
+        openNextActivity();
 
         loginValidator = new Validator(this);
         loginValidator.setValidationListener(this);

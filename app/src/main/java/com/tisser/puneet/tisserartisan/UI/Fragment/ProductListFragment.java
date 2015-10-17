@@ -1,5 +1,7 @@
 package com.tisser.puneet.tisserartisan.UI.Fragment;
 
+import android.annotation.TargetApi;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -50,7 +52,6 @@ public class ProductListFragment extends BaseFragment
     public void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-        Log.d("TESTONCREATE", "OnCreate");
         getApiService().showMyProducts(manager.getSessionID(), new Callback<ArrayList<Product>>()
         {
             @Override
@@ -106,6 +107,7 @@ public class ProductListFragment extends BaseFragment
         ((BaseActivity_NavDrawer) getActivity()).navigator.takePhoto(getActivity());
     }
 
+    @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
     private void consumeApiData(ArrayList<Product> products)
     {
         if(products != null)
