@@ -3,18 +3,15 @@ package com.tisser.puneet.tisserartisan.UI.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.CountDownTimer;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.SearchView;
-import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
 
-import com.tisser.puneet.tisserartisan.Global.Constants;
+import com.tisser.puneet.tisserartisan.Global.AppConstants;
 import com.tisser.puneet.tisserartisan.Model.Category;
 import com.tisser.puneet.tisserartisan.Model.Subcategory;
 import com.tisser.puneet.tisserartisan.Model.Subsubcategory;
@@ -27,7 +24,6 @@ import com.tisser.puneet.tisserartisan.UI.Custom.SlidingTabLayout;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 
 import butterknife.Bind;
 import retrofit.Callback;
@@ -77,7 +73,7 @@ public class CategoryListActivity extends BaseActivity
                 @Override
                 public void success(ArrayList<Category> categories, Response response)
                 {
-                    consumeApiData(categories, Constants.TYPE_NEW_CATEGORY_LIST);
+                    consumeApiData(categories, AppConstants.TYPE_NEW_CATEGORY_LIST);
                 }
 
                 @Override
@@ -88,7 +84,7 @@ public class CategoryListActivity extends BaseActivity
             });
         }
         else
-            consumeApiData(manager.categoryList, Constants.TYPE_OLD_CATEGORY_LIST);
+            consumeApiData(manager.categoryList, AppConstants.TYPE_OLD_CATEGORY_LIST);
     }
 
     @Override
@@ -152,7 +148,7 @@ public class CategoryListActivity extends BaseActivity
 
     private void consumeApiData(ArrayList<Category> categories, int type)
     {
-        if(type == Constants.TYPE_NEW_CATEGORY_LIST)
+        if(type == AppConstants.TYPE_NEW_CATEGORY_LIST)
             manager.categoryList = categories;
         mProgressBar.setVisibility(View.GONE);
         mSlidingTabLayout.setVisibility(View.VISIBLE);
@@ -256,9 +252,9 @@ public class CategoryListActivity extends BaseActivity
                     /*** USE OTTO/EVENTBUS HERE ***/
 
                     Intent intent = new Intent();
-                    intent.putExtra(Constants.RESULT_CATEGORY_NAME, manager.currentCategory.getCategoryName());
-                    intent.putExtra(Constants.RESULT_SUBCATEGORY_NAME, manager.currentSubCategory.getCategoryName());
-                    intent.putExtra(Constants.RESULT_SUBSUBCATEGORY_NAME, manager.currentSubsubCategory.getCategoryName());
+                    intent.putExtra(AppConstants.RESULT_CATEGORY_NAME, manager.currentCategory.getCategoryName());
+                    intent.putExtra(AppConstants.RESULT_SUBCATEGORY_NAME, manager.currentSubCategory.getCategoryName());
+                    intent.putExtra(AppConstants.RESULT_SUBSUBCATEGORY_NAME, manager.currentSubsubCategory.getCategoryName());
                     setResult(RESULT_OK, intent);
                     finish();
                 }

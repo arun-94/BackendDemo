@@ -1,6 +1,6 @@
 package com.tisser.puneet.tisserartisan.Global;
 
-public final class Constants
+public final class AppConstants
 {
 
 
@@ -23,4 +23,10 @@ public final class Constants
     public static final int RESULT_IMAGE_FULLSCREEN = 1;
     public static final int REQUEST_CAMERA = 2;
     public static final int REQUEST_GALLERY = 3;
+
+    //API Constants
+    public static final String ACTION_VALIDATE_USER = "validateUser";
+    public static final String ACTION_ADD_PRODUCT = "AddNewProduct";
+    public static final String ACTION_SHOW_PRODUCTS = "ShowMyProducts";
+
 }

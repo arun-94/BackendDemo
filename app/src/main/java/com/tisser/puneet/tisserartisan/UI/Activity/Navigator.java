@@ -12,6 +12,7 @@ import android.widget.Toast;
 
 import com.darsh.multipleimageselect.activities.AlbumSelectActivity;
 import com.darsh.multipleimageselect.helpers.Constants;
+import com.tisser.puneet.tisserartisan.Global.AppConstants;
 import com.tisser.puneet.tisserartisan.Qualifier.ActivityContext;
 import com.tisser.puneet.tisserartisan.R;
 import com.tisser.puneet.tisserartisan.UI.Fragment.ProductListFragment;
@@ -83,7 +84,7 @@ public class Navigator
     {
         activityContext = mContext;
         Intent intent = new Intent(mContext, AlbumSelectActivity.class);
-        intent.putExtra("" + Constants.INTENT_EXTRA_LIMIT, com.tisser.puneet.tisserartisan.Global.Constants.GALLERY_NUM_IMGS_TO_SELECT);
+        intent.putExtra("" + Constants.INTENT_EXTRA_LIMIT, AppConstants.GALLERY_NUM_IMGS_TO_SELECT);
         return intent;
     }
 

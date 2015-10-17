@@ -7,8 +7,8 @@ import com.google.gson.annotations.SerializedName;
  */
 public class LoginData
 {
-    @SerializedName("status") String sessionID;
-    @SerializedName("error") int errorCode;
+    @SerializedName("status") String sessionID = "";
+    @SerializedName("error") int errorCode = 0;
 
     public String getSessionID()
     {

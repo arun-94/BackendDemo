@@ -9,7 +9,6 @@ import android.graphics.Point;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.text.Html;
 import android.util.Log;
 import android.view.Display;
 import android.view.Menu;
@@ -29,6 +28,7 @@ import com.mobsandgeeks.saripaar.annotation.DecimalMax;
 import com.mobsandgeeks.saripaar.annotation.DecimalMin;
 import com.mobsandgeeks.saripaar.annotation.NotEmpty;
 import com.tisser.puneet.tisserartisan.CustomRules.IsCategorySelected;
+import com.tisser.puneet.tisserartisan.Global.AppConstants;
 import com.tisser.puneet.tisserartisan.Model.ProductDetailed;
 import com.tisser.puneet.tisserartisan.R;
 import com.tisser.puneet.tisserartisan.UI.Adapters.GalleryImagesAdapter;
@@ -94,7 +94,7 @@ public class AddProductActivity extends BaseActivity implements Validator.Valida
                     Intent i = new Intent(AddProductActivity.this, FullScreenViewActivity.class);
                     i.putExtra("img_pos", position);
                     manager.currentImagePath = imagePaths.get(position);
-                    AddProductActivity.this.startActivityForResult(i, com.tisser.puneet.tisserartisan.Global.Constants.RESULT_IMAGE_FULLSCREEN);
+                    AddProductActivity.this.startActivityForResult(i, AppConstants.RESULT_IMAGE_FULLSCREEN);
                 }
                 else if(v instanceof TextView) {
                     Intent intent = navigator.openGallery(AddProductActivity.this);
@@ -168,7 +168,7 @@ public class AddProductActivity extends BaseActivity implements Validator.Valida
             }
 
             int j = 0;
-            while (images.size() < com.tisser.puneet.tisserartisan.Global.Constants.GALLERY_NUM_IMGS_TO_SELECT && j < tempImages.size())
+            while (images.size() < AppConstants.GALLERY_NUM_IMGS_TO_SELECT && j < tempImages.size())
             {
                 images.add(tempImages.get(j));
                 temp1Images.add(tempImages.get(j));
@@ -176,7 +176,7 @@ public class AddProductActivity extends BaseActivity implements Validator.Valida
             }
             if (j < tempImages.size())
             {
-                Toast.makeText(AddProductActivity.this, "You can only add upto " + com.tisser.puneet.tisserartisan.Global.Constants.GALLERY_NUM_IMGS_TO_SELECT + " images", Toast.LENGTH_SHORT).show();
+                Toast.makeText(AddProductActivity.this, "You can only add upto " + AppConstants.GALLERY_NUM_IMGS_TO_SELECT + " images", Toast.LENGTH_SHORT).show();
             }
             for (int i = 0; i < temp1Images.size(); i++)
             {
@@ -192,18 +192,18 @@ public class AddProductActivity extends BaseActivity implements Validator.Valida
             mGalleryImagesRecycler.setNumColumns(4);
             mGalleryImagesRecycler.setAdapter(mAdapter);
         }
-        else if (requestCode == com.tisser.puneet.tisserartisan.Global.Constants.REQUEST_SELECT_CATEGORY && resultCode == RESULT_OK)
+        else if (requestCode == AppConstants.REQUEST_SELECT_CATEGORY && resultCode == RESULT_OK)
         {
             selected_categoryText.setVisibility(View.VISIBLE);
-            String s = data.getStringExtra(com.tisser.puneet.tisserartisan.Global.Constants.RESULT_CATEGORY_NAME);
-            s = s.concat(" > " + data.getStringExtra(com.tisser.puneet.tisserartisan.Global.Constants.RESULT_SUBCATEGORY_NAME));
-            s = s.concat(" > " + data.getStringExtra(com.tisser.puneet.tisserartisan.Global.Constants.RESULT_SUBSUBCATEGORY_NAME));
+            String s = data.getStringExtra(AppConstants.RESULT_CATEGORY_NAME);
+            s = s.concat(" > " + data.getStringExtra(AppConstants.RESULT_SUBCATEGORY_NAME));
+            s = s.concat(" > " + data.getStringExtra(AppConstants.RESULT_SUBSUBCATEGORY_NAME));
             selected_categoryText.setText(s);
             categoryIcon.setImageDrawable(getResources().getDrawable(R.drawable.ic_check_circle_black_24dp));
         }
-        else if (requestCode == com.tisser.puneet.tisserartisan.Global.Constants.REQUEST_SELECT_COLOR && resultCode == RESULT_OK)
+        else if (requestCode == AppConstants.REQUEST_SELECT_COLOR && resultCode == RESULT_OK)
         {
-            String stringExtra = data.getStringExtra(com.tisser.puneet.tisserartisan.Global.Constants.RESULT_COLOR_LIST);
+            String stringExtra = data.getStringExtra(AppConstants.RESULT_COLOR_LIST);
             if (!stringExtra.equals(""))
             {
                 selected_colorText.setVisibility(View.VISIBLE);
@@ -216,7 +216,7 @@ public class AddProductActivity extends BaseActivity implements Validator.Valida
                 colorIcon.setImageDrawable(getResources().getDrawable(R.drawable.ic_palette_grey_24dp));
             }
         }
-        else if (requestCode == com.tisser.puneet.tisserartisan.Global.Constants.RESULT_IMAGE_FULLSCREEN && resultCode == RESULT_OK)
+        else if (requestCode == AppConstants.RESULT_IMAGE_FULLSCREEN && resultCode == RESULT_OK)
         {
             int imagePos = data.getIntExtra("img_pos", -1);
 
@@ -261,13 +261,13 @@ public class AddProductActivity extends BaseActivity implements Validator.Valida
     @OnClick(R.id.ll_select_category)
     void clickSelectCategory()
     {
-        navigator.openNewActivityForResult(this, new CategoryListActivity(), com.tisser.puneet.tisserartisan.Global.Constants.REQUEST_SELECT_CATEGORY);
+        navigator.openNewActivityForResult(this, new CategoryListActivity(), AppConstants.REQUEST_SELECT_CATEGORY);
     }
 
     @OnClick(R.id.ll_select_color)
     void clickSelectColor()
     {
-        navigator.openNewActivityForResult(this, new ColorSelectionActivity(), com.tisser.puneet.tisserartisan.Global.Constants.REQUEST_SELECT_COLOR);
+        navigator.openNewActivityForResult(this, new ColorSelectionActivity(), AppConstants.REQUEST_SELECT_COLOR);
     }
 
     @OnClick(R.id.button_save)
@@ -383,7 +383,7 @@ public class AddProductActivity extends BaseActivity implements Validator.Valida
         }
 
         //Pass sessionID twice - once for query, once for multipart
-        getApiService().addNewProduct(manager.getSessionID(), manager.getSessionID(), files, p.getProductName(), p.getProductPrice(), p.getProductQuantity(), p.getProductCategoryID(), p.getProductColor(), p.getProductDescription(), new Callback<String>()
+        getApiService().addNewProduct(AppConstants.ACTION_ADD_PRODUCT ,manager.getSessionID(), files, p.getProductName(), p.getProductPrice(), p.getProductQuantity(), p.getProductCategoryID(), p.getProductColor(), p.getProductDescription(), new Callback<String>()
         {
             @Override
             public void success(String s, Response response)

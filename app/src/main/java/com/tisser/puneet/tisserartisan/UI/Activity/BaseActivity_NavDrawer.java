@@ -17,7 +17,7 @@ import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.Toast;
 
-import com.tisser.puneet.tisserartisan.Global.Constants;
+import com.tisser.puneet.tisserartisan.Global.AppConstants;
 import com.tisser.puneet.tisserartisan.Queries.AsyncResponse;
 import com.tisser.puneet.tisserartisan.R;
 import com.tisser.puneet.tisserartisan.UI.Fragment.AboutFragment;
@@ -105,8 +105,8 @@ public class BaseActivity_NavDrawer extends BaseActivity implements AsyncRespons
                         navigator.openNewFragment(BaseActivity_NavDrawer.this, AboutFragment.newInstance());
                         return true;
                     case R.id.nav_logout:
-                        SharedPreferences preferences = getSharedPreferences(Constants.PREFS_NAME, 0);
-                        preferences.edit().remove(Constants.PREFS_IS_LOGGED_IN).commit();
+                        SharedPreferences preferences = getSharedPreferences(AppConstants.PREFS_NAME, 0);
+                        preferences.edit().remove(AppConstants.PREFS_IS_LOGGED_IN).commit();
                         navigator.openNewActivity(BaseActivity_NavDrawer.this, new LoginActivity());
                         return true;
                     default:

@@ -10,18 +10,13 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.gson.JsonElement;
 import com.mobsandgeeks.saripaar.ValidationError;
 import com.mobsandgeeks.saripaar.Validator;
 import com.mobsandgeeks.saripaar.annotation.Email;
 import com.mobsandgeeks.saripaar.annotation.NotEmpty;
-import com.mobsandgeeks.saripaar.annotation.Password;
-import com.tisser.puneet.tisserartisan.Global.Constants;
+import com.tisser.puneet.tisserartisan.Global.AppConstants;
 import com.tisser.puneet.tisserartisan.Model.LoginData;
 import com.tisser.puneet.tisserartisan.R;
-
-import org.json.JSONArray;
-import org.json.JSONObject;
 
 import java.util.List;
 
@@ -30,7 +25,6 @@ import butterknife.OnClick;
 import retrofit.Callback;
 import retrofit.RetrofitError;
 import retrofit.client.Response;
-import retrofit.mime.TypedByteArray;
 
 import static com.tisser.puneet.tisserartisan.HTTP.RestClient.getApiService;
 
@@ -68,9 +62,9 @@ public class LoginActivity extends BaseActivity implements Validator.ValidationL
         loginValidator = new Validator(this);
         loginValidator.setValidationListener(this);
 
-        settings = getSharedPreferences(Constants.PREFS_NAME, 0);
+        settings = getSharedPreferences(AppConstants.PREFS_NAME, 0);
 
-        if (settings.getBoolean(Constants.PREFS_IS_LOGGED_IN, false))
+        if (settings.getBoolean(AppConstants.PREFS_IS_LOGGED_IN, false))
         {
             //openNextActivity();
         }
@@ -104,13 +98,13 @@ public class LoginActivity extends BaseActivity implements Validator.ValidationL
     @Override
     public void onValidationSucceeded()
     {
-        settings.edit().putBoolean(Constants.PREFS_IS_LOGGED_IN, true).commit();
+        settings.edit().putBoolean(AppConstants.PREFS_IS_LOGGED_IN, true).commit();
         loginPostCall(mCustIdEditText.getText().toString(), mPasswordEditText.getText().toString());
     }
 
     private void loginPostCall(String userId, String password)
     {
-        getApiService().validateLogin(userId, password, new Callback<LoginData>()
+        getApiService().validateLogin(AppConstants.ACTION_VALIDATE_USER, userId, password, new Callback<LoginData>()
         {
             @Override
             public void success(LoginData loginData, Response response)
@@ -137,7 +131,6 @@ public class LoginActivity extends BaseActivity implements Validator.ValidationL
                 Log.e("Data", "" + error);
             }
         });
-
     }
 
     @Override

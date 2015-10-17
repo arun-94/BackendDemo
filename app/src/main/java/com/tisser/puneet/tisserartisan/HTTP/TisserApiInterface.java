@@ -39,17 +39,15 @@ public interface TisserApiInterface
     @GET("/mobileAPI.php?action=productColors")
     void getColorsList(Callback<ArrayList<TisserColor>> colors);
 
-    @GET("/mobileAPI.php?action=categoryDetails")
-    void getProductList(@Query("id") int categoryID, Callback<ArrayList<Product>> cb);
-
-    @GET("/mobileAPI.php?action=ShowMyProducts")
-    void showMyProducts(@Query("session_id") String sessionID, Callback<ArrayList<Product>> cb);
+    @FormUrlEncoded
+    @POST("/mobileAPIArtist.php")
+    void showMyProducts(@Field("action") String action, @Field("session_id") String sessionID, Callback<JSONObject> cb);
 
     @Multipart
-    @POST("/mobileAPIArtist.php?action=AddNewProduct")
-    void addNewProduct(@Query("session_id") String sessionID, @Part("session_id") String sessionId, @PartMap Map<String, TypedFile> files, @Part("product_name") String productName, @Part("product_price") double productPrice, @Part("product_quantity") int productQuantity, @Part("product_category_id") int productCategoryId, @Part("product_color") String productColor, @Part("product_description") String productDescription, Callback<String> cb);
+    @POST("/mobileAPIArtist.php")
+    void addNewProduct(@Part("action") String action, @Part("session_id") String sessionId, @PartMap Map<String, TypedFile> files, @Part("product_name") String productName, @Part("product_price") double productPrice, @Part("product_quantity") int productQuantity, @Part("product_category_id") int productCategoryId, @Part("product_color") String productColor, @Part("product_description") String productDescription, Callback<String> cb);
 
     @FormUrlEncoded
-    @POST("/mobileAPIArtist.php?action=validateUser")
-    void validateLogin(@Field("user_id") String userId, @Field("password") String password, Callback<LoginData> cb);
+    @POST("/mobileAPIArtist.php")
+    void validateLogin(@Field("action") String action, @Field("user_id") String userId, @Field("password") String password, Callback<LoginData> cb);
 }

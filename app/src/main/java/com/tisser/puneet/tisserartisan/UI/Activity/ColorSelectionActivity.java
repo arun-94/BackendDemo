@@ -11,7 +11,7 @@ import android.widget.CheckBox;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 
-import com.tisser.puneet.tisserartisan.Global.Constants;
+import com.tisser.puneet.tisserartisan.Global.AppConstants;
 import com.tisser.puneet.tisserartisan.Model.TisserColor;
 import com.tisser.puneet.tisserartisan.R;
 import com.tisser.puneet.tisserartisan.UI.Adapters.ColorSelectionAdapter;
@@ -151,7 +151,7 @@ public class ColorSelectionActivity extends BaseActivity
     public void onBackPressed()
     {
         Intent i = new Intent();
-        i.putExtra(Constants.RESULT_COLOR_LIST, getSelectedColorNames());
+        i.putExtra(AppConstants.RESULT_COLOR_LIST, getSelectedColorNames());
         setResult(RESULT_OK, i);
         finish();
     }

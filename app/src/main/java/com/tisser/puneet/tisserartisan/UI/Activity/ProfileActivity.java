@@ -21,7 +21,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.cocosw.bottomsheet.BottomSheet;
-import com.tisser.puneet.tisserartisan.Global.Constants;
+import com.tisser.puneet.tisserartisan.Global.AppConstants;
 import com.tisser.puneet.tisserartisan.R;
 
 import java.io.ByteArrayOutputStream;
@@ -60,11 +60,11 @@ public class ProfileActivity extends BaseActivity
                     case R.id.uploadGallery:
                         Intent intent = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
                         intent.setType("image/*");
-                        startActivityForResult(Intent.createChooser(intent, "Select File"), Constants.REQUEST_GALLERY);
+                        startActivityForResult(Intent.createChooser(intent, "Select File"), AppConstants.REQUEST_GALLERY);
                         break;
                     case R.id.uploadCamera:
                         intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                        startActivityForResult(intent, Constants.REQUEST_CAMERA);
+                        startActivityForResult(intent, AppConstants.REQUEST_CAMERA);
                         break;
                 }
             }
@@ -169,7 +169,7 @@ public class ProfileActivity extends BaseActivity
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == RESULT_OK)
         {
-            if (requestCode == Constants.REQUEST_CAMERA)
+            if (requestCode == AppConstants.REQUEST_CAMERA)
             {
                 Bitmap thumbnail = (Bitmap) data.getExtras().get("data");
                 ByteArrayOutputStream bytes = new ByteArrayOutputStream();
@@ -193,7 +193,7 @@ public class ProfileActivity extends BaseActivity
                 profileImage.setImageBitmap(thumbnail);
 
             }
-            else if (requestCode == Constants.REQUEST_GALLERY)
+            else if (requestCode == AppConstants.REQUEST_GALLERY)
             {
                 Uri selectedImageUri = data.getData();
                 String[] projection = {MediaStore.MediaColumns.DATA};

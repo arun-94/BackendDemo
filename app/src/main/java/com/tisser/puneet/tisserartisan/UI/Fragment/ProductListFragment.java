@@ -11,12 +11,15 @@ import android.view.ViewTreeObserver;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.tisser.puneet.tisserartisan.Global.AppConstants;
 import com.tisser.puneet.tisserartisan.Model.Product;
 import com.tisser.puneet.tisserartisan.R;
 import com.tisser.puneet.tisserartisan.UI.Activity.BaseActivity_NavDrawer;
 import com.tisser.puneet.tisserartisan.UI.Adapters.ProductListAdapter;
 import com.tisser.puneet.tisserartisan.UI.Custom.MarginDecoration;
 import com.tisser.puneet.tisserartisan.UI.Custom.RecyclerItemClickListener;
+
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 
@@ -52,12 +55,12 @@ public class ProductListFragment extends BaseFragment
     public void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-        getApiService().showMyProducts(manager.getSessionID(), new Callback<ArrayList<Product>>()
+        getApiService().showMyProducts(AppConstants.ACTION_SHOW_PRODUCTS, manager.getSessionID(), new Callback<JSONObject>()
         {
             @Override
-            public void success(ArrayList<Product> products, Response response)
+            public void success(JSONObject jsonResponse, Response response)
             {
-                consumeApiData(products);
+                //consumeApiData(products);
             }
 
             @Override
