@@ -10,9 +10,11 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.gson.JsonElement;
 import com.mobsandgeeks.saripaar.ValidationError;
 import com.mobsandgeeks.saripaar.Validator;
 import com.mobsandgeeks.saripaar.annotation.Email;
+import com.mobsandgeeks.saripaar.annotation.NotEmpty;
 import com.mobsandgeeks.saripaar.annotation.Password;
 import com.tisser.puneet.tisserartisan.Global.Constants;
 import com.tisser.puneet.tisserartisan.R;
@@ -24,6 +26,7 @@ import butterknife.OnClick;
 import retrofit.Callback;
 import retrofit.RetrofitError;
 import retrofit.client.Response;
+import retrofit.mime.TypedByteArray;
 
 import static com.tisser.puneet.tisserartisan.HTTP.RestClient.getApiService;
 
@@ -35,7 +38,8 @@ public class LoginActivity extends BaseActivity implements Validator.ValidationL
 
     @Bind(R.id.loginButton) Button mLoginButton;
     @Email @Bind(R.id.editText_custid) EditText mCustIdEditText;
-    @Password(min = 6, scheme = Password.Scheme.ALPHA_NUMERIC_MIXED_CASE) @Bind(R.id.editText_password) EditText mPasswordEditText;
+    /*@Password(min = 6, scheme = Password.Scheme.ALPHA_NUMERIC_MIXED_CASE)*/
+    @NotEmpty @Bind(R.id.editText_password) EditText mPasswordEditText;
     @Bind(R.id.progress_login) ProgressBar mProgressLogin;
 
     @OnClick(R.id.loginButton)
@@ -102,14 +106,21 @@ public class LoginActivity extends BaseActivity implements Validator.ValidationL
 
     private void loginPostCall(String userId, String password)
     {
-        getApiService().validateLogin(userId, password, new Callback<String>()
+        getApiService().validateLogin(userId, password, new Callback<JsonElement>()
         {
             @Override
-            public void success(String sessionID, Response response)
+            public void success(JsonElement jsonElement, Response response)
             {
-                Log.d("LoginSuccess", "Success. Session Id is : " + sessionID);
-                manager.setSessionID(sessionID);
-                openNextActivity();
+                String sessionID = jsonElement.toString();
+                Log.d("Response", "Response string is  : " + sessionID);
+                if(!sessionID.contains("FAILED"))
+                {
+                    Log.d("LoginSuccess", "Success. Session Id is : " + sessionID);
+                    manager.setSessionID(sessionID);
+                    openNextActivity();
+                }
+                else
+                    Toast.makeText(LoginActivity.this, "Failed to login - " + sessionID.substring(6), Toast.LENGTH_SHORT);
             }
 
             @Override

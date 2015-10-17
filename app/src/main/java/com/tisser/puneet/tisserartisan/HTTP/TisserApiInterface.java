@@ -1,5 +1,6 @@
 package com.tisser.puneet.tisserartisan.HTTP;
 
+import com.google.gson.JsonElement;
 import com.tisser.puneet.tisserartisan.Model.Category;
 import com.tisser.puneet.tisserartisan.Model.Product;
 import com.tisser.puneet.tisserartisan.Model.TisserColor;
@@ -47,5 +48,5 @@ public interface TisserApiInterface
 
     @FormUrlEncoded
     @POST("/mobileAPIArtist.php?action=validateUser")
-    void validateLogin(@Field("user_id") String userId, @Field("password") String password, Callback<String> cb);
+    void validateLogin(@Field("user_id") String userId, @Field("password") String password, Callback<JsonElement> cb);
 }

@@ -50,6 +50,7 @@ public class ProductListFragment extends BaseFragment
     public void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
+        Log.d("TESTONCREATE", "OnCreate");
         getApiService().showMyProducts(manager.getSessionID(), new Callback<ArrayList<Product>>()
         {
             @Override
