@@ -5,7 +5,7 @@ import com.google.gson.annotations.SerializedName;
 /**
  * Created by Puneet on 14-10-2015.
  */
-public class LoginData
+public class LoginResponse
 {
     @SerializedName("status") String sessionID = "";
     @SerializedName("error") int errorCode = 0;

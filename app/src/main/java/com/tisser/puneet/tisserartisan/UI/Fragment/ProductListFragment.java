@@ -13,6 +13,7 @@ import android.widget.TextView;
 
 import com.tisser.puneet.tisserartisan.Global.AppConstants;
 import com.tisser.puneet.tisserartisan.Model.Product;
+import com.tisser.puneet.tisserartisan.Model.ProductResponse;
 import com.tisser.puneet.tisserartisan.R;
 import com.tisser.puneet.tisserartisan.UI.Activity.BaseActivity_NavDrawer;
 import com.tisser.puneet.tisserartisan.UI.Adapters.ProductListAdapter;
@@ -55,12 +56,12 @@ public class ProductListFragment extends BaseFragment
     public void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-        getApiService().showMyProducts(AppConstants.ACTION_SHOW_PRODUCTS, manager.getSessionID(), new Callback<JSONObject>()
+        getApiService().showMyProducts(AppConstants.ACTION_SHOW_PRODUCTS, manager.getSessionID(), new Callback<ProductResponse>()
         {
             @Override
-            public void success(JSONObject jsonResponse, Response response)
+            public void success(ProductResponse productResponse, Response response)
             {
-                //consumeApiData(products);
+                consumeApiData(productResponse.getProductList());
             }
 
             @Override

@@ -15,7 +15,7 @@ import com.mobsandgeeks.saripaar.Validator;
 import com.mobsandgeeks.saripaar.annotation.Email;
 import com.mobsandgeeks.saripaar.annotation.NotEmpty;
 import com.tisser.puneet.tisserartisan.Global.AppConstants;
-import com.tisser.puneet.tisserartisan.Model.LoginData;
+import com.tisser.puneet.tisserartisan.Model.LoginResponse;
 import com.tisser.puneet.tisserartisan.R;
 
 import java.util.List;
@@ -104,10 +104,10 @@ public class LoginActivity extends BaseActivity implements Validator.ValidationL
 
     private void loginPostCall(String userId, String password)
     {
-        getApiService().validateLogin(AppConstants.ACTION_VALIDATE_USER, userId, password, new Callback<LoginData>()
+        getApiService().validateLogin(AppConstants.ACTION_VALIDATE_USER, userId, password, new Callback<LoginResponse>()
         {
             @Override
-            public void success(LoginData loginData, Response response)
+            public void success(LoginResponse loginData, Response response)
             {
                 Log.d("Response", "Response string is  : " + loginData.getSessionID());
                 if (loginData.getError() == 0)

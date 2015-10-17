@@ -3,19 +3,35 @@ package com.tisser.puneet.tisserartisan.Model;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+
 public class Product
 {
-    @SerializedName("product_name") private String productName;
+    @SerializedName("name") private String productName;
 
-    @SerializedName("product_code") private String productCode;
+   @SerializedName("product_code") private String productCode;
 
     @SerializedName("product_id") private String productID;
 
     private int productColor;
 
-    @SerializedName("product_price") private int productPrice;
+    @SerializedName("price") private int productPrice;
 
-    @SerializedName("product_img") private String productImgPath;
+    @SerializedName("image") private String productImgPath;
+
+    @SerializedName("quantity") private int productQuantity;
+
+    public int getProductQuantity()
+    {
+        return productQuantity;
+    }
+
+    public void setProductQuantity(int productQuantity)
+    {
+        this.productQuantity = productQuantity;
+    }
+
 
     private int productCategoryID;
 
@@ -69,9 +85,12 @@ public class Product
         this.productID = productID;
     }
 
-    public String getProductImgPath()
+    public ArrayList<String> getProductImgPath()
     {
-        return productImgPath;
+        String[] data = productImgPath.split(";");
+        ArrayList<String> imgPaths = new ArrayList<>();
+        imgPaths.addAll(Arrays.asList(data));
+        return imgPaths;
     }
 
     public void setProductImgPath(String productImgPath)

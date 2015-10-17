@@ -1,9 +1,8 @@
 package com.tisser.puneet.tisserartisan.HTTP;
 
-import com.google.gson.JsonElement;
 import com.tisser.puneet.tisserartisan.Model.Category;
-import com.tisser.puneet.tisserartisan.Model.LoginData;
-import com.tisser.puneet.tisserartisan.Model.Product;
+import com.tisser.puneet.tisserartisan.Model.LoginResponse;
+import com.tisser.puneet.tisserartisan.Model.ProductResponse;
 import com.tisser.puneet.tisserartisan.Model.TisserColor;
 
 import org.json.JSONObject;
@@ -19,7 +18,6 @@ import retrofit.http.Multipart;
 import retrofit.http.POST;
 import retrofit.http.Part;
 import retrofit.http.PartMap;
-import retrofit.http.Query;
 import retrofit.mime.TypedFile;
 
 public interface TisserApiInterface
@@ -41,7 +39,7 @@ public interface TisserApiInterface
 
     @FormUrlEncoded
     @POST("/mobileAPIArtist.php")
-    void showMyProducts(@Field("action") String action, @Field("session_id") String sessionID, Callback<JSONObject> cb);
+    void showMyProducts(@Field("action") String action, @Field("session_id") String sessionID, Callback<ProductResponse> cb);
 
     @Multipart
     @POST("/mobileAPIArtist.php")
@@ -49,5 +47,5 @@ public interface TisserApiInterface
 
     @FormUrlEncoded
     @POST("/mobileAPIArtist.php")
-    void validateLogin(@Field("action") String action, @Field("user_id") String userId, @Field("password") String password, Callback<LoginData> cb);
+    void validateLogin(@Field("action") String action, @Field("user_id") String userId, @Field("password") String password, Callback<LoginResponse> cb);
 }
