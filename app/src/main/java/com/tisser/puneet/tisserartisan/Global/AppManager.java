@@ -38,7 +38,8 @@ public class AppManager extends Application
     public Category currentCategory = new Category();
     public Subcategory currentSubCategory = new Subcategory();
     public Subsubcategory currentSubsubCategory = new Subsubcategory();
-    public ProductDetailed currentProduct = new ProductDetailed();
+    public ProductDetailed currentProductDetailed = new ProductDetailed();
+    public Product currentProduct = new Product();
     public int currentCategoryID;
     public String currentImagePath;
     public Drawable currentImage;

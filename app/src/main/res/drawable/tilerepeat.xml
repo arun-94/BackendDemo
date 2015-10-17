@@ -2,4 +2,5 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:src="@drawable/swirlbg"
     android:tileMode="repeat"
-    android:dither="true" />
+    android:antialias="false"
+    android:dither="false" />

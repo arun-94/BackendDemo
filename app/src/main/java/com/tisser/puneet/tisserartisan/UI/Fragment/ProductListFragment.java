@@ -16,6 +16,8 @@ import com.tisser.puneet.tisserartisan.Model.Product;
 import com.tisser.puneet.tisserartisan.Model.ProductResponse;
 import com.tisser.puneet.tisserartisan.R;
 import com.tisser.puneet.tisserartisan.UI.Activity.BaseActivity_NavDrawer;
+import com.tisser.puneet.tisserartisan.UI.Activity.Navigator;
+import com.tisser.puneet.tisserartisan.UI.Activity.ProductDetailActivity;
 import com.tisser.puneet.tisserartisan.UI.Adapters.ProductListAdapter;
 import com.tisser.puneet.tisserartisan.UI.Custom.MarginDecoration;
 import com.tisser.puneet.tisserartisan.UI.Custom.RecyclerItemClickListener;
@@ -99,6 +101,8 @@ public class ProductListFragment extends BaseFragment
             @Override
             public void onItemClick(View view, int position)
             {
+                ((BaseActivity_NavDrawer) getActivity()).navigator.openNewActivity(getActivity(), new ProductDetailActivity());
+                manager.currentProduct = manager.productList.get(position);
                 Log.d("CLICK", "Clicked on item" + position);
             }
         }));

@@ -92,6 +92,7 @@ public class ProductDetailActivity extends BaseActivity implements BaseSliderVie
         reviewsRecycler.setAdapter(mReviewAdapter);
 
         //scrollView.setVisibility(View.INVISIBLE);
+/*
         Bundle extras = getIntent().getExtras();
         if (extras != null)
         {
@@ -99,6 +100,20 @@ public class ProductDetailActivity extends BaseActivity implements BaseSliderVie
         }
 
         fetchProductDetail(retreivingID);
+*/
+        scrollView.setVisibility(View.VISIBLE);
+        tvproducttitle.setText(manager.currentProduct.getProductName());
+        tvproductprice.setText("Rs. " + manager.currentProduct.getProductPrice());
+        tvproductcolors.setText("" + manager.currentProduct.getProductColor());
+        tvproductcode.setText(manager.currentProduct.getProductCode());
+        ViewPager viewPager = (ViewPager) findViewById(R.id.image_product_img);
+        ImageAdapter adapter = new ImageAdapter(this, manager.currentProduct.getProductImgPaths(), manager);
+        viewPager.setAdapter(adapter);
+        if (manager.currentProductDetailed.getProductReviews().size() != 0)
+        {
+            mReviewAdapter.addAll(manager.currentProductDetailed.getProductReviews());
+            tvreviewsplaceholder.setVisibility(View.GONE);
+        }
     }
 
 
@@ -170,22 +185,22 @@ public class ProductDetailActivity extends BaseActivity implements BaseSliderVie
 
     private void consumeApiData(ProductDetailed productDetailed)
     {
-        manager.currentProduct = productDetailed;
+        manager.currentProductDetailed = productDetailed;
         //mProgressBar.setVisibility(View.GONE);
         scrollView.setVisibility(View.VISIBLE);
-        tvproducttitle.setText(manager.currentProduct.getProductName());
-        tvproductabout.setText(manager.currentProduct.getProductSummary());
-        tvproductprice.setText("Rs. " + manager.currentProduct.getProductPrice());
-        tvproductcolors.setText(manager.currentProduct.getProductColor());
-        tvkeypoints.setText(manager.currentProduct.getProductKeypoints());
-        tvdetaileddescription.setText(manager.currentProduct.getProductDescription());
-        tvproductcode.setText(manager.currentProduct.getProductCode());
+        tvproducttitle.setText(manager.currentProductDetailed.getProductName());
+        tvproductabout.setText(manager.currentProductDetailed.getProductSummary());
+        tvproductprice.setText("Rs. " + manager.currentProductDetailed.getProductPrice());
+        tvproductcolors.setText(manager.currentProductDetailed.getProductColor());
+        tvkeypoints.setText(manager.currentProductDetailed.getProductKeypoints());
+        tvdetaileddescription.setText(manager.currentProductDetailed.getProductDescription());
+        tvproductcode.setText(manager.currentProductDetailed.getProductCode());
         ViewPager viewPager = (ViewPager) findViewById(R.id.image_product_img);
-        ImageAdapter adapter = new ImageAdapter(this, manager.currentProduct.getProductImgPaths(), manager);
+        ImageAdapter adapter = new ImageAdapter(this, manager.currentProductDetailed.getProductImgPaths(), manager);
         viewPager.setAdapter(adapter);
-        if (manager.currentProduct.getProductReviews().size() != 0)
+        if (manager.currentProductDetailed.getProductReviews().size() != 0)
         {
-            mReviewAdapter.addAll(manager.currentProduct.getProductReviews());
+            mReviewAdapter.addAll(manager.currentProductDetailed.getProductReviews());
             tvreviewsplaceholder.setVisibility(View.GONE);
         }
     }

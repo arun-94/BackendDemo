@@ -23,6 +23,8 @@ import com.tisser.puneet.tisserartisan.R;
 import com.tisser.puneet.tisserartisan.UI.Fragment.AboutFragment;
 import com.tisser.puneet.tisserartisan.UI.Fragment.ProductListFragment;
 
+import javax.inject.Inject;
+
 import butterknife.Bind;
 import butterknife.ButterKnife;
 

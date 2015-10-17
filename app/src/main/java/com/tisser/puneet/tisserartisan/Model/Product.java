@@ -18,7 +18,7 @@ public class Product
 
     @SerializedName("price") private int productPrice;
 
-    @SerializedName("image") private String productImgPath;
+    @SerializedName("images") private String productImgPath;
 
     @SerializedName("quantity") private int productQuantity;
 
@@ -85,7 +85,7 @@ public class Product
         this.productID = productID;
     }
 
-    public ArrayList<String> getProductImgPath()
+    public ArrayList<String> getProductImgPaths()
     {
         String[] data = productImgPath.split(";");
         ArrayList<String> imgPaths = new ArrayList<>();

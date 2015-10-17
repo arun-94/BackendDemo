@@ -9,6 +9,9 @@ import android.view.ViewGroup;
 
 import com.tisser.puneet.tisserartisan.Global.AppManager;
 import com.tisser.puneet.tisserartisan.UI.Activity.BaseActivity_NavDrawer;
+import com.tisser.puneet.tisserartisan.UI.Activity.Navigator;
+
+import javax.inject.Inject;
 
 import butterknife.ButterKnife;
 

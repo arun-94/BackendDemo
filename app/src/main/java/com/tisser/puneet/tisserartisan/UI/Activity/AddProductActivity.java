@@ -315,7 +315,7 @@ public class AddProductActivity extends BaseActivity implements Validator.Valida
             productDetailed.setProductCategoryID(manager.currentSubsubCategory.getCategoryID());
             productDetailed.setProductImgPaths(imagePaths);
             productDetailed.setProductDescription(editTextProductDescription.getText().toString().trim());
-            manager.currentProduct = productDetailed;
+            manager.currentProductDetailed = productDetailed;
             addNewProduct(productDetailed);
             return;
         }
