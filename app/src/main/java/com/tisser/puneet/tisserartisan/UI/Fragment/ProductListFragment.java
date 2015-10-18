@@ -12,17 +12,14 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.tisser.puneet.tisserartisan.Global.AppConstants;
-import com.tisser.puneet.tisserartisan.Model.Product;
-import com.tisser.puneet.tisserartisan.Model.ProductResponse;
+import com.tisser.puneet.tisserartisan.Model.ProductDetailed;
+import com.tisser.puneet.tisserartisan.Model.Response.ProductResponse;
 import com.tisser.puneet.tisserartisan.R;
 import com.tisser.puneet.tisserartisan.UI.Activity.BaseActivity_NavDrawer;
-import com.tisser.puneet.tisserartisan.UI.Activity.Navigator;
 import com.tisser.puneet.tisserartisan.UI.Activity.ProductDetailActivity;
 import com.tisser.puneet.tisserartisan.UI.Adapters.ProductListAdapter;
 import com.tisser.puneet.tisserartisan.UI.Custom.MarginDecoration;
 import com.tisser.puneet.tisserartisan.UI.Custom.RecyclerItemClickListener;
-
-import org.json.JSONObject;
 
 import java.util.ArrayList;
 
@@ -101,8 +98,8 @@ public class ProductListFragment extends BaseFragment
             @Override
             public void onItemClick(View view, int position)
             {
+                manager.currentProductDetailed = manager.productList.get(position);
                 ((BaseActivity_NavDrawer) getActivity()).navigator.openNewActivity(getActivity(), new ProductDetailActivity());
-                manager.currentProduct = manager.productList.get(position);
                 Log.d("CLICK", "Clicked on item" + position);
             }
         }));
@@ -116,7 +113,7 @@ public class ProductListFragment extends BaseFragment
     }
 
     @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
-    private void consumeApiData(ArrayList<Product> products)
+    private void consumeApiData(ArrayList<ProductDetailed> products)
     {
         if(products != null)
         {

@@ -1,4 +1,4 @@
-package com.tisser.puneet.tisserartisan.Model;
+package com.tisser.puneet.tisserartisan.Model.Response;
 
 import com.google.gson.annotations.SerializedName;
 

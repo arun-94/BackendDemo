@@ -1,4 +1,4 @@
-package com.tisser.puneet.tisserartisan.Component;
+package com.tisser.puneet.tisserartisan.Injection.Component;
 
 import android.content.Context;
 

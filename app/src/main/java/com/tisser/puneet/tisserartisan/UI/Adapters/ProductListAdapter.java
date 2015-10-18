@@ -10,7 +10,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.tisser.puneet.tisserartisan.Model.Product;
+import com.tisser.puneet.tisserartisan.Model.ProductDetailed;
 import com.tisser.puneet.tisserartisan.R;
 
 import java.util.ArrayList;
@@ -20,10 +20,10 @@ public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.
 {
 
     private final Context mContext;
-    private List<Product> mData;
+    private List<ProductDetailed> mData;
 
 
-    public ProductListAdapter(Context context, ArrayList<Product> data)
+    public ProductListAdapter(Context context, ArrayList<ProductDetailed> data)
     {
         mContext = context;
         if (data != null)
@@ -32,11 +32,11 @@ public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.
         }
         else
         {
-            mData = new ArrayList<Product>();
+            mData = new ArrayList<ProductDetailed>();
         }
     }
 
-    public void add(Product s, int position)
+    public void add(ProductDetailed s, int position)
     {
         position = position == -1 ? getItemCount() : position;
         mData.add(position, s);
@@ -61,17 +61,17 @@ public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.
     @Override
     public void onBindViewHolder(VHProduct holder, final int position)
     {
-        Product product = mData.get(position);
-
+        ProductDetailed product = mData.get(position);
+        String imgPath = "";
         if (product.getProductImgPaths() != null)
         {
             if (product.getProductImgPaths().get(0).contains(" "))
             {
                 Log.d("IMAGE", "There was a space");
-                product.setProductImgPath(product.getProductImgPaths().get(0).replace(" ", "%20"));
+                imgPath = product.getProductImgPaths().get(0).replace(" ", "%20");
             }
 
-            Glide.with(mContext).load("http://tisserindia.com/stores/thumb_gen.php?file=" + product.getProductImgPaths().get(0) + "&maxw=300&maxh=300").asBitmap().centerCrop().placeholder(R.drawable.logo_small).into(holder.image);
+            Glide.with(mContext).load("http://tisserindia.com/stores/thumb_gen.php?file=" + imgPath + "&maxw=300&maxh=300").asBitmap().centerCrop().placeholder(R.drawable.logo_small).into(holder.image);
             Log.d("IMGPATH", "http://tisserindia.com/stores/thumb_gen.php?file=" + product.getProductImgPaths().get(0) + "&maxw=300&maxh=300");
             holder.image.setScaleType(ImageView.ScaleType.CENTER_CROP);
         }

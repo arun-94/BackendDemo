@@ -102,12 +102,12 @@ public class ProductDetailActivity extends BaseActivity implements BaseSliderVie
         fetchProductDetail(retreivingID);
 */
         scrollView.setVisibility(View.VISIBLE);
-        tvproducttitle.setText(manager.currentProduct.getProductName());
-        tvproductprice.setText("Rs. " + manager.currentProduct.getProductPrice());
-        tvproductcolors.setText("" + manager.currentProduct.getProductColor());
-        tvproductcode.setText(manager.currentProduct.getProductCode());
+        tvproducttitle.setText(manager.currentProductDetailed.getProductName());
+        tvproductprice.setText("Rs. " + manager.currentProductDetailed.getProductPrice());
+        tvproductcolors.setText("" + manager.currentProductDetailed.getProductColor());
+        tvproductcode.setText(manager.currentProductDetailed.getProductCode());
         ViewPager viewPager = (ViewPager) findViewById(R.id.image_product_img);
-        ImageAdapter adapter = new ImageAdapter(this, manager.currentProduct.getProductImgPaths(), manager);
+        ImageAdapter adapter = new ImageAdapter(this, manager.currentProductDetailed.getProductImgPaths(), manager);
         viewPager.setAdapter(adapter);
         if (manager.currentProductDetailed.getProductReviews().size() != 0)
         {

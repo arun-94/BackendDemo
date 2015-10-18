@@ -1,11 +1,9 @@
 package com.tisser.puneet.tisserartisan.HTTP;
 
 import com.tisser.puneet.tisserartisan.Model.Category;
-import com.tisser.puneet.tisserartisan.Model.LoginResponse;
-import com.tisser.puneet.tisserartisan.Model.ProductResponse;
+import com.tisser.puneet.tisserartisan.Model.Response.LoginResponse;
+import com.tisser.puneet.tisserartisan.Model.Response.ProductResponse;
 import com.tisser.puneet.tisserartisan.Model.TisserColor;
-
-import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.Map;

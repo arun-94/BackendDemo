@@ -73,8 +73,9 @@ public class AddProductActivity extends BaseActivity implements Validator.Valida
     TextView categoryText, colorText;
 
     @IsCategorySelected TextView selected_categoryText;
-
     @IsCategorySelected TextView selected_colorText;
+
+    ProductDetailed productDetailed;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -307,13 +308,13 @@ public class AddProductActivity extends BaseActivity implements Validator.Valida
         else
         {
             // further logic
-            ProductDetailed productDetailed = new ProductDetailed();
+            productDetailed = new ProductDetailed();
             productDetailed.setProductName(editTextProductName.getText().toString().trim());
             productDetailed.setProductPrice(Double.parseDouble(String.format("%.2f", Double.parseDouble(editTextPrice.getText().toString()))));
             productDetailed.setProductColor(selected_colorText.getText().toString().trim());
             productDetailed.setProductQuantity(Integer.parseInt(editTextQuantity.getText().toString()));
             productDetailed.setProductCategoryID(manager.currentSubsubCategory.getCategoryID());
-            productDetailed.setProductImgPaths(imagePaths);
+            productDetailed.setProductImgPathsArray(imagePaths);
             productDetailed.setProductDescription(editTextProductDescription.getText().toString().trim());
             manager.currentProductDetailed = productDetailed;
             addNewProduct(productDetailed);
@@ -391,8 +392,8 @@ public class AddProductActivity extends BaseActivity implements Validator.Valida
                 mProgress.dismiss();
                 Log.d("Upload", "success");
                 Log.d("Data", "" + response);
-                Intent productDetailedIntent = new Intent(AddProductActivity.this, ProductDetailActivity.class);
-                startActivity(productDetailedIntent);
+                manager.currentProductDetailed = productDetailed;
+                navigator.openNewActivity(AddProductActivity.this, new ProductDetailActivity());
             }
 
             @Override

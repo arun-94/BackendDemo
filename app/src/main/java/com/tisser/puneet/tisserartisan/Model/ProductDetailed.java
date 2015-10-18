@@ -1,6 +1,9 @@
 package com.tisser.puneet.tisserartisan.Model;
 
+import com.google.gson.annotations.SerializedName;
+
 import java.util.ArrayList;
+import java.util.Arrays;
 
 
 /**
@@ -8,21 +11,36 @@ import java.util.ArrayList;
  */
 public class ProductDetailed
 {
-    private String productName;
-    private String productCode;
+    @SerializedName("name") private String productName;
+    @SerializedName("product_code") private String productCode;
+    @SerializedName("product_id") private String productID;
+    @SerializedName("price") private double productPrice;
+    @SerializedName("images") private String productImgPath;
+    @SerializedName("quantity") private int productQuantity;
+    private String productColor;
     private String productSummary;
     private String productDescription;
     private String productKeypoints;
     private String productEstimatedDelivery;
     private String productEstimatedCost;
     private int productBaseColor;
-    private int productQuantity;
-    private String productColor;
-    private double productPrice;
     private ArrayList<String> productImgPaths;
     private int productCategoryID;
     private int productSubcategoryID;
     private ArrayList<Review> productReviews = new ArrayList<>();
+    ArrayList<String> productImagePathsArray = new ArrayList<>();
+
+
+    public ProductDetailed()
+    {
+        this.productName = "";
+        this.productID = "";
+        this.productCode = "";
+        this.productColor = "0";
+        this.productPrice = 0;
+        this.productImgPath = "";
+        this.productCategoryID = 0;
+    }
 
     public String getProductName()
     {
@@ -126,12 +144,24 @@ public class ProductDetailed
 
     public ArrayList<String> getProductImgPaths()
     {
-        return productImgPaths;
+        if(productImagePathsArray != null && productImagePathsArray.size() != 0)
+        {
+            return productImagePathsArray;
+        }
+        String[] data = productImgPath.split(";");
+        ArrayList<String> imgPaths = new ArrayList<>();
+        imgPaths.addAll(Arrays.asList(data));
+        return imgPaths;
     }
 
-    public void setProductImgPaths(ArrayList<String> productImgPaths)
+    public void setProductImgPathsArray(ArrayList<String> productImgPaths)
     {
-        this.productImgPaths = productImgPaths;
+        this.productImagePathsArray = productImgPaths;
+    }
+
+    public void setProductImgPath(String path)
+    {
+        this.productImgPath = path;
     }
 
     public int getProductCategoryID()

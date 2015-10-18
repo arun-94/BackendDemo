@@ -10,7 +10,7 @@ public class Product
 {
     @SerializedName("name") private String productName;
 
-   @SerializedName("product_code") private String productCode;
+    @SerializedName("product_code") private String productCode;
 
     @SerializedName("product_id") private String productID;
 

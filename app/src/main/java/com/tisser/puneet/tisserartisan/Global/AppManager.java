@@ -3,10 +3,9 @@ package com.tisser.puneet.tisserartisan.Global;
 import android.app.Application;
 import android.graphics.drawable.Drawable;
 
-import com.tisser.puneet.tisserartisan.Component.ApplicationComponent;
-import com.tisser.puneet.tisserartisan.Component.DaggerApplicationComponent;
+import com.tisser.puneet.tisserartisan.Injection.Component.ApplicationComponent;
+import com.tisser.puneet.tisserartisan.Injection.Component.DaggerApplicationComponent;
 import com.tisser.puneet.tisserartisan.Model.Category;
-import com.tisser.puneet.tisserartisan.Model.Product;
 import com.tisser.puneet.tisserartisan.Model.ProductDetailed;
 import com.tisser.puneet.tisserartisan.Model.Subcategory;
 import com.tisser.puneet.tisserartisan.Model.Subsubcategory;
@@ -31,7 +30,7 @@ public class AppManager extends Application
 
     public ArrayList<Category> categoryList = new ArrayList<>();
     public ArrayList<TisserColor> colorList = new ArrayList<>();
-    public ArrayList<Product> productList = new ArrayList<>();
+    public ArrayList<ProductDetailed> productList = new ArrayList<>();
     public TisserSettings settings = new TisserSettings();
 
     // Currently selected items
@@ -39,7 +38,6 @@ public class AppManager extends Application
     public Subcategory currentSubCategory = new Subcategory();
     public Subsubcategory currentSubsubCategory = new Subsubcategory();
     public ProductDetailed currentProductDetailed = new ProductDetailed();
-    public Product currentProduct = new Product();
     public int currentCategoryID;
     public String currentImagePath;
     public Drawable currentImage;
