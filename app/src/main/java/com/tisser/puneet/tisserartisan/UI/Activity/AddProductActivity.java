@@ -60,7 +60,8 @@ public class AddProductActivity extends BaseActivity implements Validator.Valida
     @NotEmpty @Bind(R.id.editText_price) EditText editTextPrice;
     @NotEmpty @Bind(R.id.editText_productname) EditText editTextProductName;
     @DecimalMin(value = 0, message = "Min Quantity 0") @DecimalMax(value = 100, message = "Max Quantity 100") @NotEmpty @Bind(R.id.editText_quantity) EditText editTextQuantity;
-    @Bind(R.id.editText_productdescription) EditText editTextProductDescription;
+    @Bind(R.id.editText_product_long_description) EditText editTextProductDescription;
+    @Bind(R.id.editText_product_short_description) EditText editTextShortDescription;
 
     private ProgressDialog mProgress;
 

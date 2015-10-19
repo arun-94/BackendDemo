@@ -62,17 +62,36 @@
                 <include layout="@layout/divider"/>
 
                 <com.rengwuxian.materialedittext.MaterialEditText
-                    android:id="@+id/editText_productdescription"
+                    android:id="@+id/editText_product_short_description"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="16dp"
                     android:gravity="top|left"
-                    android:hint="Description (optional)"
+                    android:hint="Short Description (optional)"
+                    android:inputType="textNoSuggestions|textMultiLine"
+                    android:lines="2"
+                    android:maxLines="2"
+                    android:ellipsize="end"
+                    android:textColor="@color/app_primary"
+                    android:textSize="16sp"
+                    app:met_floatingLabel="highlight"
+                    app:met_primaryColor="@color/app_primary"/>
+
+                <com.rengwuxian.materialedittext.MaterialEditText
+                    android:id="@+id/editText_product_long_description"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginRight="16dp"
+                    android:layout_marginBottom="16dp"
+                    android:gravity="top|left"
+                    android:hint="Long Description (optional)"
+                    android:ellipsize="end"
                     android:inputType="textNoSuggestions|textMultiLine"
                     android:lines="3"
                     android:maxLines="3"
                     android:textColor="@color/app_primary"
-                    android:textSize="20sp"
+                    android:textSize="16sp"
                     app:met_floatingLabel="highlight"
                     app:met_primaryColor="@color/app_primary"/>
 
