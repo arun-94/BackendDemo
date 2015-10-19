@@ -8,11 +8,14 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.daimajia.slider.library.SliderTypes.BaseSliderView;
+import com.tisser.puneet.tisserartisan.Global.AppConstants;
 import com.tisser.puneet.tisserartisan.Model.ProductDetailed;
 import com.tisser.puneet.tisserartisan.R;
 import com.tisser.puneet.tisserartisan.UI.Adapters.ImageAdapter;
@@ -25,26 +28,16 @@ import butterknife.Bind;
 
 public class ProductDetailActivity extends BaseActivity implements BaseSliderView.OnSliderClickListener
 {
-    @Bind(R.id.tv_product_title)
-    TextView tvproducttitle;
-    @Bind(R.id.tv_product_price)
-    TextView tvproductprice;
-    @Bind(R.id.tv_product_about)
-    TextView tvproductabout;
-    @Bind(R.id.tv_product_code)
-    TextView tvproductcode;
-    @Bind(R.id.tv_product_colors)
-    TextView tvproductcolors;
-    @Bind(R.id.tv_keypoints)
-    TextView tvkeypoints;
-    @Bind(R.id.tv_detailed_description)
-    TextView tvdetaileddescription;
-    @Bind(R.id.tv_reviews_placeholder)
-    TextView tvreviewsplaceholder;
-    @Bind(R.id.scroll_view)
-    ScrollView scrollView;
-    @Bind(R.id.reviewRecycler)
-    RecyclerView reviewsRecycler;
+    @Bind(R.id.tv_product_title) TextView tvproducttitle;
+    @Bind(R.id.tv_product_price) TextView tvproductprice;
+    @Bind(R.id.tv_product_about) TextView tvproductabout;
+    @Bind(R.id.tv_product_code) TextView tvproductcode;
+    @Bind(R.id.tv_product_colors) TextView tvproductcolors;
+    @Bind(R.id.tv_keypoints) TextView tvkeypoints;
+    @Bind(R.id.tv_detailed_description) TextView tvdetaileddescription;
+    @Bind(R.id.tv_reviews_placeholder) TextView tvreviewsplaceholder;
+    @Bind(R.id.scroll_view) ScrollView scrollView;
+    @Bind(R.id.reviewRecycler) RecyclerView reviewsRecycler;
 
     private int imageheaderHeight;
     private Drawable ActionBarBackgroundDrawable;
@@ -105,7 +98,11 @@ public class ProductDetailActivity extends BaseActivity implements BaseSliderVie
         tvproducttitle.setText(manager.currentProductDetailed.getProductName());
         tvproductprice.setText("Rs. " + manager.currentProductDetailed.getProductPrice());
         tvproductcolors.setText("" + manager.currentProductDetailed.getProductColor());
-        tvproductcode.setText(manager.currentProductDetailed.getProductCode());
+        tvproductcode.setText(manager.currentProductDetailed.getProductID());
+        tvproductcolors.setText(manager.currentProductDetailed.getProductColor());
+        tvproductabout.setText(manager.currentProductDetailed.getProductSummary());
+        tvdetaileddescription.setText(manager.currentProductDetailed.getProductDescription());
+        tvkeypoints.setText(manager.currentProductDetailed.getProductKeypoints());
         ViewPager viewPager = (ViewPager) findViewById(R.id.image_product_img);
         ImageAdapter adapter = new ImageAdapter(this, manager.currentProductDetailed.getProductImgPaths(), manager);
         viewPager.setAdapter(adapter);
@@ -203,5 +200,36 @@ public class ProductDetailActivity extends BaseActivity implements BaseSliderVie
             mReviewAdapter.addAll(manager.currentProductDetailed.getProductReviews());
             tvreviewsplaceholder.setVisibility(View.GONE);
         }
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu)
+    {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_product_details, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item)
+    {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
+
+        if (id == R.id.action_edit_product)
+        {
+            Bundle extras = new Bundle();
+            extras.putInt(AppConstants.INTENT_IS_NEW_PRODUCT, AppConstants.EDIT_PRODUCT);
+            navigator.openNewActivityWithExtras(this, new AddProductActivity(), extras);
+            return true;
+        }
+        else if (id == android.R.id.home)
+        {
+            onBackPressed();
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 }

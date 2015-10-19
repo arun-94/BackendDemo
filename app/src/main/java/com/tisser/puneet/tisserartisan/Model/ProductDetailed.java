@@ -3,35 +3,31 @@ package com.tisser.puneet.tisserartisan.Model;
 import com.google.gson.annotations.SerializedName;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 
-
-/**
- * Created by Puneet on 22-07-2015.
- */
 public class ProductDetailed
 {
     @SerializedName("name") private String productName;
     @SerializedName("product_code") private String productCode;
-    @SerializedName("product_id") private String productID;
+    @SerializedName("mobile_product_id") private String productID;
     @SerializedName("price") private double productPrice;
-    @SerializedName("images") private String productImgPath;
     @SerializedName("quantity") private int productQuantity;
-    private String productColor;
-    private String productSummary;
-    private String productDescription;
-    private String productKeypoints;
-    private String productEstimatedDelivery;
-    private String productEstimatedCost;
-    private int productBaseColor;
+    @SerializedName("product_color") private String productColor;
+    @SerializedName("short_desc") private String productSummary;
+    @SerializedName("prod_desc") private String productDescription;
+    @SerializedName("keyword") private String productKeypoints;
+    @SerializedName("basecolor") private int productBaseColor;
+    @SerializedName("images") private ArrayList<Object> images;
+    private String productImgPath;
     private ArrayList<String> productImgPaths;
+    ArrayList<String> productImagePathsArray = new ArrayList<>();
     private int productCategoryID;
     private int productSubcategoryID;
+    private String productEstimatedDelivery;
+    private String productEstimatedCost;
     private ArrayList<Review> productReviews = new ArrayList<>();
-    ArrayList<String> productImagePathsArray = new ArrayList<>();
 
 
-    public ProductDetailed()
+/*    public ProductDetailed()
     {
         this.productName = "";
         this.productID = "";
@@ -40,7 +36,7 @@ public class ProductDetailed
         this.productPrice = 0;
         this.productImgPath = "";
         this.productCategoryID = 0;
-    }
+    }*/
 
     public String getProductName()
     {
@@ -144,14 +140,18 @@ public class ProductDetailed
 
     public ArrayList<String> getProductImgPaths()
     {
-        if(productImagePathsArray != null && productImagePathsArray.size() != 0)
+        if (productImagePathsArray != null && productImagePathsArray.size() != 0)
         {
             return productImagePathsArray;
         }
+        else
+        {
+            return null;/*
         String[] data = productImgPath.split(";");
         ArrayList<String> imgPaths = new ArrayList<>();
         imgPaths.addAll(Arrays.asList(data));
-        return imgPaths;
+        return imgPaths;*/
+        }
     }
 
     public void setProductImgPathsArray(ArrayList<String> productImgPaths)
@@ -202,5 +202,25 @@ public class ProductDetailed
     public void setProductQuantity(int productQuantity)
     {
         this.productQuantity = productQuantity;
+    }
+
+    public ArrayList<Object> getImages()
+    {
+        return images;
+    }
+
+    public void setImages(ArrayList<Object> images)
+    {
+        this.images = images;
+    }
+
+    public String getProductID()
+    {
+        return productID;
+    }
+
+    public void setProductID(String productID)
+    {
+        this.productID = productID;
     }
 }

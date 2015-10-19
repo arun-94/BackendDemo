@@ -5,7 +5,6 @@ public final class AppConstants
 
 
     public static final int REQUEST_CODE = 0;
-    public static final int INTENT_EXTRA_LIMIT = 0;
 
     public static final String PREFS_NAME = "Tisser_Artisan_App_Preferences";
     public static final String PREFS_IS_LOGGED_IN = "isLoggedIn";
@@ -29,4 +28,11 @@ public final class AppConstants
     public static final String ACTION_ADD_PRODUCT = "AddNewProduct";
     public static final String ACTION_SHOW_PRODUCTS = "ShowMyProducts";
 
+    //Intent Extras - Names
+    public static final String INTENT_IS_NEW_PRODUCT = "Intent_isNewProduct";
+    public static final int INTENT_EXTRA_LIMIT = 0;
+
+    //Intent Extras - Values
+    public static final int NEW_PRODUCT = 1;
+    public static final int EDIT_PRODUCT = 0;
 }

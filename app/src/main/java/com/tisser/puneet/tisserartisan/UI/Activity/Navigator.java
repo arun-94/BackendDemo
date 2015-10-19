@@ -7,6 +7,7 @@ import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
+import android.os.Bundle;
 import android.widget.FrameLayout;
 import android.widget.Toast;
 
@@ -100,6 +101,14 @@ public class Navigator
         activityContext = mContext;
         Intent i = new Intent(mContext, activity.getClass());
         ((Activity) mContext).startActivityForResult(i, requestCode);
+    }
+
+    public void openNewActivityWithExtras(Context mContext, Activity activity, Bundle bundle)
+    {
+        activityContext = mContext;
+        Intent i = new Intent(mContext, activity.getClass());
+        i.putExtras(bundle);
+        startActivity(i);
     }
 
     public void openNewFragment(Context mContext, Fragment mFragment)

@@ -26,7 +26,8 @@ public class ImageAdapter extends PagerAdapter
     public ImageAdapter(Context context, ArrayList<String> imageURLS, AppManager manager)
     {
         this.context = context;
-        this.imageURLS.addAll(imageURLS);
+        if(imageURLS != null)
+            this.imageURLS.addAll(imageURLS);
         this.manager = manager;
     }
 
