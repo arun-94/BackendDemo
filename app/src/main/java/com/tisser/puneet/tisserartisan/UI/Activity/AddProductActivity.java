@@ -153,6 +153,7 @@ public class AddProductActivity extends BaseActivity implements Validator.Valida
 
         mProgress = new ProgressDialog(AddProductActivity.this);
         mProgress.setMessage("Saving New Product");
+
     }
 
     @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
