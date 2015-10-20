@@ -46,7 +46,7 @@ public class ImageAdapter extends PagerAdapter
     @Override
     public int getCount()
     {
-        if(imageURLS != null)
+        if(imageURLS.size() != 0)
             return imageURLS.size();
         else
             return imagePaths.size();
@@ -65,7 +65,7 @@ public class ImageAdapter extends PagerAdapter
         //int padding = context.getResources().getDimensionPixelSize(R.dimen.padding_medium);
         //imageView.setPadding(padding, padding, padding, padding);
         imageView.setScaleType(ImageView.ScaleType.FIT_CENTER);
-        if(imageURLS != null)
+        if(imageURLS.size() != 0)
         {
             Picasso.with(mContext).load(imageURLS.get(position).getPath()).into(imageView);
         }

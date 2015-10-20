@@ -174,12 +174,24 @@ public class AddProductActivity extends BaseActivity implements Validator.Valida
             int id = productDetailed.getProductCategoryID();
 
             //selected_categoryText.setText(productDetailed.getProductCategoryID());
-            ArrayList<ImageResponse> productImages = productDetailed.getImages();
-            for(int i = 0; i < productImages.size(); i++)
+            if(productDetailed.getImages() != null)
             {
-                Image img = new Image(i, "" + i, productImages.get(i).getPath(), true);
-                images.add(img);
-                imagePaths.add(img.path);
+                ArrayList<ImageResponse> productImages = productDetailed.getImages();
+                for (int i = 0; i < productImages.size(); i++)
+                {
+                    Image img = new Image(i, "" + i, productImages.get(i).getPath(), true);
+                    images.add(img);
+                    imagePaths.add(img.path);
+                }
+            }
+            else {
+                ArrayList<String> productImagesPaths = productDetailed.getProductImgPaths();
+                for (int i = 0; i < productImagesPaths.size(); i++)
+                {
+                    Image img = new Image(i, "File Image", productImagesPaths.get(i), true);
+                    images.add(img);
+                    imagePaths.add(img.path);
+                }
             }
 
             mAdapter.addAll(images, width - 40);
