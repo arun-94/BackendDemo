@@ -1,5 +1,6 @@
 package com.tisser.puneet.tisserartisan.Model;
 
+import com.darsh.multipleimageselect.models.Image;
 import com.google.gson.annotations.SerializedName;
 import com.tisser.puneet.tisserartisan.Model.Response.ImageResponse;
 
@@ -210,9 +211,14 @@ public class ProductDetailed
         return images;
     }
 
-    public void setImages(ArrayList<ImageResponse> images)
+    public void setImages(ArrayList<Image> images)
     {
-        this.images = images;
+        for(int i = 0; i < images.size(); i++)
+        {
+            ImageResponse img = new ImageResponse();
+            img.setPath(images.get(i).path);
+            this.images.add(img);
+        }
     }
 
     public String getProductID()

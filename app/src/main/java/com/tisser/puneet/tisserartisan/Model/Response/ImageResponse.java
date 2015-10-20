@@ -9,7 +9,8 @@ public class ImageResponse
 {
     public String getPath()
     {
-        return path;
+        String newPath = "http://www.tisserindia.com/stores/" + path.substring(3);
+        return newPath;
     }
 
     public void setPath(String path)

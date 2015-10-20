@@ -104,8 +104,15 @@ public class ProductDetailActivity extends BaseActivity implements BaseSliderVie
         tvdetaileddescription.setText(manager.currentProductDetailed.getProductDescription());
         tvkeypoints.setText(manager.currentProductDetailed.getProductKeypoints());
         ViewPager viewPager = (ViewPager) findViewById(R.id.image_product_img);
-        ImageAdapter adapter = new ImageAdapter(this, manager.currentProductDetailed.getProductImgPaths(), manager);
-        viewPager.setAdapter(adapter);
+        if(manager.currentProductDetailed.getImages() != null)
+        {
+            ImageAdapter adapter = new ImageAdapter(this, manager.currentProductDetailed.getImages(), manager);
+            viewPager.setAdapter(adapter);
+        }
+        else {
+            ImageAdapter adapter = new ImageAdapter(this, manager.currentProductDetailed.getProductImgPaths(), manager, 0);
+            viewPager.setAdapter(adapter);
+        }
         if (manager.currentProductDetailed.getProductReviews().size() != 0)
         {
             mReviewAdapter.addAll(manager.currentProductDetailed.getProductReviews());
@@ -193,7 +200,7 @@ public class ProductDetailActivity extends BaseActivity implements BaseSliderVie
         tvdetaileddescription.setText(manager.currentProductDetailed.getProductDescription());
         tvproductcode.setText(manager.currentProductDetailed.getProductCode());
         ViewPager viewPager = (ViewPager) findViewById(R.id.image_product_img);
-        ImageAdapter adapter = new ImageAdapter(this, manager.currentProductDetailed.getProductImgPaths(), manager);
+        ImageAdapter adapter = new ImageAdapter(this, manager.currentProductDetailed.getImages(), manager);
         viewPager.setAdapter(adapter);
         if (manager.currentProductDetailed.getProductReviews().size() != 0)
         {

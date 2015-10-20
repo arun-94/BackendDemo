@@ -71,8 +71,14 @@ public class FullScreenViewActivity extends BaseActivity
     @Override
     protected void setupLayout()
     {
-        Uri uri = Uri.fromFile(new File(manager.currentImagePath));
-        Picasso.with(FullScreenViewActivity.this).load(uri).into(imgDisplay);
+        if(manager.currentImagePath.startsWith("http")) {
+            Picasso.with(FullScreenViewActivity.this).load(manager.currentImagePath).into(imgDisplay);
+        }
+        else
+        {
+            Uri uri = Uri.fromFile(new File(manager.currentImagePath));
+            Picasso.with(FullScreenViewActivity.this).load(uri).into(imgDisplay);
+        }
     }
 
     @Override

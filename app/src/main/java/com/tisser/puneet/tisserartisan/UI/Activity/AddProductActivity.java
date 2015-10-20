@@ -145,6 +145,7 @@ public class AddProductActivity extends BaseActivity implements Validator.Valida
         mGalleryImagesRecycler.setExpanded(true);
         mAdapter = new GalleryImagesAdapter(this, null);
         images = new ArrayList<>();
+        imagePaths = new ArrayList<>();
 
         Display display = getWindowManager().getDefaultDisplay();
         Point size = new Point();
@@ -154,8 +155,6 @@ public class AddProductActivity extends BaseActivity implements Validator.Valida
         mGalleryImagesRecycler.setNumColumns(1);
         mGalleryImagesRecycler.requestLayout();
         mGalleryImagesRecycler.setAdapter(mAdapter);
-
-        imagePaths = new ArrayList<>();
 
         mProgress = new ProgressDialog(AddProductActivity.this);
         mProgress.setMessage("Saving New Product");
@@ -173,12 +172,23 @@ public class AddProductActivity extends BaseActivity implements Validator.Valida
             if(productDetailed.getProductQuantity() != 0)
                 editTextQuantity.setText("" + productDetailed.getProductQuantity());
             int id = productDetailed.getProductCategoryID();
+
             //selected_categoryText.setText(productDetailed.getProductCategoryID());
             ArrayList<ImageResponse> productImages = productDetailed.getImages();
             for(int i = 0; i < productImages.size(); i++)
-                imagePaths.add(productImages.get(0).getPath());
+            {
+                Image img = new Image(i, "" + i, productImages.get(i).getPath(), true);
+                images.add(img);
+                imagePaths.add(img.path);
+            }
 
-            editTextShortDescription.setText(productDetailed.getProductDescription());
+            mAdapter.addAll(images, width - 40);
+            mGalleryImagesRecycler.setNumColumns(4);
+            mGalleryImagesRecycler.requestLayout();
+            mGalleryImagesRecycler.setAdapter(mAdapter);
+
+            editTextShortDescription.setText(productDetailed.getProductSummary());
+            editTextProductDescription.setText(productDetailed.getProductDescription());
 
         }
     }
@@ -400,7 +410,7 @@ public class AddProductActivity extends BaseActivity implements Validator.Valida
 
     }
 
-    public void addNewProduct(ProductDetailed p)
+    public void addNewProduct(final ProductDetailed p)
     {
         String action = "AddNewProduct";
         ArrayList<String> imagePaths = p.getProductImgPaths();
@@ -424,7 +434,7 @@ public class AddProductActivity extends BaseActivity implements Validator.Valida
                 if(responseObj.getError() == 0)
                 {
                     Toast.makeText(AddProductActivity.this, responseObj.getStatus(), Toast.LENGTH_LONG).show();
-                    manager.currentProductDetailed = productDetailed;
+                    manager.currentProductDetailed = p;
                     navigator.openNewActivity(AddProductActivity.this, new ProductDetailActivity());
                 }
                 else

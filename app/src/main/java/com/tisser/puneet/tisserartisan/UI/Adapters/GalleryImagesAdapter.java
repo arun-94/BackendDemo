@@ -2,6 +2,7 @@ package com.tisser.puneet.tisserartisan.UI.Adapters;
 
 import android.content.Context;
 import android.net.Uri;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -57,6 +58,7 @@ public class GalleryImagesAdapter extends BaseAdapter
         //mGalleryImages.add(null);
         notifyDataSetChanged();
     }
+
 
 
     public void remove(int position)
@@ -141,9 +143,17 @@ public class GalleryImagesAdapter extends BaseAdapter
 
         if (mGalleryImages.get(0) != null)
         {
-            Image i = mGalleryImages.get(position);
-            Uri uri = Uri.fromFile(new File(i.path));
-            Picasso.with(mContext).load(uri).fit().into(viewHolder.image);
+            if(mGalleryImages.get(0).name.matches("^-?\\d+$")) {
+                Image i = mGalleryImages.get(position);
+                Log.d("GalleryAdapter", i.path);
+                Picasso.with(mContext).load(i.path).into(viewHolder.image);
+            }
+            else
+            {
+                Image i = mGalleryImages.get(position);
+                Uri uri = Uri.fromFile(new File(i.path));
+                Picasso.with(mContext).load(uri).fit().into(viewHolder.image);
+            }
         }
 
         return convertView;
