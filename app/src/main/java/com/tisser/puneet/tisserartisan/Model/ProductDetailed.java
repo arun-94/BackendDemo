@@ -15,7 +15,7 @@ public class ProductDetailed
     @SerializedName("short_desc") private String productSummary;
     @SerializedName("prod_desc") private String productDescription;
     @SerializedName("keyword") private String productKeypoints;
-    @SerializedName("basecolor") private int productBaseColor;
+    @SerializedName("basecolor") private String productBaseColor;
     @SerializedName("images") private ArrayList<Object> images;
     private String productImgPath;
     private ArrayList<String> productImgPaths;
@@ -108,12 +108,12 @@ public class ProductDetailed
         this.productEstimatedCost = productEstimatedCost;
     }
 
-    public int getProductBaseColor()
+    public String getProductBaseColor()
     {
         return productBaseColor;
     }
 
-    public void setProductBaseColor(int productBaseColor)
+    public void setProductBaseColor(String productBaseColor)
     {
         this.productBaseColor = productBaseColor;
     }

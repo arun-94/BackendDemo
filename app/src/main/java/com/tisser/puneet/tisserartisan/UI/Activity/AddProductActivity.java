@@ -30,6 +30,7 @@ import com.mobsandgeeks.saripaar.annotation.NotEmpty;
 import com.tisser.puneet.tisserartisan.CustomRules.IsCategorySelected;
 import com.tisser.puneet.tisserartisan.Global.AppConstants;
 import com.tisser.puneet.tisserartisan.Model.ProductDetailed;
+import com.tisser.puneet.tisserartisan.Model.Response.AddProductResponse;
 import com.tisser.puneet.tisserartisan.R;
 import com.tisser.puneet.tisserartisan.UI.Adapters.GalleryImagesAdapter;
 import com.tisser.puneet.tisserartisan.UI.Custom.ExpandableHeightGridView;
@@ -385,24 +386,29 @@ public class AddProductActivity extends BaseActivity implements Validator.Valida
             files.put("image" + i, new TypedFile("image/jpeg", new File(imagePaths.get(i))));
         }
 
-        //Pass sessionID twice - once for query, once for multipart
-        getApiService().addNewProduct(AppConstants.ACTION_ADD_PRODUCT ,manager.getSessionID(), files, p.getProductName(), p.getProductPrice(), p.getProductQuantity(), p.getProductCategoryID(), p.getProductColor(), p.getProductDescription(), new Callback<String>()
+        getApiService().addNewProduct(AppConstants.ACTION_ADD_PRODUCT ,manager.getSessionID(), files, p.getProductName(), p.getProductPrice(), p.getProductQuantity(), p.getProductCategoryID(), p.getProductColor(), p.getProductDescription(), new Callback<AddProductResponse>()
         {
             @Override
-            public void success(String s, Response response)
+            public void success(AddProductResponse responseObj, Response response)
             {
                 mProgress.dismiss();
                 Log.d("Upload", "success");
-                Log.d("Data", "" + response);
-                manager.currentProductDetailed = productDetailed;
-                navigator.openNewActivity(AddProductActivity.this, new ProductDetailActivity());
+                Log.d("Data", "" + responseObj.getError());
+                if(responseObj.getError() == 0)
+                {
+                    Toast.makeText(AddProductActivity.this, responseObj.getStatus(), Toast.LENGTH_LONG).show();
+                    manager.currentProductDetailed = productDetailed;
+                    navigator.openNewActivity(AddProductActivity.this, new ProductDetailActivity());
+                }
+                else
+                    Toast.makeText(AddProductActivity.this, responseObj.getStatus(), Toast.LENGTH_LONG).show();
             }
 
             @Override
             public void failure(RetrofitError error)
             {
                 mProgress.dismiss();
-                Toast.makeText(AddProductActivity.this, "Failed to Add Product", Toast.LENGTH_LONG);
+                Toast.makeText(AddProductActivity.this, "Failed to Add Product", Toast.LENGTH_LONG).show();
                 Log.e("Upload", "error");
                 Log.e("Data", "" + error);
             }
