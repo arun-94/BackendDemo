@@ -13,6 +13,7 @@ import com.squareup.picasso.Picasso;
 import com.tisser.puneet.tisserartisan.Global.AppManager;
 import com.tisser.puneet.tisserartisan.Model.Response.ImageResponse;
 import com.tisser.puneet.tisserartisan.UI.Activity.FullScreenViewActivity;
+import com.tisser.puneet.tisserartisan.UI.Activity.FullScreenViewActivityWithDelete;
 import com.tisser.puneet.tisserartisan.UI.Custom.TouchImageView;
 
 import java.io.File;

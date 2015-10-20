@@ -40,6 +40,10 @@
             android:label="@string/app_name">
         </activity>
         <activity
+            android:name=".UI.Activity.FullScreenViewActivityWithDelete"
+            android:label="@string/app_name">
+        </activity>
+        <activity
             android:name=".UI.Activity.FullScreenViewActivity"
             android:label="@string/app_name">
         </activity>

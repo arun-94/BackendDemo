@@ -95,7 +95,7 @@ public class AddProductActivity extends BaseActivity implements Validator.Valida
             public void onItemClick(AdapterView<?> parent, View v, int position, long id)
             {
                 if(v instanceof ImageView) {
-                    Intent i = new Intent(AddProductActivity.this, FullScreenViewActivity.class);
+                    Intent i = new Intent(AddProductActivity.this, FullScreenViewActivityWithDelete.class);
                     i.putExtra("img_pos", position);
                     manager.currentImagePath = imagePaths.get(position);
                     AddProductActivity.this.startActivityForResult(i, AppConstants.RESULT_IMAGE_FULLSCREEN);

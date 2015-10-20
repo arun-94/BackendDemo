@@ -104,12 +104,13 @@ public class ProductDetailActivity extends BaseActivity implements BaseSliderVie
         tvdetaileddescription.setText(manager.currentProductDetailed.getProductDescription());
         tvkeypoints.setText(manager.currentProductDetailed.getProductKeypoints());
         ViewPager viewPager = (ViewPager) findViewById(R.id.image_product_img);
-        if(manager.currentProductDetailed.getImages() != null)
+        if (manager.currentProductDetailed.getImages() != null)
         {
             ImageAdapter adapter = new ImageAdapter(this, manager.currentProductDetailed.getImages(), manager);
             viewPager.setAdapter(adapter);
         }
-        else {
+        else
+        {
             ImageAdapter adapter = new ImageAdapter(this, manager.currentProductDetailed.getProductImgPaths(), manager, 0);
             viewPager.setAdapter(adapter);
         }
@@ -125,7 +126,7 @@ public class ProductDetailActivity extends BaseActivity implements BaseSliderVie
     public void onSliderClick(BaseSliderView baseSliderView)
     {
         //Log.d("CLICKED", "Clicked on item " + sliderShow.getCurrentPosition());
-        Intent i = new Intent(ProductDetailActivity.this, FullScreenViewActivity.class);
+        Intent i = new Intent(ProductDetailActivity.this, FullScreenViewActivityWithDelete.class);
         startActivity(i);
     }
 

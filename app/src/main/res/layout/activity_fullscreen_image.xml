@@ -1,28 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent" >
 
     <com.tisser.puneet.tisserartisan.UI.Custom.TouchImageView
         android:id="@+id/imgDisplay"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:background="#000000"
+        android:src="@drawable/logo"
         android:scaleType="fitCenter"
-        android:src="@drawable/logo"/>
-
-    <Button
-        android:id="@+id/deleteImage"
-        android:layout_width="wrap_content"
-        android:layout_height="30dp"
-        android:background="@drawable/button_background"
-        android:paddingBottom="2dp"
-        android:paddingTop="2dp"
-        android:text="Delete"
-        android:textColor="#ffffff"
-        android:layout_alignTop="@+id/btnClose"
-        android:layout_toLeftOf="@+id/btnClose"
-        android:layout_toStartOf="@+id/btnClose"/>
+        android:background="#000000"/>
 
     <Button
         android:id="@+id/btnClose"
@@ -30,11 +17,11 @@
         android:layout_height="30dp"
         android:layout_alignParentRight="true"
         android:layout_alignParentTop="true"
-        android:layout_margin="15dp"
-        android:background="@drawable/button_background"
-        android:paddingBottom="2dp"
         android:paddingTop="2dp"
+        android:paddingBottom="2dp"
+        android:background="@drawable/button_background"
+        android:textColor="#ffffff"
         android:text="Close"
-        android:textColor="#ffffff"/>
+        android:layout_margin="15dp"/>
 
 </RelativeLayout>
