@@ -40,7 +40,7 @@
             app:fabSize="normal"
             app:fab_colorNormal="@color/app_primary"
             app:fab_colorPressed="@color/app_primary"
-            app:layout_anchor="@id/productsListRecycler"
+            app:layout_anchor="@id/coordinator_product_list"
             app:layout_anchorGravity="bottom|right|end"
             android:layout_alignParentBottom="true"
             android:layout_alignParentRight="true"/>
