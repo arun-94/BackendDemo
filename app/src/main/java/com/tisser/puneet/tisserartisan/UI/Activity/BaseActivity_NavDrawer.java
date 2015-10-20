@@ -64,7 +64,7 @@ public class BaseActivity_NavDrawer extends BaseActivity implements AsyncRespons
                     savedInstanceState.getInt("STATE_SELECTED_POSITION");
         }
         ButterKnife.bind(this);
-        navigator.openNewProductFragment(BaseActivity_NavDrawer.this, frameLayout);
+        navigator.openNewProductFragment(BaseActivity_NavDrawer.this);
     }
 
     @Override
@@ -242,7 +242,7 @@ public class BaseActivity_NavDrawer extends BaseActivity implements AsyncRespons
                         currentBackStackCount--;
                     }
 
-                    navigator.openNewProductFragment(BaseActivity_NavDrawer.this, frameLayout);
+                    navigator.openNewProductFragment(BaseActivity_NavDrawer.this);
             }
         }
         else

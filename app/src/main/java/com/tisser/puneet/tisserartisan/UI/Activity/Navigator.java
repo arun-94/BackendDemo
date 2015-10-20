@@ -8,7 +8,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.widget.FrameLayout;
 import android.widget.Toast;
 
 import com.darsh.multipleimageselect.activities.AlbumSelectActivity;
@@ -118,7 +117,7 @@ public class Navigator
         ((Activity) mContext).getFragmentManager().beginTransaction().replace(R.id.content_frame, mFragment, tag).addToBackStack(tag).setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN).commit();
     }
 
-    public void openNewProductFragment(Context mContext, FrameLayout frameLayout)
+    public void openNewProductFragment(Context mContext)
     {
         ((Activity) mContext).getFragmentManager().beginTransaction().replace(R.id.content_frame, ProductListFragment.newInstance(), "ProductListFragment").addToBackStack("ProductListFragment").setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN).commit();
     }

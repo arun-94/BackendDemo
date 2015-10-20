@@ -124,4 +124,26 @@ public class ProductDetailActivity extends BaseActivity
 
         return super.onOptionsItemSelected(item);
     }
+
+    @Override
+    public void onBackPressed()
+    {
+        navigator.openNewActivity(ProductDetailActivity.this, new BaseActivity_NavDrawer());
+
+        /*FragmentManager fm = getFragmentManager();
+        if (fm.getBackStackEntryCount() > 0)
+        {
+            int currentBackStackCount = fm.getBackStackEntryCount();
+            while (currentBackStackCount > 0)
+            {
+                fm.popBackStack();
+                currentBackStackCount--;
+            }
+
+        }
+        else
+        {
+            super.onBackPressed();
+        }*/
+    }
 }
