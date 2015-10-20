@@ -1,6 +1,7 @@
 package com.tisser.puneet.tisserartisan.Model;
 
 import com.google.gson.annotations.SerializedName;
+import com.tisser.puneet.tisserartisan.Model.Response.ImageResponse;
 
 import java.util.ArrayList;
 
@@ -16,7 +17,7 @@ public class ProductDetailed
     @SerializedName("prod_desc") private String productDescription;
     @SerializedName("keyword") private String productKeypoints;
     @SerializedName("basecolor") private String productBaseColor;
-    @SerializedName("images") private ArrayList<Object> images;
+    @SerializedName("images") private ArrayList<ImageResponse> images;
     private String productImgPath;
     private ArrayList<String> productImgPaths;
     ArrayList<String> productImagePathsArray = new ArrayList<>();
@@ -204,12 +205,12 @@ public class ProductDetailed
         this.productQuantity = productQuantity;
     }
 
-    public ArrayList<Object> getImages()
+    public ArrayList<ImageResponse> getImages()
     {
         return images;
     }
 
-    public void setImages(ArrayList<Object> images)
+    public void setImages(ArrayList<ImageResponse> images)
     {
         this.images = images;
     }

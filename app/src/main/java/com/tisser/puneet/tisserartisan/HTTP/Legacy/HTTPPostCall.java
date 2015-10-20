@@ -1,3 +1,4 @@
+/*
 package com.tisser.puneet.tisserartisan.HTTP.Legacy;
 
 import org.apache.http.HttpResponse;
@@ -9,9 +10,11 @@ import org.apache.http.util.ByteArrayBuffer;
 import java.io.BufferedInputStream;
 import java.io.InputStream;
 
+*/
 /**
  * Created by Puneet-The Admin on 1/29/2015.
- */
+ *//*
+
 public class HTTPPostCall
 {
     public static String makeCall(String url)
@@ -50,3 +53,4 @@ public class HTTPPostCall
         return replyString.trim();
     }
 }
+*/

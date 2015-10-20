@@ -1,17 +1,16 @@
+/*
 package com.tisser.puneet.tisserartisan.HTTP.Legacy;
 
-import org.apache.http.HttpResponse;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.impl.client.DefaultHttpClient;
-import org.apache.http.util.ByteArrayBuffer;
+
 
 import java.io.BufferedInputStream;
 import java.io.InputStream;
 
+*/
 /**
  * Created by Puneet-The Admin on 1/29/2015.
- */
+ *//*
+
 public class HTTPGetCall
 {
     public static String makeCall(String url)
@@ -50,3 +49,4 @@ public class HTTPGetCall
         return replyString.trim();
     }
 }
+*/

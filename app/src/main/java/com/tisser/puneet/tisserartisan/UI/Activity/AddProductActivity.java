@@ -31,6 +31,7 @@ import com.tisser.puneet.tisserartisan.CustomRules.IsCategorySelected;
 import com.tisser.puneet.tisserartisan.Global.AppConstants;
 import com.tisser.puneet.tisserartisan.Model.ProductDetailed;
 import com.tisser.puneet.tisserartisan.Model.Response.AddProductResponse;
+import com.tisser.puneet.tisserartisan.Model.Response.ImageResponse;
 import com.tisser.puneet.tisserartisan.R;
 import com.tisser.puneet.tisserartisan.UI.Adapters.GalleryImagesAdapter;
 import com.tisser.puneet.tisserartisan.UI.Custom.ExpandableHeightGridView;
@@ -126,6 +127,9 @@ public class AddProductActivity extends BaseActivity implements Validator.Valida
     @Override
     protected void setupLayout()
     {
+
+        Bundle productBundle = getIntent().getExtras();
+
         categoryText = ButterKnife.findById(selectCategoryLL, R.id.selector_text);
         colorText = ButterKnife.findById(selectColorLL, R.id.selector_text);
         selected_categoryText = ButterKnife.findById(selectCategoryLL, R.id.selected_text);
@@ -156,6 +160,27 @@ public class AddProductActivity extends BaseActivity implements Validator.Valida
         mProgress = new ProgressDialog(AddProductActivity.this);
         mProgress.setMessage("Saving New Product");
 
+        if(productBundle != null && productBundle.getInt(AppConstants.INTENT_IS_NEW_PRODUCT) == AppConstants.EDIT_PRODUCT) {
+
+            ProductDetailed productDetailed = manager.currentProductDetailed;
+
+            editTextProductName.setText(productDetailed.getProductName());
+            editTextPrice.setText(productDetailed.getProductPrice() + "");
+            selected_colorText.setVisibility(View.VISIBLE);
+            selected_colorText.setText(productDetailed.getProductColor());
+            colorIcon.setImageDrawable(getResources().getDrawable(R.drawable.ic_check_circle_black_24dp));
+
+            if(productDetailed.getProductQuantity() != 0)
+                editTextQuantity.setText("" + productDetailed.getProductQuantity());
+            int id = productDetailed.getProductCategoryID();
+            //selected_categoryText.setText(productDetailed.getProductCategoryID());
+            ArrayList<ImageResponse> productImages = productDetailed.getImages();
+            for(int i = 0; i < productImages.size(); i++)
+                imagePaths.add(productImages.get(0).getPath());
+
+            editTextShortDescription.setText(productDetailed.getProductDescription());
+
+        }
     }
 
     @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
@@ -318,7 +343,9 @@ public class AddProductActivity extends BaseActivity implements Validator.Valida
             productDetailed.setProductQuantity(Integer.parseInt(editTextQuantity.getText().toString()));
             productDetailed.setProductCategoryID(manager.currentSubsubCategory.getCategoryID());
             productDetailed.setProductImgPathsArray(imagePaths);
+            productDetailed.setProductSummary(editTextShortDescription.getText().toString().trim());
             productDetailed.setProductDescription(editTextProductDescription.getText().toString().trim());
+            productDetailed.setProductKeypoints("test1, test2");
             manager.currentProductDetailed = productDetailed;
             addNewProduct(productDetailed);
             return;
@@ -386,7 +413,7 @@ public class AddProductActivity extends BaseActivity implements Validator.Valida
             files.put("image" + i, new TypedFile("image/jpeg", new File(imagePaths.get(i))));
         }
 
-        getApiService().addNewProduct(AppConstants.ACTION_ADD_PRODUCT ,manager.getSessionID(), files, p.getProductName(), p.getProductPrice(), p.getProductQuantity(), p.getProductCategoryID(), p.getProductColor(), p.getProductDescription(), new Callback<AddProductResponse>()
+        getApiService().addNewProduct(AppConstants.ACTION_ADD_PRODUCT ,manager.getSessionID(), files, p.getProductName(), p.getProductPrice(), p.getProductQuantity(), manager.currentCategory.getCategoryID(), manager.currentSubCategory.getCategoryID(), manager.currentSubsubCategory.getCategoryID(),p.getProductColor(), p.getProductDescription(), p.getProductSummary(), p.getProductKeypoints(), new Callback<AddProductResponse>()
         {
             @Override
             public void success(AddProductResponse responseObj, Response response)

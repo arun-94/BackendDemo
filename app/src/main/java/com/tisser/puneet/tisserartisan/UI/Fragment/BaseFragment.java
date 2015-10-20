@@ -51,8 +51,9 @@ public abstract class BaseFragment extends Fragment
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState)
     {
-        if(((BaseActivity_NavDrawer) getActivity()).getSupportActionBar() != null)
-            ((BaseActivity_NavDrawer) getActivity()).getSupportActionBar().setTitle(setupToolbarTitle());
+        assert ((BaseActivity_NavDrawer) getActivity()).getSupportActionBar() != null;
+        assert setupToolbarTitle() != null;
+        ((BaseActivity_NavDrawer) getActivity()).getSupportActionBar().setTitle(setupToolbarTitle());
         setupLayout();
     }
 

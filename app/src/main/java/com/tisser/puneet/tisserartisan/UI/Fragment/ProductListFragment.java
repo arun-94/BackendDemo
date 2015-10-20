@@ -55,6 +55,7 @@ public class ProductListFragment extends BaseFragment
     public void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
+        getActivity().invalidateOptionsMenu();
         getApiService().showMyProducts(AppConstants.ACTION_SHOW_PRODUCTS, manager.getSessionID(), new Callback<ProductResponse>()
         {
             @Override

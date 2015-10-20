@@ -42,7 +42,7 @@ public interface TisserApiInterface
 
     @Multipart
     @POST("/mobileAPIArtist.php")
-    void addNewProduct(@Part("action") String action, @Part("session_id") String sessionId, @PartMap Map<String, TypedFile> files, @Part("product_name") String productName, @Part("product_price") double productPrice, @Part("product_quantity") int productQuantity, @Part("product_category_id") int productCategoryId, @Part("product_color") String productColor, @Part("product_description") String productDescription, Callback<AddProductResponse> cb);
+    void addNewProduct(@Part("action") String action, @Part("session_id") String sessionId, @PartMap Map<String, TypedFile> files, @Part("product_name") String productName, @Part("product_price") double productPrice, @Part("product_quantity") int productQuantity, @Part("product_category_id") int productCategoryId, @Part("product_subcategory_id") int productSubcategoryId, @Part("product_subsubcategory_id") int productSubSubcategoryId, @Part("product_color") String productColor, @Part("product_long_description") String productLongDescription, @Part("product_short_description") String productShortDescription, @Part("product_keypoints") String productKeypoints,  Callback<AddProductResponse> cb);
 
     @FormUrlEncoded
     @POST("/mobileAPIArtist.php")
