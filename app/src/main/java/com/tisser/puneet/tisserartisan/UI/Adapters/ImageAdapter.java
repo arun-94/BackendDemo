@@ -12,8 +12,8 @@ import android.widget.ImageView;
 import com.squareup.picasso.Picasso;
 import com.tisser.puneet.tisserartisan.Global.AppManager;
 import com.tisser.puneet.tisserartisan.Model.Response.ImageResponse;
+import com.tisser.puneet.tisserartisan.R;
 import com.tisser.puneet.tisserartisan.UI.Activity.FullScreenViewActivity;
-import com.tisser.puneet.tisserartisan.UI.Activity.FullScreenViewActivityWithDelete;
 import com.tisser.puneet.tisserartisan.UI.Custom.TouchImageView;
 
 import java.io.File;
@@ -68,11 +68,11 @@ public class ImageAdapter extends PagerAdapter
         imageView.setScaleType(ImageView.ScaleType.FIT_CENTER);
         if(imageURLS.size() != 0)
         {
-            Picasso.with(mContext).load(imageURLS.get(position).getPath()).into(imageView);
+            Picasso.with(mContext).load(imageURLS.get(position).getPath()).placeholder(R.drawable.logo_small).into(imageView);
         }
         else {
             Uri uri = Uri.fromFile(new File(imagePaths.get(position)));
-            Picasso.with(mContext).load(uri).into(imageView);
+            Picasso.with(mContext).load(uri).placeholder(R.drawable.logo_small).into(imageView);
         }
         //ImageLoader imgLoader = new ImageLoader(context);
         //imgLoader.DisplayImage("http://tisserindia.com/stores/thumb_gen.php?file=" + imageURLS.get(position), R.drawable.logo_small, imageView);

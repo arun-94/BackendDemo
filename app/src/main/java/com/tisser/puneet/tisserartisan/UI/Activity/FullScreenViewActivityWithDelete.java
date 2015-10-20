@@ -72,12 +72,12 @@ public class FullScreenViewActivityWithDelete extends BaseActivity
     protected void setupLayout()
     {
         if(manager.currentImagePath.startsWith("http")) {
-            Picasso.with(FullScreenViewActivityWithDelete.this).load(manager.currentImagePath).into(imgDisplay);
+            Picasso.with(FullScreenViewActivityWithDelete.this).load(manager.currentImagePath).placeholder(R.drawable.logo_small).into(imgDisplay);
         }
         else
         {
             Uri uri = Uri.fromFile(new File(manager.currentImagePath));
-            Picasso.with(FullScreenViewActivityWithDelete.this).load(uri).into(imgDisplay);
+            Picasso.with(FullScreenViewActivityWithDelete.this).load(uri).placeholder(R.drawable.logo_small).into(imgDisplay);
         }
     }
 

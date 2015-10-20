@@ -146,13 +146,13 @@ public class GalleryImagesAdapter extends BaseAdapter
             if(mGalleryImages.get(0).name.matches("^-?\\d+$")) {
                 Image i = mGalleryImages.get(position);
                 Log.d("GalleryAdapter", i.path);
-                Picasso.with(mContext).load(i.path).into(viewHolder.image);
+                Picasso.with(mContext).load(i.path).placeholder(R.drawable.logo_small).into(viewHolder.image);
             }
             else
             {
                 Image i = mGalleryImages.get(position);
                 Uri uri = Uri.fromFile(new File(i.path));
-                Picasso.with(mContext).load(uri).fit().into(viewHolder.image);
+                Picasso.with(mContext).load(uri).fit().placeholder(R.drawable.logo_small).into(viewHolder.image);
             }
         }
 
