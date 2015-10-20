@@ -1,7 +1,10 @@
 package com.tisser.puneet.tisserartisan.UI.Activity;
 
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.os.CountDownTimer;
+import android.support.design.widget.Snackbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -19,6 +22,7 @@ import com.tisser.puneet.tisserartisan.Model.Response.LoginResponse;
 import com.tisser.puneet.tisserartisan.R;
 
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import butterknife.Bind;
 import butterknife.OnClick;
@@ -126,6 +130,10 @@ public class LoginActivity extends BaseActivity implements Validator.ValidationL
             @Override
             public void failure(RetrofitError error)
             {
+                if (error.getKind().equals(RetrofitError.Kind.NETWORK))
+                {
+                    showNoInternetSnackbar();
+                }
                 resetButton();
                 Log.e("Login", "error");
                 Log.e("Data", "" + error);
@@ -168,5 +176,20 @@ public class LoginActivity extends BaseActivity implements Validator.ValidationL
     {
         mProgressLogin.setVisibility(View.INVISIBLE);
         mLoginButton.setText("LOG IN");
+    }
+
+    void showNoInternetSnackbar()
+    {
+        Snackbar.make(findViewById(android.R.id.content), "No Internet Connection", Snackbar.LENGTH_LONG)
+                .setAction("RETRY", new View.OnClickListener()
+                {
+                    @Override
+                    public void onClick(View v)
+                    {
+                        loginPostCall(mCustIdEditText.getText().toString(), mPasswordEditText.getText().toString());
+                    }
+                })
+                .setActionTextColor(Color.GREEN)
+                .show();
     }
 }

@@ -1,8 +1,10 @@
 package com.tisser.puneet.tisserartisan.UI.Fragment;
 
 import android.annotation.TargetApi;
+import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -56,20 +58,6 @@ public class ProductListFragment extends BaseFragment
     {
         super.onCreate(savedInstanceState);
         getActivity().invalidateOptionsMenu();
-        getApiService().showMyProducts(AppConstants.ACTION_SHOW_PRODUCTS, manager.getSessionID(), new Callback<ProductResponse>()
-        {
-            @Override
-            public void success(ProductResponse productResponse, Response response)
-            {
-                consumeApiData(productResponse.getProductList());
-            }
-
-            @Override
-            public void failure(RetrofitError error)
-            {
-                //showNoInternetAlert();
-            }
-        });
     }
 
     @Override
@@ -104,6 +92,31 @@ public class ProductListFragment extends BaseFragment
                 Log.d("CLICK", "Clicked on item" + position);
             }
         }));
+        makeAPICall();
+    }
+
+    void makeAPICall()
+    {
+        mEmptyText.setVisibility(View.INVISIBLE);
+        mProgressBar.setVisibility(View.VISIBLE);
+        getApiService().showMyProducts(AppConstants.ACTION_SHOW_PRODUCTS, manager.getSessionID(), new Callback<ProductResponse>()
+        {
+            @Override
+            public void success(ProductResponse productResponse, Response response)
+            {
+                consumeApiData(productResponse.getProductList());
+            }
+
+            @Override
+            public void failure(RetrofitError error)
+            {
+                if (error.getKind().equals(RetrofitError.Kind.NETWORK))
+                {
+                    showNoInternetSnackbar();
+                    mProgressBar.setVisibility(View.GONE);
+                }
+            }
+        });
     }
 
     //FAB for adding new product
@@ -116,7 +129,7 @@ public class ProductListFragment extends BaseFragment
     @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
     private void consumeApiData(ArrayList<ProductDetailed> products)
     {
-        if(products != null)
+        if (products != null)
         {
             manager.productList.clear();
             Log.d("SEARCHRETRO", products.get(0).getProductName());
@@ -147,6 +160,18 @@ public class ProductListFragment extends BaseFragment
             mEmptyText.setVisibility(View.VISIBLE);
         }
         mProgressBar.setVisibility(View.GONE);
+    }
+
+    void showNoInternetSnackbar()
+    {
+        Snackbar.make(getView(), "No Internet Connection", Snackbar.LENGTH_LONG).setAction("RETRY", new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                makeAPICall();
+            }
+        }).setActionTextColor(Color.GREEN).show();
     }
 
 }

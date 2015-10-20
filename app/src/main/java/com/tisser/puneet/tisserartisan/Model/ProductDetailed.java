@@ -24,6 +24,7 @@ public class ProductDetailed
     ArrayList<String> productImagePathsArray = new ArrayList<>();
     private int productCategoryID;
     private int productSubcategoryID;
+    private int productSubsubcategoryID;
     private String productEstimatedDelivery;
     private String productEstimatedCost;
     private ArrayList<Review> productReviews = new ArrayList<>();
