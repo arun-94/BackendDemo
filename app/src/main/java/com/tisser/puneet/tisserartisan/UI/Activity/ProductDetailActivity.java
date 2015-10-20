@@ -1,32 +1,25 @@
 package com.tisser.puneet.tisserartisan.UI.Activity;
 
-import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.os.CountDownTimer;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
-import com.daimajia.slider.library.SliderTypes.BaseSliderView;
 import com.tisser.puneet.tisserartisan.Global.AppConstants;
-import com.tisser.puneet.tisserartisan.Model.ProductDetailed;
 import com.tisser.puneet.tisserartisan.R;
 import com.tisser.puneet.tisserartisan.UI.Adapters.ImageAdapter;
 import com.tisser.puneet.tisserartisan.UI.Adapters.ReviewAdapter;
 import com.tisser.puneet.tisserartisan.UI.Custom.DividerItemDecoration;
 
-import java.util.concurrent.TimeUnit;
-
 import butterknife.Bind;
 
-public class ProductDetailActivity extends BaseActivity implements BaseSliderView.OnSliderClickListener
+public class ProductDetailActivity extends BaseActivity
 {
     @Bind(R.id.tv_product_title) TextView tvproducttitle;
     @Bind(R.id.tv_product_price) TextView tvproductprice;
@@ -39,22 +32,13 @@ public class ProductDetailActivity extends BaseActivity implements BaseSliderVie
     @Bind(R.id.scroll_view) ScrollView scrollView;
     @Bind(R.id.reviewRecycler) RecyclerView reviewsRecycler;
 
-    private int imageheaderHeight;
-    private Drawable ActionBarBackgroundDrawable;
-    private String retreivingID;
     private ReviewAdapter mReviewAdapter;
     private LinearLayoutManager llm;
-    //private ProgressBar mProgressBar;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-
-        /*reviewsRecycler.setHasFixedSize(true);
-        reviewsRecycler.addItemDecoration(new MarginDecoration(this));*/
-        //mReviewAdapter = new ReviewAdapter(this, null);
     }
 
     @Override
@@ -76,7 +60,6 @@ public class ProductDetailActivity extends BaseActivity implements BaseSliderVie
     @Override
     protected void setupLayout()
     {
-        //this.mProgressBar = (ProgressBar) findViewById(R.id.progress_loading);
         llm = new org.solovyev.android.views.llm.LinearLayoutManager(ProductDetailActivity.this);
         llm.setOrientation(LinearLayoutManager.VERTICAL);
         reviewsRecycler.setLayoutManager(llm);
@@ -84,16 +67,6 @@ public class ProductDetailActivity extends BaseActivity implements BaseSliderVie
         mReviewAdapter = new ReviewAdapter(this, null);
         reviewsRecycler.setAdapter(mReviewAdapter);
 
-        //scrollView.setVisibility(View.INVISIBLE);
-/*
-        Bundle extras = getIntent().getExtras();
-        if (extras != null)
-        {
-            retreivingID = extras.getString("productID");
-        }
-
-        fetchProductDetail(retreivingID);
-*/
         scrollView.setVisibility(View.VISIBLE);
         tvproducttitle.setText(manager.currentProductDetailed.getProductName());
         tvproductprice.setText("Rs. " + manager.currentProductDetailed.getProductPrice());
@@ -114,95 +87,6 @@ public class ProductDetailActivity extends BaseActivity implements BaseSliderVie
             ImageAdapter adapter = new ImageAdapter(this, manager.currentProductDetailed.getProductImgPaths(), manager, 0);
             viewPager.setAdapter(adapter);
         }
-        if (manager.currentProductDetailed.getProductReviews().size() != 0)
-        {
-            mReviewAdapter.addAll(manager.currentProductDetailed.getProductReviews());
-            tvreviewsplaceholder.setVisibility(View.GONE);
-        }
-    }
-
-
-    @Override
-    public void onSliderClick(BaseSliderView baseSliderView)
-    {
-        //Log.d("CLICKED", "Clicked on item " + sliderShow.getCurrentPosition());
-        Intent i = new Intent(ProductDetailActivity.this, FullScreenViewActivityWithDelete.class);
-        startActivity(i);
-    }
-
-    @Override
-    public void processFinish(String result, int type)
-    {
-        if (result == null || result.equals(""))
-        {
-            Log.d("RESPONSERESULT", "No internet connection");
-            showNoInternetAlert();
-            new CountDownTimer(11000, 1000)
-            {
-
-                public void onTick(long millisUntilFinished)
-                {
-                    countdownInternetAlert(TimeUnit.MILLISECONDS.toSeconds(millisUntilFinished));
-                }
-
-                public void onFinish()
-                {
-                    closeInternetAlert();
-                    new CountDownTimer(1000, 1000)
-                    {
-                        @Override
-                        public void onTick(long millisUntilFinished)
-                        {
-
-                        }
-
-                        @Override
-                        public void onFinish()
-                        {
-                            fetchProductDetail(retreivingID);
-                        }
-                    }.start();
-                }
-
-            }.start();
-        }
-
-    }
-
-    public void fetchProductDetail(String productID)
-    {
-        //TODO
-       /* getApiService().getProductDetailed(productID, new Callback<ProductDetailed>()
-        {
-            @Override
-            public void success(ProductDetailed productDetailed, Response response)
-            {
-                consumeApiData(productDetailed);
-            }
-
-            @Override
-            public void failure(RetrofitError error)
-            {
-                showNoInternetAlert();
-            }
-        });*/
-    }
-
-    private void consumeApiData(ProductDetailed productDetailed)
-    {
-        manager.currentProductDetailed = productDetailed;
-        //mProgressBar.setVisibility(View.GONE);
-        scrollView.setVisibility(View.VISIBLE);
-        tvproducttitle.setText(manager.currentProductDetailed.getProductName());
-        tvproductabout.setText(manager.currentProductDetailed.getProductSummary());
-        tvproductprice.setText("Rs. " + manager.currentProductDetailed.getProductPrice());
-        tvproductcolors.setText(manager.currentProductDetailed.getProductColor());
-        tvkeypoints.setText(manager.currentProductDetailed.getProductKeypoints());
-        tvdetaileddescription.setText(manager.currentProductDetailed.getProductDescription());
-        tvproductcode.setText(manager.currentProductDetailed.getProductCode());
-        ViewPager viewPager = (ViewPager) findViewById(R.id.image_product_img);
-        ImageAdapter adapter = new ImageAdapter(this, manager.currentProductDetailed.getImages(), manager);
-        viewPager.setAdapter(adapter);
         if (manager.currentProductDetailed.getProductReviews().size() != 0)
         {
             mReviewAdapter.addAll(manager.currentProductDetailed.getProductReviews());
