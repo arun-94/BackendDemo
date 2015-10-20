@@ -71,9 +71,13 @@ public class AddProductActivity extends BaseActivity implements Validator.Valida
     private ArrayList<String> imagePaths;
     private GalleryImagesAdapter mAdapter;
     private Validator userDetailsValidator;
+    private int intentType = AppConstants.NEW_PRODUCT;
+
 
     ImageView categoryIcon, colorIcon;
     TextView categoryText, colorText;
+
+
 
     @IsCategorySelected TextView selected_categoryText;
     @IsCategorySelected TextView selected_colorText;
@@ -158,8 +162,8 @@ public class AddProductActivity extends BaseActivity implements Validator.Valida
 
         mProgress = new ProgressDialog(AddProductActivity.this);
         mProgress.setMessage("Saving New Product");
-
         if(productBundle != null && productBundle.getInt(AppConstants.INTENT_IS_NEW_PRODUCT) == AppConstants.EDIT_PRODUCT) {
+            intentType = productBundle.getInt(AppConstants.INTENT_IS_NEW_PRODUCT);
 
             ProductDetailed productDetailed = manager.currentProductDetailed;
 
@@ -369,7 +373,10 @@ public class AddProductActivity extends BaseActivity implements Validator.Valida
             productDetailed.setProductDescription(editTextProductDescription.getText().toString().trim());
             productDetailed.setProductKeypoints("test1, test2");
             manager.currentProductDetailed = productDetailed;
-            addNewProduct(productDetailed);
+            if(intentType == AppConstants.EDIT_PRODUCT)
+                editProduct(productDetailed);
+            else
+                addNewProduct(productDetailed);
             return;
         }
 
@@ -390,6 +397,11 @@ public class AddProductActivity extends BaseActivity implements Validator.Valida
         alertDialog.show();
 
 
+    }
+
+    private void editProduct(ProductDetailed productDetailed)
+    {
+        Toast.makeText(AddProductActivity.this, "Edit Product API not available", Toast.LENGTH_SHORT).show();
     }
 
     @Override
@@ -430,8 +442,10 @@ public class AddProductActivity extends BaseActivity implements Validator.Valida
         Map<String, String> colorIDs = new HashMap<String, String>();
         mProgress.show();
 
+
         for (int i = 0; i < imagePaths.size(); i++)
         {
+
             files.put("image" + i, new TypedFile("image/jpeg", new File(imagePaths.get(i))));
         }
 

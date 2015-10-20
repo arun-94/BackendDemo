@@ -141,9 +141,9 @@ public class GalleryImagesAdapter extends BaseAdapter
         }
 
 
-        if (mGalleryImages.get(0) != null)
+        if (mGalleryImages.get(position) != null)
         {
-            if(mGalleryImages.get(0).name.matches("^-?\\d+$")) {
+            if(mGalleryImages.get(position).path.startsWith("http://")) {
                 Image i = mGalleryImages.get(position);
                 Log.d("GalleryAdapter", i.path);
                 Picasso.with(mContext).load(i.path).placeholder(R.drawable.logo_small).into(viewHolder.image);
