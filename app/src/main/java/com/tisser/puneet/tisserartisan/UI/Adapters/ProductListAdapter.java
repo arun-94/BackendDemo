@@ -63,18 +63,17 @@ public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.
     {
         ProductDetailed product = mData.get(position);
         String imgPath = "";
-/*        if (product.getProductImgPaths() != null)
+        if (product.getImages() != null)
         {
-            if (product.getProductImgPaths().get(0).contains(" "))
+            if (product.getImages().get(0).getPath().contains(" "))
             {
                 Log.d("IMAGE", "There was a space");
                 imgPath = product.getProductImgPaths().get(0).replace(" ", "%20");
             }
 
-            Glide.with(mContext).load("http://tisserindia.com/stores/thumb_gen.php?file=" + imgPath + "&maxw=300&maxh=300").asBitmap().centerCrop().placeholder(R.drawable.logo_small).into(holder.image);
-            Log.d("IMGPATH", "http://tisserindia.com/stores/thumb_gen.php?file=" + product.getProductImgPaths().get(0) + "&maxw=300&maxh=300");
+            Glide.with(mContext).load(product.getImages().get(0).getPath()).asBitmap().centerCrop().placeholder(R.drawable.logo_small).into(holder.image);
             holder.image.setScaleType(ImageView.ScaleType.CENTER_CROP);
-        }*/
+        }
         holder.title.setText(mData.get(position).getProductName());
         holder.price.setText("Rs. " + mData.get(position).getProductPrice());
     }
