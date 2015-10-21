@@ -30,7 +30,7 @@
             android:visibility="invisible"/>
 
         <android.support.design.widget.FloatingActionButton
-            android:id="@+id/fab_takePhoto"
+            android:id="@+id/fab_addProduct"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="16dp"

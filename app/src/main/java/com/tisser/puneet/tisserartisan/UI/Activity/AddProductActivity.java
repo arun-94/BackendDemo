@@ -162,9 +162,10 @@ public class AddProductActivity extends BaseActivity implements Validator.Valida
 
         mProgress = new ProgressDialog(AddProductActivity.this);
         mProgress.setMessage("Saving New Product");
-        if(productBundle != null && productBundle.getInt(AppConstants.INTENT_IS_NEW_PRODUCT) == AppConstants.EDIT_PRODUCT) {
-            intentType = productBundle.getInt(AppConstants.INTENT_IS_NEW_PRODUCT);
 
+        if(productBundle != null && productBundle.getInt(AppConstants.INTENT_IS_NEW_PRODUCT) == AppConstants.EDIT_PRODUCT)
+        {
+            intentType = productBundle.getInt(AppConstants.INTENT_IS_NEW_PRODUCT);
             ProductDetailed productDetailed = manager.currentProductDetailed;
 
             editTextProductName.setText(productDetailed.getProductName());
@@ -442,10 +443,8 @@ public class AddProductActivity extends BaseActivity implements Validator.Valida
         Map<String, String> colorIDs = new HashMap<String, String>();
         mProgress.show();
 
-
         for (int i = 0; i < imagePaths.size(); i++)
         {
-
             files.put("image" + i, new TypedFile("image/jpeg", new File(imagePaths.get(i))));
         }
 
@@ -470,8 +469,13 @@ public class AddProductActivity extends BaseActivity implements Validator.Valida
             @Override
             public void failure(RetrofitError error)
             {
+                if (error.getKind().equals(RetrofitError.Kind.NETWORK))
+                {
+                    Toast.makeText(AddProductActivity.this, "No internet Connection!", Toast.LENGTH_LONG).show();
+                }
+                else
+                    Toast.makeText(AddProductActivity.this, "Failed to Add Product", Toast.LENGTH_LONG).show();
                 mProgress.dismiss();
-                Toast.makeText(AddProductActivity.this, "Failed to Add Product", Toast.LENGTH_LONG).show();
                 Log.e("Upload", "error");
                 Log.e("Data", "" + error);
             }

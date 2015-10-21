@@ -122,10 +122,10 @@ public class Navigator
         ((Activity) mContext).getFragmentManager().beginTransaction().replace(R.id.content_frame, ProductListFragment.newInstance(), "ProductListFragment").addToBackStack("ProductListFragment").setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN).commit();
     }
 
-    public void takePhoto(Context mContext)
+/*    public void takePhoto(Context mContext)
     {
         activityContext = mContext;
         Intent i = new Intent(mContext, AddProductActivity.class);
         startActivity(i);
-    }
+    }*/
 }

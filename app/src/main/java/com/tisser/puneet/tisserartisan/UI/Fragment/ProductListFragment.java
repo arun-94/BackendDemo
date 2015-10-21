@@ -17,6 +17,7 @@ import com.tisser.puneet.tisserartisan.Global.AppConstants;
 import com.tisser.puneet.tisserartisan.Model.ProductDetailed;
 import com.tisser.puneet.tisserartisan.Model.Response.ProductResponse;
 import com.tisser.puneet.tisserartisan.R;
+import com.tisser.puneet.tisserartisan.UI.Activity.AddProductActivity;
 import com.tisser.puneet.tisserartisan.UI.Activity.BaseActivity_NavDrawer;
 import com.tisser.puneet.tisserartisan.UI.Activity.ProductDetailActivity;
 import com.tisser.puneet.tisserartisan.UI.Adapters.ProductListAdapter;
@@ -88,7 +89,7 @@ public class ProductListFragment extends BaseFragment
             public void onItemClick(View view, int position)
             {
                 manager.currentProductDetailed = manager.productList.get(position);
-                ((BaseActivity_NavDrawer) getActivity()).navigator.openNewActivity(getActivity(), new ProductDetailActivity());
+               ((BaseActivity_NavDrawer) getActivity()).navigator.openNewActivity(getActivity(), new ProductDetailActivity());
                 Log.d("CLICK", "Clicked on item" + position);
             }
         }));
@@ -120,10 +121,12 @@ public class ProductListFragment extends BaseFragment
     }
 
     //FAB for adding new product
-    @OnClick(R.id.fab_takePhoto)
+    @OnClick(R.id.fab_addProduct)
     void addProduct()
     {
-        ((BaseActivity_NavDrawer) getActivity()).navigator.takePhoto(getActivity());
+        Bundle extras = new Bundle();
+        extras.putInt(AppConstants.INTENT_IS_NEW_PRODUCT, AppConstants.NEW_PRODUCT);
+        ((BaseActivity_NavDrawer) getActivity()).navigator.openNewActivityWithExtras(getActivity(), new AddProductActivity(), extras);
     }
 
     @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
