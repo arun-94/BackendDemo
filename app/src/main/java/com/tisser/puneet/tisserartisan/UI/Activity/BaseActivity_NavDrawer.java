@@ -235,14 +235,13 @@ public class BaseActivity_NavDrawer extends BaseActivity implements AsyncRespons
                     }
 
                     break;
-                default:
-                    while (currentBackStackCount > 0)
+                case "com.tisser.puneet.tisserartisan.UI.Fragment.AboutFragment":
+                    while (currentBackStackCount > 1)
                     {
                         fm.popBackStack();
                         currentBackStackCount--;
                     }
 
-                    navigator.openNewProductFragment(BaseActivity_NavDrawer.this);
             }
         }
         else

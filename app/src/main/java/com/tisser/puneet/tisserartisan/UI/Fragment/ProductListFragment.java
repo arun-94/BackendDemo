@@ -74,6 +74,13 @@ public class ProductListFragment extends BaseFragment
     }
 
     @Override
+    public void onViewStateRestored(Bundle savedInstanceState)
+    {
+        super.onViewStateRestored(savedInstanceState);
+        makeAPICall();
+    }
+
+    @Override
     protected void setupLayout()
     {
         mLayoutManager = new GridLayoutManager(getActivity(), 2);
@@ -132,10 +139,10 @@ public class ProductListFragment extends BaseFragment
     @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
     private void consumeApiData(ArrayList<ProductDetailed> products)
     {
-        if (products != null)
+        if (products != null && products.size() > 0)
         {
             manager.productList.clear();
-            Log.d("SEARCHRETRO", products.get(0).getProductName());
+            //Log.d("SEARCHRETRO", products.get(0).getProductName());
             mProgressBar.setVisibility(View.GONE);
             //Error case where there is no data!
             manager.productList.addAll(products);
