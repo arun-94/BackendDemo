@@ -29,9 +29,12 @@ import com.mobsandgeeks.saripaar.annotation.DecimalMin;
 import com.mobsandgeeks.saripaar.annotation.NotEmpty;
 import com.tisser.puneet.tisserartisan.CustomRules.IsCategorySelected;
 import com.tisser.puneet.tisserartisan.Global.AppConstants;
+import com.tisser.puneet.tisserartisan.Model.Category;
 import com.tisser.puneet.tisserartisan.Model.ProductDetailed;
 import com.tisser.puneet.tisserartisan.Model.Response.AddProductResponse;
 import com.tisser.puneet.tisserartisan.Model.Response.ImageResponse;
+import com.tisser.puneet.tisserartisan.Model.Subcategory;
+import com.tisser.puneet.tisserartisan.Model.Subsubcategory;
 import com.tisser.puneet.tisserartisan.R;
 import com.tisser.puneet.tisserartisan.UI.Adapters.GalleryImagesAdapter;
 import com.tisser.puneet.tisserartisan.UI.Custom.ExpandableHeightGridView;
@@ -98,13 +101,15 @@ public class AddProductActivity extends BaseActivity implements Validator.Valida
             @Override
             public void onItemClick(AdapterView<?> parent, View v, int position, long id)
             {
-                if(v instanceof ImageView) {
+                if (v instanceof ImageView)
+                {
                     Intent i = new Intent(AddProductActivity.this, FullScreenViewActivityWithDelete.class);
                     i.putExtra("img_pos", position);
                     manager.currentImagePath = imagePaths.get(position);
                     AddProductActivity.this.startActivityForResult(i, AppConstants.RESULT_IMAGE_FULLSCREEN);
                 }
-                else if(v instanceof TextView) {
+                else if (v instanceof TextView)
+                {
                     Intent intent = navigator.openGallery(AddProductActivity.this);
                     startActivityForResult(intent, Constants.REQUEST_CODE);
                 }
@@ -173,7 +178,9 @@ public class AddProductActivity extends BaseActivity implements Validator.Valida
             selected_colorText.setVisibility(View.VISIBLE);
             selected_colorText.setText(productDetailed.getProductColor());
             colorIcon.setImageDrawable(getResources().getDrawable(R.drawable.ic_check_circle_black_24dp));
-
+            selected_categoryText.setVisibility(View.VISIBLE);
+            selected_categoryText.setText(getCategoryString(productDetailed));
+            categoryIcon.setImageDrawable(getResources().getDrawable(R.drawable.ic_check_circle_black_24dp));
             if(productDetailed.getProductQuantity() != 0)
                 editTextQuantity.setText("" + productDetailed.getProductQuantity());
             int id = productDetailed.getProductCategoryID();
@@ -481,5 +488,33 @@ public class AddProductActivity extends BaseActivity implements Validator.Valida
             }
         });
 
+    }
+
+    String getCategoryString(ProductDetailed pD)
+    {
+        String categoryString = "";
+        for(Category c : manager.categoryList)
+        {
+            if(c.getCategoryID() == pD.getProductCategoryID())
+            {
+                categoryString = categoryString.concat(c.getCategoryName());
+                for(Subcategory sc : c.getSubcategories())
+                {
+                    if(sc.getCategoryID() == pD.getProductSubcategoryID())
+                    {
+                        categoryString = categoryString.concat(" > " + sc.getCategoryName());
+                        for(Subsubcategory ssc : sc.getSubcategories())
+                        {
+                            if(ssc.getCategoryID() == pD.getProductSubsubcategoryID())
+                            {
+                                categoryString = categoryString.concat(" > " + ssc.getCategoryName());
+                                break;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        return categoryString;
     }
 }

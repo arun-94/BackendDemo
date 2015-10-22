@@ -22,12 +22,13 @@ public class ProductDetailed
     private String productImgPath;
     private ArrayList<String> productImgPaths;
     ArrayList<String> productImagePathsArray = new ArrayList<>();
-    private int productCategoryID;
-    private int productSubcategoryID;
-    private int productSubsubcategoryID;
+    @SerializedName("category_id") private int productCategoryID;
+    @SerializedName("subcategory_id") private int productSubcategoryID;
+    @SerializedName("subsubcategory_id") private int productSubsubcategoryID;
     private String productEstimatedDelivery;
     private String productEstimatedCost;
     private ArrayList<Review> productReviews = new ArrayList<>();
+
 
 
 /*    public ProductDetailed()
@@ -230,5 +231,15 @@ public class ProductDetailed
     public void setProductID(String productID)
     {
         this.productID = productID;
+    }
+
+    public int getProductSubsubcategoryID()
+    {
+        return productSubsubcategoryID;
+    }
+
+    public void setProductSubsubcategoryID(int productSubsubcategoryID)
+    {
+        this.productSubsubcategoryID = productSubsubcategoryID;
     }
 }
