@@ -1,10 +1,12 @@
 package com.tisser.puneet.tisserartisan.Model;
 
+import com.android.ex.chips.RecipientEntry;
 import com.darsh.multipleimageselect.models.Image;
 import com.google.gson.annotations.SerializedName;
 import com.tisser.puneet.tisserartisan.Model.Response.ImageResponse;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class ProductDetailed
 {
@@ -87,9 +89,11 @@ public class ProductDetailed
         return productKeypoints;
     }
 
-    public void setProductKeypoints(String productKeypoints)
+    public void setProductKeypoints(List<RecipientEntry> productKeypoints)
     {
-        this.productKeypoints = productKeypoints;
+        this.productKeypoints = "";
+        for(int i = 0; i < productKeypoints.size(); i++)
+            this.productKeypoints += productKeypoints.get(i).getDisplayName() + ",";
     }
 
     public String getProductEstimatedDelivery()

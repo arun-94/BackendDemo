@@ -3,7 +3,6 @@ package com.tisser.puneet.tisserartisan.UI.Activity;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.os.CountDownTimer;
 import android.support.design.widget.Snackbar;
 import android.util.Log;
 import android.view.View;
@@ -22,7 +21,6 @@ import com.tisser.puneet.tisserartisan.Model.Response.LoginResponse;
 import com.tisser.puneet.tisserartisan.R;
 
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 
 import butterknife.Bind;
 import butterknife.OnClick;
@@ -134,6 +132,8 @@ public class LoginActivity extends BaseActivity implements Validator.ValidationL
                 {
                     showNoInternetSnackbar();
                 }
+
+
                 resetButton();
                 Log.e("Login", "error");
                 Log.e("Data", "" + error);

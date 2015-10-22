@@ -9,6 +9,7 @@ import android.graphics.Point;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
+import android.text.util.Rfc822Tokenizer;
 import android.util.Log;
 import android.view.Display;
 import android.view.Menu;
@@ -20,6 +21,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.ex.chips.BaseRecipientAdapter;
+import com.android.ex.chips.RecipientEditTextView;
 import com.darsh.multipleimageselect.helpers.Constants;
 import com.darsh.multipleimageselect.models.Image;
 import com.mobsandgeeks.saripaar.ValidationError;
@@ -67,6 +70,7 @@ public class AddProductActivity extends BaseActivity implements Validator.Valida
     @DecimalMin(value = 0, message = "Min Quantity 0") @DecimalMax(value = 100, message = "Max Quantity 100") @NotEmpty @Bind(R.id.editText_quantity) EditText editTextQuantity;
     @Bind(R.id.editText_product_long_description) EditText editTextProductDescription;
     @Bind(R.id.editText_product_short_description) EditText editTextShortDescription;
+    @Bind(R.id.product_tags) RecipientEditTextView productTags;
 
     private ProgressDialog mProgress;
 
@@ -76,11 +80,8 @@ public class AddProductActivity extends BaseActivity implements Validator.Valida
     private Validator userDetailsValidator;
     private int intentType = AppConstants.NEW_PRODUCT;
 
-
     ImageView categoryIcon, colorIcon;
     TextView categoryText, colorText;
-
-
 
     @IsCategorySelected TextView selected_categoryText;
     @IsCategorySelected TextView selected_colorText;
@@ -156,6 +157,9 @@ public class AddProductActivity extends BaseActivity implements Validator.Valida
         images = new ArrayList<>();
         imagePaths = new ArrayList<>();
 
+        productTags.setTokenizer(new Rfc822Tokenizer());
+
+
         Display display = getWindowManager().getDefaultDisplay();
         Point size = new Point();
         display.getSize(size);
@@ -185,6 +189,16 @@ public class AddProductActivity extends BaseActivity implements Validator.Valida
                 editTextQuantity.setText("" + productDetailed.getProductQuantity());
             int id = productDetailed.getProductCategoryID();
 
+            String keywordList = productDetailed.getProductKeypoints();
+            String temp = keywordList.substring(0, keywordList.length() - 2);
+
+            String[] keywords =  temp.split(",");
+            BaseRecipientAdapter adapter = new BaseRecipientAdapter(this) {};
+            productTags.setAdapter(adapter);
+            for(int i = 0; i < keywords.length; i++)
+            {
+                productTags.append(keywords[i]);
+            }
             //selected_categoryText.setText(productDetailed.getProductCategoryID());
             if(productDetailed.getImages() != null)
             {
@@ -381,7 +395,7 @@ public class AddProductActivity extends BaseActivity implements Validator.Valida
             productDetailed.setProductImgPathsArray(imagePaths);
             productDetailed.setProductSummary(editTextShortDescription.getText().toString().trim());
             productDetailed.setProductDescription(editTextProductDescription.getText().toString().trim());
-            productDetailed.setProductKeypoints("test1, test2");
+            productDetailed.setProductKeypoints(productTags.getSelectedRecipients());
             manager.currentProductDetailed = productDetailed;
             if(intentType == AppConstants.EDIT_PRODUCT)
                 editProduct(productDetailed);

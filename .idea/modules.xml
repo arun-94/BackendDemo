@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/GoogleChips/GoogleChips.iml" filepath="$PROJECT_DIR$/GoogleChips/GoogleChips.iml" />
       <module fileurl="file://$PROJECT_DIR$/TisserArtisan.iml" filepath="$PROJECT_DIR$/TisserArtisan.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
     </modules>
