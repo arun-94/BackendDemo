@@ -375,7 +375,9 @@ public class AddProductActivity extends BaseActivity implements Validator.Valida
             productDetailed.setProductPrice(Double.parseDouble(String.format("%.2f", Double.parseDouble(editTextPrice.getText().toString()))));
             productDetailed.setProductColor(selected_colorText.getText().toString().trim());
             productDetailed.setProductQuantity(Integer.parseInt(editTextQuantity.getText().toString()));
-            productDetailed.setProductCategoryID(manager.currentSubsubCategory.getCategoryID());
+            productDetailed.setProductCategoryID(manager.currentCategory.getCategoryID());
+            productDetailed.setProductSubcategoryID(manager.currentSubCategory.getCategoryID());
+            productDetailed.setProductSubsubcategoryID(manager.currentSubsubCategory.getCategoryID());
             productDetailed.setProductImgPathsArray(imagePaths);
             productDetailed.setProductSummary(editTextShortDescription.getText().toString().trim());
             productDetailed.setProductDescription(editTextProductDescription.getText().toString().trim());
