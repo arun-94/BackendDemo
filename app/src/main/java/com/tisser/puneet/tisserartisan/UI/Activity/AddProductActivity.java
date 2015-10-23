@@ -330,7 +330,7 @@ public class AddProductActivity extends BaseActivity implements Validator.Valida
     {
         int id = item.getItemId();
 
-        return id == R.id.action_settings || super.onOptionsItemSelected(item);
+        return super.onOptionsItemSelected(item);
 
     }
 

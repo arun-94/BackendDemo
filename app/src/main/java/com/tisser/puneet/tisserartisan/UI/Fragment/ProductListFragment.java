@@ -120,7 +120,7 @@ public class ProductListFragment extends BaseFragment
     void makeAPICall()
     {
         mEmptyText.setVisibility(View.INVISIBLE);
-        mProgressBar.setVisibility(View.VISIBLE);
+        //mProgressBar.setVisibility(View.VISIBLE);
         getApiService().showMyProducts(AppConstants.ACTION_SHOW_PRODUCTS, manager.getSessionID(), new Callback<ProductResponse>()
         {
             @Override
@@ -128,6 +128,8 @@ public class ProductListFragment extends BaseFragment
             {
                 consumeApiData(productResponse.getProductList());
                 mSwipeRefreshLayout.setRefreshing(false);
+                mProgressBar.setVisibility(View.GONE);
+
             }
 
             @Override

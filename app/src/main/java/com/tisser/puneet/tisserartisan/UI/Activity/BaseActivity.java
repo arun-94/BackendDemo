@@ -74,14 +74,7 @@ public abstract class BaseActivity extends AppCompatActivity implements AsyncRes
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        if (id == R.id.action_settings)
-        {
-            //TODO
-            /*Intent i = new Intent(BaseActivity.this, AboutActivity.class);
-            startActivity(i);
-            return true;*/
-        }
-        else if (id == android.R.id.home)
+        if (id == android.R.id.home)
         {
             onBackPressed();
         }
