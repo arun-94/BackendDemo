@@ -380,6 +380,12 @@ public class AddProductActivity extends BaseActivity implements Validator.Valida
         {
             message = "Please Upload Atleast 1 Photo";
         }
+        else if(productTags.getSelectedRecipients().size() > 3) {
+            message = "Please Upload Max 3 Tags";
+        }
+        else if(productTags.getSelectedRecipients().size() == 0) {
+            message = "Please Upload Atleast 1 Tag";
+        }
         else
         {
             // further logic
