@@ -38,7 +38,8 @@ public class BaseActivity_NavDrawer extends BaseActivity implements AsyncRespons
         return navigationView;
     }
 
-    public void resetDrawer() {
+    public void resetDrawer()
+    {
         navigationView.getMenu().getItem(0).setChecked(true);
     }
 
@@ -59,9 +60,9 @@ public class BaseActivity_NavDrawer extends BaseActivity implements AsyncRespons
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-        if (savedInstanceState != null) {
-            currentCheckedItem =
-                    savedInstanceState.getInt("STATE_SELECTED_POSITION");
+        if (savedInstanceState != null)
+        {
+            currentCheckedItem = savedInstanceState.getInt("STATE_SELECTED_POSITION");
         }
         ButterKnife.bind(this);
         navigator.openNewProductFragment(BaseActivity_NavDrawer.this);
@@ -112,8 +113,15 @@ public class BaseActivity_NavDrawer extends BaseActivity implements AsyncRespons
                 {
                     //Replacing the main content with ContentFragment Which is our Inbox View;
                     case R.id.nav_home:
+                        String name = getFragmentManager().getBackStackEntryAt(getFragmentManager().getBackStackEntryCount() - 1).getName();
+                        if (name.equals("ProductListFragment") || name.equals("com.tisser.puneet.tisserartisan.UI.Fragment.ProductListFragment"))
+                        {
+                            return true;
+                        }
+
                         navigator.openNewFragment(BaseActivity_NavDrawer.this, ProductListFragment.newInstance());
                         currentCheckedItem = 0;
+
                         return true;
                     case R.id.nav_profile:
                         navigator.openNewActivity(BaseActivity_NavDrawer.this, new ProfileActivity());
@@ -124,6 +132,11 @@ public class BaseActivity_NavDrawer extends BaseActivity implements AsyncRespons
                         currentCheckedItem = 2;
                         return true;
                     case R.id.nav_about:
+                        name = getFragmentManager().getBackStackEntryAt(getFragmentManager().getBackStackEntryCount() - 1).getName();
+                        if (name.equals("com.tisser.puneet.tisserartisan.UI.Fragment.AboutFragment"))
+                        {
+                            return true;
+                        }
                         navigator.openNewFragment(BaseActivity_NavDrawer.this, AboutFragment.newInstance());
                         currentCheckedItem = 3;
                         return true;
@@ -167,12 +180,14 @@ public class BaseActivity_NavDrawer extends BaseActivity implements AsyncRespons
         actionBarDrawerToggle.syncState();
     }
 
-    public void onSaveInstanceState(Bundle outState) {
+    public void onSaveInstanceState(Bundle outState)
+    {
         super.onSaveInstanceState(outState);
         outState.putInt("STATE_SELECTED_POSITION", currentCheckedItem);
     }
 
-    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+    protected void onRestoreInstanceState(Bundle savedInstanceState)
+    {
         super.onRestoreInstanceState(savedInstanceState);
         currentCheckedItem = savedInstanceState.getInt("STATE_SELECTED_POSITION", 0);
         Menu menu = navigationView.getMenu();

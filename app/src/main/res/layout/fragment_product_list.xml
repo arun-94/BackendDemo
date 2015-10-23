@@ -2,48 +2,54 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:background="@drawable/tilerepeat"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@drawable/tilerepeat">
 
-
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/productsListRecycler"
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/swipeRefreshLayout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
         android:layout_marginTop="?android:attr/actionBarSize"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
+        android:layout_height="match_parent">
 
-        <TextView
-            android:id="@+id/empty_result_text"
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/productsListRecycler"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:layout_centerVertical="true"
-            android:layout_gravity="center_horizontal"
-            android:layout_margin="78dp"
-            android:gravity="center"
-            android:text="You have not uploaded any products yet!"
-            android:textAlignment="gravity"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:textColor="@color/app_primary"
-            android:textSize="18dp"
-            android:visibility="invisible"/>
+            android:layout_height="match_parent"
+            android:layout_marginTop="?android:attr/actionBarSize"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
+    </android.support.v4.widget.SwipeRefreshLayout>
 
-        <android.support.design.widget.FloatingActionButton
-            android:id="@+id/fab_addProduct"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="16dp"
-            android:clickable="true"
-            android:src="@drawable/ic_add_white_24dp"
-            app:borderWidth="0dp"
-            app:fabSize="normal"
-            app:fab_colorNormal="@color/app_primary"
-            app:fab_colorPressed="@color/app_primary"
-            app:layout_anchor="@id/coordinator_product_list"
-            app:layout_anchorGravity="bottom|right|end"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentRight="true"/>
+    <TextView
+        android:id="@+id/empty_result_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:layout_gravity="center_horizontal"
+        android:layout_margin="78dp"
+        android:gravity="center"
+        android:text="You have not uploaded any products yet!"
+        android:textAlignment="gravity"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textColor="@color/app_primary"
+        android:textSize="18dp"
+        android:visibility="invisible"/>
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fab_addProduct"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_margin="16dp"
+        android:clickable="true"
+        android:src="@drawable/ic_add_white_24dp"
+        app:borderWidth="0dp"
+        app:fabSize="normal"
+        app:fab_colorNormal="@color/app_primary"
+        app:fab_colorPressed="@color/app_primary"
+        app:layout_anchor="@id/coordinator_product_list"
+        app:layout_anchorGravity="bottom|right|end"/>
 
 
     <ProgressBar

@@ -330,7 +330,7 @@ public class AddProductActivity extends BaseActivity implements Validator.Valida
     {
         int id = item.getItemId();
 
-        return id == R.id.action_settings || super.onOptionsItemSelected(item);
+        return super.onOptionsItemSelected(item);
 
     }
 
@@ -379,6 +379,12 @@ public class AddProductActivity extends BaseActivity implements Validator.Valida
         else if (images == null)
         {
             message = "Please Upload Atleast 1 Photo";
+        }
+        else if(productTags.getSelectedRecipients().size() > 3) {
+            message = "Please Upload Max 3 Tags";
+        }
+        else if(productTags.getSelectedRecipients().size() == 0) {
+            message = "Please Upload Atleast 1 Tag";
         }
         else
         {

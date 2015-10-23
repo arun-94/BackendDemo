@@ -5,6 +5,7 @@ import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -39,6 +40,7 @@ public class ProductListFragment extends BaseFragment
     @Bind(R.id.productsListRecycler) RecyclerView mRecyclerView;
     @Bind(R.id.empty_result_text) TextView mEmptyText;
     @Bind(R.id.progress_loading) ProgressBar mProgressBar;
+    @Bind(R.id.swipeRefreshLayout) SwipeRefreshLayout mSwipeRefreshLayout;
 
     ProductListAdapter mAdapter;
     GridLayoutManager mLayoutManager;
@@ -96,23 +98,38 @@ public class ProductListFragment extends BaseFragment
             public void onItemClick(View view, int position)
             {
                 manager.currentProductDetailed = manager.productList.get(position);
-               ((BaseActivity_NavDrawer) getActivity()).navigator.openNewActivity(getActivity(), new ProductDetailActivity());
+                ((BaseActivity_NavDrawer) getActivity()).navigator.openNewActivity(getActivity(), new ProductDetailActivity());
                 Log.d("CLICK", "Clicked on item" + position);
             }
         }));
+
+        mSwipeRefreshLayout.setColorSchemeResources(R.color.app_primary, R.color.signal_green);
+        mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener()
+        {
+            @Override
+            public void onRefresh()
+            {
+                makeAPICall();
+            }
+        });
+
+
         makeAPICall();
     }
 
     void makeAPICall()
     {
         mEmptyText.setVisibility(View.INVISIBLE);
-        mProgressBar.setVisibility(View.VISIBLE);
+        //mProgressBar.setVisibility(View.VISIBLE);
         getApiService().showMyProducts(AppConstants.ACTION_SHOW_PRODUCTS, manager.getSessionID(), new Callback<ProductResponse>()
         {
             @Override
             public void success(ProductResponse productResponse, Response response)
             {
                 consumeApiData(productResponse.getProductList());
+                mSwipeRefreshLayout.setRefreshing(false);
+                mProgressBar.setVisibility(View.GONE);
+
             }
 
             @Override
@@ -120,6 +137,7 @@ public class ProductListFragment extends BaseFragment
             {
                 if (error.getKind().equals(RetrofitError.Kind.NETWORK))
                 {
+                    mSwipeRefreshLayout.setRefreshing(false);
                     showNoInternetSnackbar();
                     mProgressBar.setVisibility(View.GONE);
                 }
