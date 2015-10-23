@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources xmlns:ns1="urn:oasis:names:tc:xliff:document:1.2">
+<resources xmlns:ns1="http://schemas.android.com/tools">
     <!-- From: file:/F:/COEP/TisserIndia/TisserArtisan/GoogleChips/src/main/res/values/colors.xml -->
     <eat-comment/>
-    <color name="autocomplete_divider_color">#cccccc</color>
+    <color name="autocomplete_divider_color">#42000000</color>
     <color name="chip_background">#FFAC78</color>
     <color name="chip_background_invalid">#D54612</color>
     <color name="chip_background_selected">#ee602d</color>

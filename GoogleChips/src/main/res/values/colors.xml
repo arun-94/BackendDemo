@@ -20,7 +20,7 @@
     <color name="chips_dropdown_background_activated">#4285f4</color>
     <color name="chips_dropdown_background_pressed">#ededed</color>
 
-    <color name="autocomplete_divider_color">#cccccc</color>
+    <color name="autocomplete_divider_color">#42000000</color>
 
     <color name="chip_background">#FFAC78</color>
     <color name="chip_background_selected">#ee602d</color>

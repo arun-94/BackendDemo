@@ -70,7 +70,7 @@ public class AddProductActivity extends BaseActivity implements Validator.Valida
     @DecimalMin(value = 0, message = "Min Quantity 0") @DecimalMax(value = 100, message = "Max Quantity 100") @NotEmpty @Bind(R.id.editText_quantity) EditText editTextQuantity;
     @Bind(R.id.editText_product_long_description) EditText editTextProductDescription;
     @Bind(R.id.editText_product_short_description) EditText editTextShortDescription;
-    @Bind(R.id.product_tags) RecipientEditTextView productTags;
+    @Bind(R.id.editText_product_tags) RecipientEditTextView editTextProductTags;
 
     private ProgressDialog mProgress;
 
@@ -157,7 +157,7 @@ public class AddProductActivity extends BaseActivity implements Validator.Valida
         images = new ArrayList<>();
         imagePaths = new ArrayList<>();
 
-        productTags.setTokenizer(new Rfc822Tokenizer());
+        editTextProductTags.setTokenizer(new Rfc822Tokenizer());
 
         Display display = getWindowManager().getDefaultDisplay();
         Point size = new Point();
@@ -193,10 +193,10 @@ public class AddProductActivity extends BaseActivity implements Validator.Valida
 
             String[] keywords =  temp.split(",");
             BaseRecipientAdapter adapter = new BaseRecipientAdapter(this) {};
-            productTags.setAdapter(adapter);
+            editTextProductTags.setAdapter(adapter);
             for(int i = 0; i < keywords.length; i++)
             {
-                productTags.append(keywords[i]);
+                editTextProductTags.append(keywords[i]);
             }
             //selected_categoryText.setText(productDetailed.getProductCategoryID());
             if(productDetailed.getImages() != null)
@@ -380,10 +380,10 @@ public class AddProductActivity extends BaseActivity implements Validator.Valida
         {
             message = "Please Upload Atleast 1 Photo";
         }
-        else if(productTags.getSelectedRecipients().size() > 3) {
+        else if(editTextProductTags.getSelectedRecipients().size() > 3) {
             message = "Please Upload Max 3 Tags";
         }
-        else if(productTags.getSelectedRecipients().size() == 0) {
+        else if(editTextProductTags.getSelectedRecipients().size() == 0) {
             message = "Please Upload Atleast 1 Tag";
         }
         else
@@ -400,7 +400,7 @@ public class AddProductActivity extends BaseActivity implements Validator.Valida
             productDetailed.setProductImgPathsArray(imagePaths);
             productDetailed.setProductSummary(editTextShortDescription.getText().toString().trim());
             productDetailed.setProductDescription(editTextProductDescription.getText().toString().trim());
-            productDetailed.setProductKeypoints(productTags.getSelectedRecipients());
+            productDetailed.setProductKeypoints(editTextProductTags.getSelectedRecipients());
             manager.currentProductDetailed = productDetailed;
             if(intentType == AppConstants.EDIT_PRODUCT)
                 editProduct(productDetailed);

@@ -2,10 +2,10 @@
 <resources xmlns:ns1="http://schemas.android.com/tools">
     <!-- From: file:/F:/COEP/TisserIndia/TisserArtisan/GoogleChips/build/intermediates/bundles/debug/res/values/values.xml -->
     <eat-comment/>
-    <color name="autocomplete_divider_color">#cccccc</color>
-    <color name="chip_background">#f6f6f6</color>
-    <color name="chip_background_invalid">#db4437</color>
-    <color name="chip_background_selected">#4285f4</color>
+    <color name="autocomplete_divider_color">#42000000</color>
+    <color name="chip_background">#FFAC78</color>
+    <color name="chip_background_invalid">#D54612</color>
+    <color name="chip_background_selected">#ee602d</color>
     <color name="chips_dropdown_background_activated">#4285f4</color>
     <color name="chips_dropdown_background_pressed">#ededed</color>
     <color name="chips_dropdown_text_activated">@android:color/white</color>
@@ -18,7 +18,7 @@
     <dimen name="chip_icon_margin_end">12dp</dimen>
     <dimen name="chip_padding">8dp</dimen>
     <dimen name="chip_padding_end">12dp</dimen>
-    <dimen name="chip_padding_start">-1dp</dimen>
+    <dimen name="chip_padding_start">12dp</dimen>
     <dimen name="chip_text_size">14sp</dimen>
     <dimen name="chip_wrapper_bottom_padding">16dp</dimen>
     <dimen name="chip_wrapper_end_padding">16dp</dimen>

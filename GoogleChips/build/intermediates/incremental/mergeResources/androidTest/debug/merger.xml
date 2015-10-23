@@ -28,7 +28,7 @@
         <item name="android:textAlignment" ns1:ignore="NewApi">viewStart</item>
         <item name="android:textAppearance">?android:attr/textAppearanceMedium</item>
         <item name="android:textDirection" ns1:ignore="NewApi">locale</item>
-    </style><dimen name="chip_padding_end">12dp</dimen><dimen name="chip_height">32dp</dimen><color name="chip_background">#f6f6f6</color><color name="chips_dropdown_text_highlighted">#757575</color><style name="ChipDeleteIconBaseStyle">
+    </style><dimen name="chip_padding_end">12dp</dimen><dimen name="chip_height">32dp</dimen><color name="chip_background">#FFAC78</color><color name="chips_dropdown_text_highlighted">#757575</color><style name="ChipDeleteIconBaseStyle">
         <item name="android:id">@android:id/icon1</item>
         <item name="android:layout_width">36dp</item>
         <item name="android:layout_height">48dp</item>
@@ -47,9 +47,9 @@
         <item name="android:layout_height">@dimen/chip_custom_divider_height</item>
         <item name="android:background">@color/autocomplete_divider_color</item>
         <item name="android:layout_marginLeft">@dimen/chip_wrapper_start_padding</item>
-    </style><dimen name="chip_wrapper_bottom_padding">16dp</dimen><dimen name="chip_wrapper_start_padding">16dp</dimen><color name="chip_background_invalid">#db4437</color><color name="chips_dropdown_text_activated">@android:color/white</color><dimen name="chip_wrapper_top_padding">16dp</dimen><style name="ChipDeleteIconStyle" parent="@style/ChipDeleteIconBaseStyle">
+    </style><dimen name="chip_wrapper_bottom_padding">16dp</dimen><dimen name="chip_wrapper_start_padding">16dp</dimen><color name="chip_background_invalid">#D54612</color><color name="chips_dropdown_text_activated">@android:color/white</color><dimen name="chip_wrapper_top_padding">16dp</dimen><style name="ChipDeleteIconStyle" parent="@style/ChipDeleteIconBaseStyle">
         <item name="android:paddingLeft">8dp</item>
-    </style><dimen name="chip_dropdown_height">72dp</dimen><dimen name="chip_text_size">14sp</dimen><color name="chip_background_selected">#4285f4</color><string name="copy_number">Copy phone number</string><declare-styleable name="RecipientEditTextView"><attr name="avatarPosition"><enum name="end" value="0"/><enum name="start" value="1"/></attr><attr format="reference" name="chipBackground"/><attr format="reference" name="chipDelete"/><attr format="reference" name="chipFontSize"/><attr format="reference" name="chipHeight"/><attr format="reference" name="chipPadding"/><attr format="boolean" name="disableDelete"/><attr format="reference" name="invalidChipBackground"/><attr name="imageSpanAlignment"><enum name="bottom" value="0"/><enum name="baseline" value="1"/></attr><attr format="color" name="unselectedChipBackgroundColor"/><attr format="color" name="selectedChipBackgroundColor"/><attr format="color" name="unselectedChipTextColor"/><attr format="color" name="selectedChipTextColor"/></declare-styleable><dimen name="chip_custom_divider_height">0.5dp</dimen><color name="chips_dropdown_background_pressed">#ededed</color><string name="more_string">\u002B<ns1:g id="count">%1$d</ns1:g></string><style name="ChipTitleStyle">
+    </style><dimen name="chip_dropdown_height">72dp</dimen><dimen name="chip_text_size">14sp</dimen><color name="chip_background_selected">#ee602d</color><string name="copy_number">Copy phone number</string><declare-styleable name="RecipientEditTextView"><attr name="avatarPosition"><enum name="end" value="0"/><enum name="start" value="1"/></attr><attr format="reference" name="chipBackground"/><attr format="reference" name="chipDelete"/><attr format="reference" name="chipFontSize"/><attr format="reference" name="chipHeight"/><attr format="reference" name="chipPadding"/><attr format="boolean" name="disableDelete"/><attr format="reference" name="invalidChipBackground"/><attr name="imageSpanAlignment"><enum name="bottom" value="0"/><enum name="baseline" value="1"/></attr><attr format="color" name="unselectedChipBackgroundColor"/><attr format="color" name="selectedChipBackgroundColor"/><attr format="color" name="unselectedChipTextColor"/><attr format="color" name="selectedChipTextColor"/></declare-styleable><dimen name="chip_custom_divider_height">0.5dp</dimen><color name="chips_dropdown_background_pressed">#ededed</color><string name="more_string">\u002B<ns1:g id="count">%1$d</ns1:g></string><style name="ChipTitleStyle">
         <item name="android:id">@android:id/title</item>
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
@@ -58,7 +58,7 @@
         <item name="android:textAlignment">viewStart</item>
         <item name="android:textColor">@color/chips_dropdown_text</item>
         <item name="android:textSize">16sp</item>
-    </style><color name="chips_dropdown_text_default">#212121</color><dimen name="chip_padding">8dp</dimen><dimen name="line_spacing_extra">3dp</dimen><color name="chips_dropdown_background_activated">#4285f4</color><color name="autocomplete_divider_color">#cccccc</color><integer name="chips_max_lines">-1</integer><string name="action_label">Return</string><dimen name="chip_padding_start">-1dp</dimen><style name="ChipTextViewLayoutStyle">
+    </style><color name="chips_dropdown_text_default">#212121</color><dimen name="chip_padding">8dp</dimen><dimen name="line_spacing_extra">3dp</dimen><color name="chips_dropdown_background_activated">#4285f4</color><color name="autocomplete_divider_color">#42000000</color><integer name="chips_max_lines">-1</integer><string name="action_label">Return</string><dimen name="chip_padding_start">12dp</dimen><style name="ChipTextViewLayoutStyle">
         <item name="android:layout_width">0dp</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_gravity">center_vertical</item>
