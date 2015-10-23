@@ -16,7 +16,7 @@
 
 <resources>
     <!-- override default padding values, -1dp if it's not set to override -->
-    <dimen name="chip_padding_start">-1dp</dimen>
+    <dimen name="chip_padding_start">12dp</dimen>
     <dimen name="chip_padding_end">12dp</dimen>
 
     <!-- chip -->

@@ -39,8 +39,6 @@
 
         </LinearLayout>
 
-        <com.android.ex.chips.CircularImageView style="@style/ChipEndIconStyle" />
-
     </LinearLayout>
 
     <View

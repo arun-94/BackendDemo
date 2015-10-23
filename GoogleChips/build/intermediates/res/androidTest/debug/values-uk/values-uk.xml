@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:ns1="urn:oasis:names:tc:xliff:document:1.2">
-    <!-- From: file:/C:/Users/Arun/AndroidStudioProjects/TisserArtisan/GoogleChips/build/intermediates/bundles/debug/res/values-uk/values-uk.xml -->
+    <!-- From: file:/F:/COEP/TisserIndia/TisserArtisan/GoogleChips/build/intermediates/bundles/debug/res/values-uk/values-uk.xml -->
     <eat-comment/>
     <string msgid="3231589819168382515" name="accessbility_suggestion_dropdown_opened">"Пропозиції контактів увімкнено"</string>
     <string msgid="1318401633653605424" name="action_label">"Назад"</string>

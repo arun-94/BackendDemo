@@ -17,11 +17,9 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@drawable/chips_dropdown_background"
+    android:background="#FFAC78"
     android:minHeight="@dimen/chip_dropdown_height"
     android:padding="12dp">
-
-    <com.android.ex.chips.CircularImageView style="@style/ChipStartIconStyle" />
 
     <LinearLayout style="@style/ChipTextViewLayoutStyle">
 
@@ -33,4 +31,4 @@
 
     <ImageView style="@style/ChipDeleteIconStyle" />
 
-</LinearLayout><!-- From: file:/C:/Users/Arun/AndroidStudioProjects/TisserArtisan/GoogleChips/src/main/res/layout/chips_recipient_dropdown_item.xml --><!-- From: file:/C:/Users/Arun/AndroidStudioProjects/TisserArtisan/GoogleChips/build/intermediates/bundles/debug/res/layout/chips_recipient_dropdown_item.xml -->
+</LinearLayout><!-- From: file:/F:/COEP/TisserIndia/TisserArtisan/GoogleChips/src/main/res/layout/chips_recipient_dropdown_item.xml --><!-- From: file:/F:/COEP/TisserIndia/TisserArtisan/GoogleChips/build/intermediates/bundles/debug/res/layout/chips_recipient_dropdown_item.xml -->

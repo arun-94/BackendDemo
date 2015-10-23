@@ -39,12 +39,10 @@
 
         </LinearLayout>
 
-        <com.android.ex.chips.CircularImageView style="@style/ChipEndIconStyle" />
-
     </LinearLayout>
 
     <View
         android:id="@+id/chip_autocomplete_bottom_divider"
         style="@style/ChipAutocompleteDividerStyle" />
 
-</LinearLayout><!-- From: file:/C:/Users/Arun/AndroidStudioProjects/TisserArtisan/GoogleChips/src/main/res/layout/chips_autocomplete_recipient_dropdown_item.xml --><!-- From: file:/C:/Users/Arun/AndroidStudioProjects/TisserArtisan/GoogleChips/build/intermediates/bundles/debug/res/layout/chips_autocomplete_recipient_dropdown_item.xml -->
+</LinearLayout><!-- From: file:/F:/COEP/TisserIndia/TisserArtisan/GoogleChips/src/main/res/layout/chips_autocomplete_recipient_dropdown_item.xml --><!-- From: file:/F:/COEP/TisserIndia/TisserArtisan/GoogleChips/build/intermediates/bundles/debug/res/layout/chips_autocomplete_recipient_dropdown_item.xml -->

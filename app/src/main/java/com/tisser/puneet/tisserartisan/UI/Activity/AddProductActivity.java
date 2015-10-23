@@ -159,7 +159,6 @@ public class AddProductActivity extends BaseActivity implements Validator.Valida
 
         productTags.setTokenizer(new Rfc822Tokenizer());
 
-
         Display display = getWindowManager().getDefaultDisplay();
         Point size = new Point();
         display.getSize(size);

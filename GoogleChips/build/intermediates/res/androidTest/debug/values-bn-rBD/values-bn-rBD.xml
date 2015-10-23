@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:ns1="urn:oasis:names:tc:xliff:document:1.2">
-    <!-- From: file:/C:/Users/Arun/AndroidStudioProjects/TisserArtisan/GoogleChips/build/intermediates/bundles/debug/res/values-bn-rBD/values-bn-rBD.xml -->
+    <!-- From: file:/F:/COEP/TisserIndia/TisserArtisan/GoogleChips/build/intermediates/bundles/debug/res/values-bn-rBD/values-bn-rBD.xml -->
     <eat-comment/>
     <string msgid="3231589819168382515" name="accessbility_suggestion_dropdown_opened">"যোগাযোগের পরামর্শগুলি খোলা হয়েছে"</string>
     <string msgid="1318401633653605424" name="action_label">"ফেরত যান"</string>

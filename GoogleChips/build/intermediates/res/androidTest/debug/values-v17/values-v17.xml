@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- From: file:/C:/Users/Arun/AndroidStudioProjects/TisserArtisan/GoogleChips/build/intermediates/bundles/debug/res/values-v17/values-v17.xml -->
+    <!-- From: file:/F:/COEP/TisserIndia/TisserArtisan/GoogleChips/build/intermediates/bundles/debug/res/values-v17/values-v17.xml -->
     <eat-comment/>
     <style name="ChipAutocompleteDividerStyle">
         <item name="android:layout_width">match_parent</item>

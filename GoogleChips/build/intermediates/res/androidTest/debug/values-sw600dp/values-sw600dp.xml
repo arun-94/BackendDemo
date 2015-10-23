@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- From: file:/C:/Users/Arun/AndroidStudioProjects/TisserArtisan/GoogleChips/build/intermediates/bundles/debug/res/values-sw600dp/values-sw600dp.xml -->
+    <!-- From: file:/F:/COEP/TisserIndia/TisserArtisan/GoogleChips/build/intermediates/bundles/debug/res/values-sw600dp/values-sw600dp.xml -->
     <eat-comment/>
     <style name="RecipientEditTextView" parent="@style/RecipientEditTextViewBase">
         <item name="android:imeOptions">actionNext</item>
