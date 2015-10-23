@@ -134,7 +134,7 @@ public class RecipientAlternatesAdapter extends CursorAdapter {
                 c.close();
             }
         }
-
+//
         final Set<String> matchesNotFound = new HashSet<String>();
 
         getMatchingRecipientsFromDirectoryQueries(context, recipientEntries,
