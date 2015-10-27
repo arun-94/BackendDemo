@@ -43,6 +43,7 @@ import com.tisser.puneet.tisserartisan.UI.Adapters.GalleryImagesAdapter;
 import com.tisser.puneet.tisserartisan.UI.Custom.ExpandableHeightGridView;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -189,9 +190,8 @@ public class AddProductActivity extends BaseActivity implements Validator.Valida
             int id = productDetailed.getProductCategoryID();
 
             String keywordList = productDetailed.getProductKeypoints();
-            String temp = keywordList.substring(0, keywordList.length() - 2);
 
-            String[] keywords =  temp.split(",");
+            String[] keywords =  keywordList.split(",");
             BaseRecipientAdapter adapter = new BaseRecipientAdapter(this) {};
             editTextProductTags.setAdapter(adapter);
             for(int i = 0; i < keywords.length; i++)
@@ -376,7 +376,7 @@ public class AddProductActivity extends BaseActivity implements Validator.Valida
         {
             message = "Category Must be Selected";
         }
-        else if (images == null)
+        else if (images == null || images.size() == 0)
         {
             message = "Please Upload Atleast 1 Photo";
         }
@@ -403,7 +403,15 @@ public class AddProductActivity extends BaseActivity implements Validator.Valida
             productDetailed.setProductKeypoints(editTextProductTags.getSelectedRecipients());
             manager.currentProductDetailed = productDetailed;
             if(intentType == AppConstants.EDIT_PRODUCT)
-                editProduct(productDetailed);
+            {
+                try
+                {
+                    editProduct(productDetailed);
+                } catch (IOException e)
+                {
+                    e.printStackTrace();
+                }
+            }
             else
                 addNewProduct(productDetailed);
             return;
@@ -428,10 +436,7 @@ public class AddProductActivity extends BaseActivity implements Validator.Valida
 
     }
 
-    private void editProduct(ProductDetailed productDetailed)
-    {
-        Toast.makeText(AddProductActivity.this, "Edit Product API not available", Toast.LENGTH_SHORT).show();
-    }
+
 
     @Override
     public void onValidationFailed(List<ValidationError> errors)
@@ -476,10 +481,77 @@ public class AddProductActivity extends BaseActivity implements Validator.Valida
             files.put("image" + i, new TypedFile("image/jpeg", new File(imagePaths.get(i))));
         }
 
-        getApiService().addNewProduct(AppConstants.ACTION_ADD_PRODUCT ,manager.getSessionID(), files, p.getProductName(), p.getProductPrice(), p.getProductQuantity(), manager.currentCategory.getCategoryID(), manager.currentSubCategory.getCategoryID(), manager.currentSubsubCategory.getCategoryID(),p.getProductColor(), p.getProductDescription(), p.getProductSummary(), p.getProductKeypoints(), new Callback<AddProductResponse>()
+        getApiService().addNewProduct(AppConstants.ACTION_ADD_PRODUCT, manager.getSessionID(), files, p.getProductName(), p.getProductPrice(), p.getProductQuantity(), manager.currentCategory.getCategoryID(), manager.currentSubCategory.getCategoryID(), manager.currentSubsubCategory.getCategoryID(), p.getProductColor(), p.getProductDescription(), p.getProductSummary(), p.getProductKeypoints(), new Callback<AddProductResponse>()
         {
             @Override
             public void success(AddProductResponse responseObj, Response response)
+            {
+                mProgress.dismiss();
+                Log.d("Upload", "success");
+                Log.d("Data", "" + responseObj.getError());
+                if (responseObj.getError() == 0)
+                {
+                    Toast.makeText(AddProductActivity.this, responseObj.getStatus(), Toast.LENGTH_LONG).show();
+                    manager.currentProductDetailed = p;
+                    navigator.openNewActivity(AddProductActivity.this, new ProductDetailActivity());
+                }
+                else
+                    Toast.makeText(AddProductActivity.this, responseObj.getStatus(), Toast.LENGTH_LONG).show();
+            }
+
+            @Override
+            public void failure(RetrofitError error)
+            {
+                if (error.getKind().equals(RetrofitError.Kind.NETWORK))
+                {
+                    Toast.makeText(AddProductActivity.this, "No internet Connection!", Toast.LENGTH_LONG).show();
+                }
+                else
+                    Toast.makeText(AddProductActivity.this, "Failed to Add Product", Toast.LENGTH_LONG).show();
+                mProgress.dismiss();
+                Log.e("Upload", "error");
+                Log.e("Data", "" + error);
+            }
+        });
+
+    }
+
+
+    private void editProduct(final ProductDetailed p) throws IOException
+    {
+
+        String action = "EditProduct";
+        ArrayList<String> imagePaths = p.getProductImgPaths();
+        Map<String, TypedFile> files = new HashMap<String, TypedFile>();
+        Map<String, String> colorIDs = new HashMap<String, String>();
+        mProgress.show();
+
+
+       /* for (int i = 0; i < imagePaths.size(); i++)
+        {
+            if(imagePaths.get(i).startsWith("http")) {
+                URL imageurl = new URL(imagePaths.get(i));
+                Bitmap bitmap = BitmapFactory.decodeStream(imageurl.openConnection().getInputStream());
+                ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+                bitmap.compress(Bitmap.CompressFormat.JPEG, 100, bytes);
+
+                File f = new File(Environment.getExternalStorageDirectory()
+                        + File.separator + "temp.jpg");
+                Boolean isFileCreated = f.createNewFile();
+                FileOutputStream fo = new FileOutputStream(f);
+                fo.write(bytes.toByteArray());
+                fo.close();
+
+                files.put("image" + i, new TypedFile("image/jpeg", f));
+            }
+            else
+                files.put("image" + i, new TypedFile("image/jpeg", new File(imagePaths.get(i))));
+        }
+
+        getApiService().editProduct(AppConstants.ACTION_EDIT_PRODUCT ,manager.getSessionID(), files, p.getProductID() , p.getProductName(), p.getProductPrice(), p.getProductQuantity(), manager.currentCategory.getCategoryID(), manager.currentSubCategory.getCategoryID(), manager.currentSubsubCategory.getCategoryID(),p.getProductColor(), p.getProductDescription(), p.getProductSummary(), p.getProductKeypoints(), new Callback<EditProductResponse>()
+        {
+            @Override
+            public void success(EditProductResponse responseObj, Response response)
             {
                 mProgress.dismiss();
                 Log.d("Upload", "success");
@@ -507,9 +579,12 @@ public class AddProductActivity extends BaseActivity implements Validator.Valida
                 Log.e("Upload", "error");
                 Log.e("Data", "" + error);
             }
-        });
-
+        });*/
+        Toast.makeText(AddProductActivity.this, "Edit Product API not available", Toast.LENGTH_SHORT).show();
     }
+
+
+
 
     String getCategoryString(ProductDetailed pD)
     {

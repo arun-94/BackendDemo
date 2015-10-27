@@ -26,6 +26,7 @@ public final class AppConstants
     //API Constants
     public static final String ACTION_VALIDATE_USER = "validateUser";
     public static final String ACTION_ADD_PRODUCT = "AddNewProduct";
+    public static final String ACTION_EDIT_PRODUCT = "EditProduct";
     public static final String ACTION_SHOW_PRODUCTS = "ShowMyProducts";
 
     //Intent Extras - Names

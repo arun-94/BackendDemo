@@ -92,8 +92,9 @@ public class ProductDetailed
     public void setProductKeypoints(List<RecipientEntry> productKeypoints)
     {
         this.productKeypoints = "";
-        for(int i = 0; i < productKeypoints.size(); i++)
+        for(int i = 0; i < productKeypoints.size() - 1; i++)
             this.productKeypoints += productKeypoints.get(i).getDisplayName() + ",";
+        this.productKeypoints += productKeypoints.get(productKeypoints.size() - 1).getDisplayName();
     }
 
     public String getProductEstimatedDelivery()
