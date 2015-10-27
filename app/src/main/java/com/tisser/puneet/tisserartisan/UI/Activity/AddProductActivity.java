@@ -496,6 +496,7 @@ public class AddProductActivity extends BaseActivity implements Validator.Valida
             {
                 f.createNewFile();
                 Bitmap bmp = BitmapFactory.decodeFile(imagePaths.get(i));
+                bmp = getResizedBitmap(bmp, 500);
                 ByteArrayOutputStream bos = new ByteArrayOutputStream();
                 bmp.compress(Bitmap.CompressFormat.JPEG, 70, bos);
                 byte[] bitmapdata = bos.toByteArray();
@@ -568,7 +569,9 @@ public class AddProductActivity extends BaseActivity implements Validator.Valida
                 try
                 {
                     f.createNewFile();
+
                     Bitmap bmp = BitmapFactory.decodeFile(imagePaths.get(i));
+                    bmp = getResizedBitmap(bmp, 500);
                     ByteArrayOutputStream bos = new ByteArrayOutputStream();
                     bmp.compress(Bitmap.CompressFormat.JPEG, 70, bos);
                     byte[] bitmapdata = bos.toByteArray();
@@ -634,7 +637,20 @@ public class AddProductActivity extends BaseActivity implements Validator.Valida
         //Toast.makeText(AddProductActivity.this, "Edit Product API not available", Toast.LENGTH_SHORT).show();
     }
 
+    public Bitmap getResizedBitmap(Bitmap image, int maxSize) {
+        int width = image.getWidth();
+        int height = image.getHeight();
 
+        float bitmapRatio = (float)width / (float) height;
+        if (bitmapRatio > 0) {
+            width = maxSize;
+            height = (int) (width / bitmapRatio);
+        } else {
+            height = maxSize;
+            width = (int) (height * bitmapRatio);
+        }
+        return Bitmap.createScaledBitmap(image, width, height, true);
+    }
 
 
     String getCategoryString(ProductDetailed pD)
