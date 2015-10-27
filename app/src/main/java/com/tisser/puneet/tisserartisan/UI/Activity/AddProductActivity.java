@@ -5,8 +5,6 @@ import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Point;
 import android.os.Build;
 import android.os.Bundle;
@@ -44,10 +42,8 @@ import com.tisser.puneet.tisserartisan.Model.Subsubcategory;
 import com.tisser.puneet.tisserartisan.R;
 import com.tisser.puneet.tisserartisan.UI.Adapters.GalleryImagesAdapter;
 import com.tisser.puneet.tisserartisan.UI.Custom.ExpandableHeightGridView;
+import com.tisser.puneet.tisserartisan.UI.Custom.ImageUtility;
 
-import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -494,7 +490,7 @@ public class AddProductActivity extends BaseActivity implements Validator.Valida
 
         for (int i = 0; i < imagePaths.size(); i++)
         {
-            files.put("image" + i, new TypedFile("image/jpeg", makeFileFromPath(imagePaths.get(i), i)));
+            files.put("image" + i, new TypedFile("image/jpeg", ImageUtility.makeFileFromPath(AddProductActivity.this, imagePaths.get(i), i)));
         }
 
         getApiService().addNewProduct(AppConstants.ACTION_ADD_PRODUCT, manager.getSessionID(), files, p.getProductName(), p.getProductPrice(), p.getProductQuantity(), manager.currentCategory.getCategoryID(), manager.currentSubCategory.getCategoryID(), manager.currentSubsubCategory.getCategoryID(), p.getProductColor(), p.getProductDescription(), p.getProductSummary(), p.getProductKeypoints(), new Callback<AddProductResponse>()
@@ -532,34 +528,7 @@ public class AddProductActivity extends BaseActivity implements Validator.Valida
 
     }
 
-    private File makeFileFromPath(String s, int i)
-    {
-        File f = new File(getCacheDir(), "img"+i+".jpg");
-        try
-        {
-            f.createNewFile();
-            BitmapFactory.Options options = new BitmapFactory.Options();
-            options.inJustDecodeBounds = true;
-            Bitmap bmp = BitmapFactory.decodeFile(imagePaths.get(i), options);
-            bmp = getResizedBitmap(bmp, 500);
-            ByteArrayOutputStream bos = new ByteArrayOutputStream();
-            bmp.compress(Bitmap.CompressFormat.JPEG, 50, bos);
-            byte[] bitmapdata = bos.toByteArray();
 
-//write the bytes in file
-            FileOutputStream fos = new FileOutputStream(f);
-            fos.write(bitmapdata);
-            fos.flush();
-            fos.close();
-            return f;
-        } catch (IOException e)
-        {
-            e.printStackTrace();
-        }
-
-        return new File(getCacheDir(), "img");
-
-    }
 
 
     private void editProduct(final ProductDetailed p) throws IOException
@@ -577,7 +546,7 @@ public class AddProductActivity extends BaseActivity implements Validator.Valida
         {
             if(!imagePaths.get(i).startsWith("http"))
             {
-                files.put("image" + i, new TypedFile("image/jpeg", makeFileFromPath(imagePaths.get(i), i)));
+                files.put("image" + i, new TypedFile("image/jpeg", ImageUtility.makeFileFromPath(AddProductActivity.this, imagePaths.get(i), i)));
             }
         }
 
@@ -629,20 +598,7 @@ public class AddProductActivity extends BaseActivity implements Validator.Valida
         //Toast.makeText(AddProductActivity.this, "Edit Product API not available", Toast.LENGTH_SHORT).show();
     }
 
-    public Bitmap getResizedBitmap(Bitmap image, int maxSize) {
-        int width = image.getWidth();
-        int height = image.getHeight();
 
-        float bitmapRatio = (float)width / (float) height;
-        if (bitmapRatio > 0) {
-            width = maxSize;
-            height = (int) (width / bitmapRatio);
-        } else {
-            height = maxSize;
-            width = (int) (height * bitmapRatio);
-        }
-        return Bitmap.createScaledBitmap(image, width, height, true);
-    }
 
 
     String getCategoryString(ProductDetailed pD)

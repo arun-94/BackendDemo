@@ -8,6 +8,11 @@ import android.os.Build;
 import android.view.Display;
 import android.view.WindowManager;
 
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+
 /**
  * Created by Puneet on 23-08-2015.
  */
@@ -102,5 +107,47 @@ public class ImageUtility
         } else {
             return upperBound;
         }
+    }
+
+    public static File makeFileFromPath(Context mContext,String s, int i)
+    {
+        File f = new File(mContext.getCacheDir(), "img"+i+".jpg");
+        try
+        {
+            f.createNewFile();
+
+            Bitmap bmp = BitmapFactory.decodeFile(s);
+            bmp = getResizedBitmap(bmp, 500);
+            ByteArrayOutputStream bos = new ByteArrayOutputStream();
+            bmp.compress(Bitmap.CompressFormat.JPEG, 50, bos);
+            byte[] bitmapdata = bos.toByteArray();
+
+//write the bytes in file
+            FileOutputStream fos = new FileOutputStream(f);
+            fos.write(bitmapdata);
+            fos.flush();
+            fos.close();
+            return f;
+        } catch (IOException e)
+        {
+            e.printStackTrace();
+        }
+
+        return new File(mContext.getCacheDir(), "img");
+    }
+
+    public static Bitmap getResizedBitmap(Bitmap image, int maxSize) {
+        int width = image.getWidth();
+        int height = image.getHeight();
+
+        float bitmapRatio = (float)width / (float) height;
+        if (bitmapRatio > 0) {
+            width = maxSize;
+            height = (int) (width / bitmapRatio);
+        } else {
+            height = maxSize;
+            width = (int) (height * bitmapRatio);
+        }
+        return Bitmap.createScaledBitmap(image, width, height, true);
     }
 }
