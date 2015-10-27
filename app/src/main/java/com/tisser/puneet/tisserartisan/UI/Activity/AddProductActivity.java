@@ -311,7 +311,10 @@ public class AddProductActivity extends BaseActivity implements Validator.Valida
 
             if (imagePos != -1)
             {
-                deletedImagePaths.add(imagePaths.get(imagePos));
+                if(imagePaths.get(imagePos).startsWith("http"))
+                {
+                    deletedImagePaths.add(imagePaths.get(imagePos));
+                }
                 mAdapter.remove(imagePos);
                 images.remove(imagePos);
                 imagePaths.remove(imagePos);
@@ -491,29 +494,7 @@ public class AddProductActivity extends BaseActivity implements Validator.Valida
 
         for (int i = 0; i < imagePaths.size(); i++)
         {
-            File f = new File(getCacheDir(), "img"+i+".jpg");
-            try
-            {
-                f.createNewFile();
-                BitmapFactory.Options options = new BitmapFactory.Options();
-                options.inJustDecodeBounds = true;
-                Bitmap bmp = BitmapFactory.decodeFile(imagePaths.get(i), options);
-                bmp = getResizedBitmap(bmp, 500);
-                ByteArrayOutputStream bos = new ByteArrayOutputStream();
-                bmp.compress(Bitmap.CompressFormat.JPEG, 50, bos);
-                byte[] bitmapdata = bos.toByteArray();
-
-//write the bytes in file
-                FileOutputStream fos = new FileOutputStream(f);
-                fos.write(bitmapdata);
-                fos.flush();
-                fos.close();
-                files.put("image" + i, new TypedFile("image/jpeg", f));
-            } catch (IOException e)
-            {
-                e.printStackTrace();
-            }
-
+            files.put("image" + i, new TypedFile("image/jpeg", makeFileFromPath(imagePaths.get(i), i)));
         }
 
         getApiService().addNewProduct(AppConstants.ACTION_ADD_PRODUCT, manager.getSessionID(), files, p.getProductName(), p.getProductPrice(), p.getProductQuantity(), manager.currentCategory.getCategoryID(), manager.currentSubCategory.getCategoryID(), manager.currentSubsubCategory.getCategoryID(), p.getProductColor(), p.getProductDescription(), p.getProductSummary(), p.getProductKeypoints(), new Callback<AddProductResponse>()
@@ -551,6 +532,35 @@ public class AddProductActivity extends BaseActivity implements Validator.Valida
 
     }
 
+    private File makeFileFromPath(String s, int i)
+    {
+        File f = new File(getCacheDir(), "img"+i+".jpg");
+        try
+        {
+            f.createNewFile();
+            BitmapFactory.Options options = new BitmapFactory.Options();
+            options.inJustDecodeBounds = true;
+            Bitmap bmp = BitmapFactory.decodeFile(imagePaths.get(i), options);
+            bmp = getResizedBitmap(bmp, 500);
+            ByteArrayOutputStream bos = new ByteArrayOutputStream();
+            bmp.compress(Bitmap.CompressFormat.JPEG, 50, bos);
+            byte[] bitmapdata = bos.toByteArray();
+
+//write the bytes in file
+            FileOutputStream fos = new FileOutputStream(f);
+            fos.write(bitmapdata);
+            fos.flush();
+            fos.close();
+            return f;
+        } catch (IOException e)
+        {
+            e.printStackTrace();
+        }
+
+        return new File(getCacheDir(), "img");
+
+    }
+
 
     private void editProduct(final ProductDetailed p) throws IOException
     {
@@ -567,28 +577,7 @@ public class AddProductActivity extends BaseActivity implements Validator.Valida
         {
             if(!imagePaths.get(i).startsWith("http"))
             {
-                File f = new File(getCacheDir(), "img"+i+".jpg");
-                try
-                {
-                    f.createNewFile();
-                    BitmapFactory.Options options = new BitmapFactory.Options();
-                    options.inJustDecodeBounds = true;
-                    Bitmap bmp = BitmapFactory.decodeFile(imagePaths.get(i), options);
-                    bmp = getResizedBitmap(bmp, 500);
-                    ByteArrayOutputStream bos = new ByteArrayOutputStream();
-                    bmp.compress(Bitmap.CompressFormat.JPEG, 50, bos);
-                    byte[] bitmapdata = bos.toByteArray();
-
-//write the bytes in file
-                    FileOutputStream fos = new FileOutputStream(f);
-                    fos.write(bitmapdata);
-                    fos.flush();
-                    fos.close();
-                    files.put("image" + i, new TypedFile("image/jpeg", f));
-                } catch (IOException e)
-                {
-                    e.printStackTrace();
-                }
+                files.put("image" + i, new TypedFile("image/jpeg", makeFileFromPath(imagePaths.get(i), i)));
             }
         }
 
