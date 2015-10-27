@@ -37,4 +37,6 @@ public final class AppConstants
     //Intent Extras - Values
     public static final int NEW_PRODUCT = 1;
     public static final int EDIT_PRODUCT = 0;
+
+    public static final int IMAGE_RESIZE_DIMEN = 800;
 }

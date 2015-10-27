@@ -13,6 +13,7 @@ import android.widget.ImageView;
 
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Target;
+import com.tisser.puneet.tisserartisan.Global.AppConstants;
 import com.tisser.puneet.tisserartisan.Global.AppManager;
 import com.tisser.puneet.tisserartisan.Model.Response.ImageResponse;
 import com.tisser.puneet.tisserartisan.R;
@@ -81,7 +82,7 @@ public class ImageAdapter extends PagerAdapter
                 @Override
                 public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from)
                 {
-                    Bitmap bm = ImageUtility.getResizedBitmap(bitmap, 500);
+                    Bitmap bm = ImageUtility.getResizedBitmap(bitmap, AppConstants.IMAGE_RESIZE_DIMEN);
                     imageView.setImageBitmap(bm);
                 }
 
@@ -105,7 +106,7 @@ public class ImageAdapter extends PagerAdapter
                 @Override
                 public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from)
                 {
-                    Bitmap bm = ImageUtility.getResizedBitmap(bitmap, 500);
+                    Bitmap bm = ImageUtility.getResizedBitmap(bitmap, AppConstants.IMAGE_RESIZE_DIMEN);
                     imageView.setImageBitmap(bm);
                 }
 
@@ -129,7 +130,7 @@ public class ImageAdapter extends PagerAdapter
                     @Override
                     public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from)
                     {
-                        Bitmap bm = ImageUtility.getResizedBitmap(bitmap, 500);
+                        Bitmap bm = ImageUtility.getResizedBitmap(bitmap, AppConstants.IMAGE_RESIZE_DIMEN);
                         imageView.setImageBitmap(bm);
                     }
 
@@ -153,7 +154,7 @@ public class ImageAdapter extends PagerAdapter
                     @Override
                     public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from)
                     {
-                        Bitmap bm = ImageUtility.getResizedBitmap(bitmap, 500);
+                        Bitmap bm = ImageUtility.getResizedBitmap(bitmap, AppConstants.IMAGE_RESIZE_DIMEN);
                         imageView.setImageBitmap(bm);
                     }
 
