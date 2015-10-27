@@ -140,14 +140,22 @@ public class ImageUtility
         int width = image.getWidth();
         int height = image.getHeight();
 
-        float bitmapRatio = (float)width / (float) height;
-        if (bitmapRatio > 0) {
-            width = maxSize;
-            height = (int) (width / bitmapRatio);
-        } else {
-            height = maxSize;
-            width = (int) (height * bitmapRatio);
+        if(width > 500 || height > 500)
+        {
+            float bitmapRatio = (float) width / (float) height;
+            if (bitmapRatio > 0)
+            {
+                width = maxSize;
+                height = (int) (width / bitmapRatio);
+            }
+            else
+            {
+                height = maxSize;
+                width = (int) (height * bitmapRatio);
+            }
+            return Bitmap.createScaledBitmap(image, width, height, true);
         }
-        return Bitmap.createScaledBitmap(image, width, height, true);
+        else
+            return image;
     }
 }
