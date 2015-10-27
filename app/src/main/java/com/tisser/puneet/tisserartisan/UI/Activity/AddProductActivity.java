@@ -78,6 +78,7 @@ public class AddProductActivity extends BaseActivity implements Validator.Valida
 
     private ArrayList<Image> images;
     private ArrayList<String> imagePaths;
+    private ArrayList<String> deletedImagePaths;
     private GalleryImagesAdapter mAdapter;
     private Validator userDetailsValidator;
     private int intentType = AppConstants.NEW_PRODUCT;
@@ -158,6 +159,7 @@ public class AddProductActivity extends BaseActivity implements Validator.Valida
         mAdapter = new GalleryImagesAdapter(this, null);
         images = new ArrayList<>();
         imagePaths = new ArrayList<>();
+        deletedImagePaths = new ArrayList<>();
         productDetailed = new ProductDetailed();
 
 
@@ -201,7 +203,7 @@ public class AddProductActivity extends BaseActivity implements Validator.Valida
                 editTextProductTags.append(keywords[i]);
             }
             //selected_categoryText.setText(productDetailed.getProductCategoryID());
-            if(productDetailed.getImages() != null)
+            if(productDetailed.getImages() != null && productDetailed.getImages().size() != 0)
             {
                 ArrayList<ImageResponse> productImages = productDetailed.getImages();
                 for (int i = 0; i < productImages.size(); i++)
@@ -211,15 +213,20 @@ public class AddProductActivity extends BaseActivity implements Validator.Valida
                     imagePaths.add(img.path);
                 }
             }
-            else {
+
+            if(productDetailed.getProductImgPaths() != null && productDetailed.getProductImgPaths().size() != 0){
                 ArrayList<String> productImagesPaths = productDetailed.getProductImgPaths();
                 for (int i = 0; i < productImagesPaths.size(); i++)
                 {
-                    Image img = new Image(i, "File Image", productImagesPaths.get(i), true);
-                    images.add(img);
-                    imagePaths.add(img.path);
+                    if(!productImagesPaths.get(i).startsWith("http"))
+                    {
+                        Image img = new Image(i, "File Image", productImagesPaths.get(i), true);
+                        images.add(img);
+                        imagePaths.add(img.path);
+                    }
                 }
             }
+
 
             mAdapter.addAll(images, width - 40);
             mGalleryImagesRecycler.setNumColumns(4);
@@ -300,6 +307,7 @@ public class AddProductActivity extends BaseActivity implements Validator.Valida
 
             if (imagePos != -1)
             {
+                deletedImagePaths.add(imagePaths.get(imagePos));
                 mAdapter.remove(imagePos);
                 images.remove(imagePos);
                 imagePaths.remove(imagePos);
@@ -523,33 +531,32 @@ public class AddProductActivity extends BaseActivity implements Validator.Valida
 
         String action = "EditProduct";
         ArrayList<String> imagePaths = p.getProductImgPaths();
-        Map<String, TypedFile> files = new HashMap<String, TypedFile>();
+        Map<String, TypedFile> files = new HashMap<>();
+        Map<String, String> deletedFiles = new HashMap<>();
         Map<String, String> colorIDs = new HashMap<String, String>();
         mProgress.show();
 
 
-        /*for (int i = 0; i < imagePaths.size(); i++)
+        for (int i = 0; i < imagePaths.size(); i++)
         {
-            if(imagePaths.get(i).startsWith("http")) {
-                URL imageurl = new URL(imagePaths.get(i));
-                Bitmap bitmap = BitmapFactory.decodeStream(imageurl.openConnection().getInputStream());
-                ByteArrayOutputStream bytes = new ByteArrayOutputStream();
-                bitmap.compress(Bitmap.CompressFormat.JPEG, 100, bytes);
-
-                File f = new File(Environment.getExternalStorageDirectory()
-                        + File.separator + "temp.jpg");
-                Boolean isFileCreated = f.createNewFile();
-                FileOutputStream fo = new FileOutputStream(f);
-                fo.write(bytes.toByteArray());
-                fo.close();
-
-                files.put("image" + i, new TypedFile("image/jpeg", f));
-            }
-            else
+            if(!imagePaths.get(i).startsWith("http"))
                 files.put("image" + i, new TypedFile("image/jpeg", new File(imagePaths.get(i))));
-        }*/
+        }
 
-        getApiService().editProduct(AppConstants.ACTION_EDIT_PRODUCT, manager.getSessionID(), files, p.getProductID(), p.getProductName(), p.getProductPrice(), p.getProductQuantity(), manager.currentCategory.getCategoryID(), manager.currentSubCategory.getCategoryID(), manager.currentSubsubCategory.getCategoryID(), p.getProductColor(), p.getProductDescription(), p.getProductSummary(), p.getProductKeypoints(), new Callback<EditProductResponse>()
+        for (int i = 0; i < deletedImagePaths.size(); i++)
+        {
+            for(int j = 0; j < manager.currentProductDetailed.getImages().size(); j++)
+            {
+                if (manager.currentProductDetailed.getImages().get(j).getPath().equals(deletedImagePaths.get(i))) {
+                    manager.currentProductDetailed.getImages().remove(j);
+                    break;
+                }
+            }
+            deletedFiles.put("deletedImagePath" + i, deletedImagePaths.get(i));
+        }
+
+
+        getApiService().editProduct(AppConstants.ACTION_EDIT_PRODUCT, manager.getSessionID(), deletedFiles, files, p.getProductID(), p.getProductName(), p.getProductPrice(), p.getProductQuantity(), manager.currentCategory.getCategoryID(), manager.currentSubCategory.getCategoryID(), manager.currentSubsubCategory.getCategoryID(), p.getProductColor(), p.getProductDescription(), p.getProductSummary(), p.getProductKeypoints(), new Callback<EditProductResponse>()
         {
             @Override
             public void success(EditProductResponse responseObj, Response response)

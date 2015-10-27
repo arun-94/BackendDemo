@@ -16,6 +16,8 @@ import com.tisser.puneet.tisserartisan.UI.Adapters.ImageAdapter;
 import com.tisser.puneet.tisserartisan.UI.Adapters.ReviewAdapter;
 import com.tisser.puneet.tisserartisan.UI.Custom.DividerItemDecoration;
 
+import java.util.ArrayList;
+
 import butterknife.Bind;
 
 public class ProductDetailActivity extends BaseActivity
@@ -76,16 +78,25 @@ public class ProductDetailActivity extends BaseActivity
         tvdetaileddescription.setText(manager.currentProductDetailed.getProductDescription());
         tvkeypoints.setText(manager.currentProductDetailed.getProductKeypoints());
         ViewPager viewPager = (ViewPager) findViewById(R.id.image_product_img);
-        if (manager.currentProductDetailed.getImages() != null)
+
+        ImageAdapter adapter = new ImageAdapter(this, manager);
+
+        if (manager.currentProductDetailed.getImages() != null && manager.currentProductDetailed.getImages().size() != 0)
         {
-            ImageAdapter adapter = new ImageAdapter(this, manager.currentProductDetailed.getImages(), manager);
-            viewPager.setAdapter(adapter);
+            adapter.addImagesArray(manager.currentProductDetailed.getImages());
         }
-        else
+        if(manager.currentProductDetailed.getProductImgPaths() != null && manager.currentProductDetailed.getProductImgPaths().size() != 0)
         {
-            ImageAdapter adapter = new ImageAdapter(this, manager.currentProductDetailed.getProductImgPaths(), manager, 0);
-            viewPager.setAdapter(adapter);
+            ArrayList<String> tempPaths = new ArrayList<>();
+            for(int i = 0; i < manager.currentProductDetailed.getProductImgPaths().size(); i++) {
+                if(!manager.currentProductDetailed.getProductImgPaths().get(i).startsWith("http")) {
+                    tempPaths.add(manager.currentProductDetailed.getProductImgPaths().get(i));
+                }
+            }
+            adapter.addImagesPathArray(tempPaths);
         }
+        viewPager.setAdapter(adapter);
+
         if (manager.currentProductDetailed.getProductReviews().size() != 0)
         {
             mReviewAdapter.addAll(manager.currentProductDetailed.getProductReviews());

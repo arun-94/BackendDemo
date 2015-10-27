@@ -26,6 +26,7 @@ public class ImageAdapter extends PagerAdapter
     private ArrayList<ImageResponse> imageURLS = new ArrayList<>();
     private ArrayList<String> imagePaths = new ArrayList<>();
     int flag;
+    int count = 0;
 
     public ImageAdapter(Context context, ArrayList<ImageResponse> imageURLS, AppManager manager)
     {
@@ -44,13 +45,16 @@ public class ImageAdapter extends PagerAdapter
         this.flag = flag;
     }
 
+    public ImageAdapter(Context context, AppManager manager)
+    {
+        this.mContext = context;
+        this.manager = manager ;
+    }
+
     @Override
     public int getCount()
     {
-        if(imageURLS.size() != 0)
-            return imageURLS.size();
-        else
-            return imagePaths.size();
+        return imageURLS.size() + imagePaths.size();
     }
 
     @Override
@@ -66,13 +70,22 @@ public class ImageAdapter extends PagerAdapter
         //int padding = context.getResources().getDimensionPixelSize(R.dimen.padding_medium);
         //imageView.setPadding(padding, padding, padding, padding);
         imageView.setScaleType(ImageView.ScaleType.FIT_CENTER);
-        if(imageURLS.size() != 0)
+        if(imageURLS.size() != 0 && imagePaths.size() == 0)
         {
             Picasso.with(mContext).load(imageURLS.get(position).getPath()).placeholder(R.drawable.logo_small).into(imageView);
         }
-        else {
+        else if(imagePaths.size() != 0 && imageURLS.size() == 0){
             Uri uri = Uri.fromFile(new File(imagePaths.get(position)));
             Picasso.with(mContext).load(uri).placeholder(R.drawable.logo_small).into(imageView);
+        }
+        else {
+            if(position < imageURLS.size()) {
+                Picasso.with(mContext).load(imageURLS.get(position).getPath()).placeholder(R.drawable.logo_small).into(imageView);
+            }
+            else {
+                Uri uri = Uri.fromFile(new File(imagePaths.get(position - imageURLS.size())));
+                Picasso.with(mContext).load(uri).placeholder(R.drawable.logo_small).into(imageView);
+            }
         }
         //ImageLoader imgLoader = new ImageLoader(context);
         //imgLoader.DisplayImage("http://tisserindia.com/stores/thumb_gen.php?file=" + imageURLS.get(position), R.drawable.logo_small, imageView);
@@ -98,5 +111,15 @@ public class ImageAdapter extends PagerAdapter
     public void destroyItem(ViewGroup container, int position, Object object)
     {
         ((ViewPager) container).removeView((ImageView) object);
+    }
+
+    public void addImagesArray(ArrayList<ImageResponse> images)
+    {
+        imageURLS.addAll(images);
+    }
+
+    public void addImagesPathArray(ArrayList<String> productImgPaths)
+    {
+        imagePaths.addAll(productImgPaths);
     }
 }
