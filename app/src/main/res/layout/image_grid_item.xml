@@ -2,6 +2,7 @@
 
 <ImageView
     android:id="@+id/img_product_thumb"
+    android:transitionName="@string/transition_product_image"
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="64dp"
     android:layout_height="64dp"

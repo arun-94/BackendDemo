@@ -1,6 +1,7 @@
 package com.tisser.puneet.tisserartisan.UI.Activity;
 
 import android.annotation.TargetApi;
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
@@ -9,12 +10,23 @@ import android.graphics.Point;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.app.ActivityOptionsCompat;
+import android.support.v4.widget.NestedScrollView;
 import android.text.util.Rfc822Tokenizer;
+import android.transition.Fade;
+import android.transition.Slide;
+import android.transition.Transition;
+import android.transition.TransitionInflater;
+import android.transition.TransitionSet;
 import android.util.Log;
 import android.view.Display;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.Window;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -41,6 +53,7 @@ import com.tisser.puneet.tisserartisan.Model.Subsubcategory;
 import com.tisser.puneet.tisserartisan.R;
 import com.tisser.puneet.tisserartisan.UI.Adapters.GalleryImagesAdapter;
 import com.tisser.puneet.tisserartisan.UI.Custom.ExpandableHeightGridView;
+import com.tisser.puneet.tisserartisan.UI.Custom.TransitionUtils;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -71,6 +84,7 @@ public class AddProductActivity extends BaseActivity implements Validator.Valida
     @Bind(R.id.editText_product_long_description) EditText editTextProductDescription;
     @Bind(R.id.editText_product_short_description) EditText editTextShortDescription;
     @Bind(R.id.editText_product_tags) RecipientEditTextView editTextProductTags;
+    @Bind(R.id.nestedScroll) NestedScrollView nestedScrollview;
 
     private ProgressDialog mProgress;
 
@@ -91,6 +105,8 @@ public class AddProductActivity extends BaseActivity implements Validator.Valida
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
+        //TransitionInflater inflater = TransitionInflater.from(this);
+        //Transition t = inflater.inflateTransition(R.transition.test_transition);
         super.onCreate(savedInstanceState);
 
         Validator.registerAnnotation(IsCategorySelected.class);
@@ -106,8 +122,10 @@ public class AddProductActivity extends BaseActivity implements Validator.Valida
                 {
                     Intent i = new Intent(AddProductActivity.this, FullScreenViewActivityWithDelete.class);
                     i.putExtra("img_pos", position);
+                    ActivityOptionsCompat options = ActivityOptionsCompat.
+                            makeSceneTransitionAnimation(AddProductActivity.this, (View) v, getResources().getString(R.string.transition_product_image));
                     manager.currentImagePath = imagePaths.get(position);
-                    AddProductActivity.this.startActivityForResult(i, AppConstants.RESULT_IMAGE_FULLSCREEN);
+                    AddProductActivity.this.startActivityForResult(i, AppConstants.RESULT_IMAGE_FULLSCREEN, options.toBundle());
                 }
                 else if (v instanceof TextView)
                 {
@@ -228,6 +246,11 @@ public class AddProductActivity extends BaseActivity implements Validator.Valida
             editTextProductDescription.setText(productDetailed.getProductDescription());
 
         }
+
+        TransitionInflater inflater = TransitionInflater.from(this);
+        Transition t = inflater.inflateTransition(R.transition.test_transition);
+        getWindow().setReturnTransition(t);
+        getWindow().setEnterTransition(TransitionUtils.makeEnterExplodeTransition());
     }
 
     @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
@@ -488,7 +511,9 @@ public class AddProductActivity extends BaseActivity implements Validator.Valida
                 {
                     Toast.makeText(AddProductActivity.this, responseObj.getStatus(), Toast.LENGTH_LONG).show();
                     manager.currentProductDetailed = p;
-                    navigator.openNewActivity(AddProductActivity.this, new ProductDetailActivity());
+                    Bundle extras = new Bundle();
+                    extras.putInt(AppConstants.INTENT_FROM_ADD_PRODUCT, AppConstants.FROM_ADD);
+                    navigator.openNewActivityWithExtras(AddProductActivity.this, new ProductDetailActivity(), extras);
                 }
                 else
                     Toast.makeText(AddProductActivity.this, responseObj.getStatus(), Toast.LENGTH_LONG).show();

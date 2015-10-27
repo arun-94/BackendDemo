@@ -3,7 +3,7 @@
     package="com.android.ex.chips.test" >
 
     <uses-sdk
-        android:minSdkVersion="14"
+        android:minSdkVersion="16"
         android:targetSdkVersion="22" />
 
     <instrumentation

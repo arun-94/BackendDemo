@@ -6,6 +6,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -21,14 +23,16 @@ public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.
 
     private final Context mContext;
     private List<ProductDetailed> mData;
-
+    private int lastPosition = -1;
 
     public ProductListAdapter(Context context, ArrayList<ProductDetailed> data)
     {
         mContext = context;
+        mData = new ArrayList<ProductDetailed>();
         if (data != null)
         {
-            mData = data;
+            for(int i = 0; i < data.size(); i++)
+                add(data.get(i), -1);
         }
         else
         {
@@ -76,6 +80,7 @@ public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.
         }
         holder.title.setText(mData.get(position).getProductName());
         holder.price.setText("Rs. " + mData.get(position).getProductPrice());
+        //setAnimation(holder.itemView, position);
     }
 
     @Override
@@ -97,6 +102,20 @@ public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.
             title = (TextView) view.findViewById(R.id.tv_product_title);
             price = (TextView) view.findViewById(R.id.tv_product_price);
             image = (ImageView) view.findViewById(R.id.img_product_thumb);
+        }
+    }
+
+    /**
+     * Here is the key method to apply the animation
+     */
+    private void setAnimation(View viewToAnimate, int position)
+    {
+        // If the bound view wasn't previously displayed on screen, it's animated
+        if (position > lastPosition)
+        {
+            Animation animation = AnimationUtils.loadAnimation(mContext, R.anim.slide_up);
+            viewToAnimate.startAnimation(animation);
+            lastPosition = position;
         }
     }
 }

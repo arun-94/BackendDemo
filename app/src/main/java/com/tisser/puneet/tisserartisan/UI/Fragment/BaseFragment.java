@@ -45,16 +45,17 @@ public abstract class BaseFragment extends Fragment
     {
         View rootView = inflater.inflate(getLayoutResource(), container, false);
         ButterKnife.bind(this, rootView);
+        assert ((BaseActivity_NavDrawer) getActivity()).getSupportActionBar() != null;
+        assert setupToolbarTitle() != null;
+        ((BaseActivity_NavDrawer) getActivity()).getSupportActionBar().setTitle(setupToolbarTitle());
+        setupLayout();
         return rootView;
     }
 
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState)
     {
-        assert ((BaseActivity_NavDrawer) getActivity()).getSupportActionBar() != null;
-        assert setupToolbarTitle() != null;
-        ((BaseActivity_NavDrawer) getActivity()).getSupportActionBar().setTitle(setupToolbarTitle());
-        setupLayout();
+
     }
 
     @Override public void onDestroyView() {

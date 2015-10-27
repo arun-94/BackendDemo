@@ -21,6 +21,7 @@ import android.widget.Toast;
 import com.tisser.puneet.tisserartisan.Global.AppConstants;
 import com.tisser.puneet.tisserartisan.Queries.AsyncResponse;
 import com.tisser.puneet.tisserartisan.R;
+import com.tisser.puneet.tisserartisan.UI.Custom.TransitionUtils;
 import com.tisser.puneet.tisserartisan.UI.Fragment.AboutFragment;
 import com.tisser.puneet.tisserartisan.UI.Fragment.ProductListFragment;
 
@@ -60,6 +61,9 @@ public class BaseActivity_NavDrawer extends BaseActivity implements AsyncRespons
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
+        getWindow().setEnterTransition(TransitionUtils.makeFadeEnterTransition());
+        getWindow().setExitTransition(TransitionUtils.makeFadeEnterTransition());
+
         if (savedInstanceState != null)
         {
             currentCheckedItem = savedInstanceState.getInt("STATE_SELECTED_POSITION");

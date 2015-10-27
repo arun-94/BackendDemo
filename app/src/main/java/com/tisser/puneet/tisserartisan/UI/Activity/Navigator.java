@@ -8,6 +8,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.v4.app.ActivityOptionsCompat;
 import android.widget.Toast;
 
 import com.darsh.multipleimageselect.activities.AlbumSelectActivity;
@@ -109,6 +110,14 @@ public class Navigator
         i.putExtras(bundle);
         startActivity(i);
     }
+
+/*    public void openNewActivityWithExtrasAndOptions(Context mContext, Activity activity, Bundle bundle, ActivityOptionsCompat options)
+    {
+        activityContext = mContext;
+        Intent i = new Intent(mContext, activity.getClass());
+        i.putExtras(bundle);
+        startActivity(i, options.toBundle());
+    }*/
 
     public void openNewFragment(Context mContext, Fragment mFragment)
     {

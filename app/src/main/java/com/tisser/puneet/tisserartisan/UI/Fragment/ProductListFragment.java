@@ -1,10 +1,14 @@
 package com.tisser.puneet.tisserartisan.UI.Fragment;
 
 import android.annotation.TargetApi;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.ActivityOptionsCompat;
+import android.support.v4.util.Pair;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -22,6 +26,7 @@ import com.tisser.puneet.tisserartisan.UI.Activity.AddProductActivity;
 import com.tisser.puneet.tisserartisan.UI.Activity.BaseActivity_NavDrawer;
 import com.tisser.puneet.tisserartisan.UI.Activity.ProductDetailActivity;
 import com.tisser.puneet.tisserartisan.UI.Adapters.ProductListAdapter;
+import com.tisser.puneet.tisserartisan.UI.Custom.FloatingActionButtonController;
 import com.tisser.puneet.tisserartisan.UI.Custom.MarginDecoration;
 import com.tisser.puneet.tisserartisan.UI.Custom.RecyclerItemClickListener;
 
@@ -29,6 +34,10 @@ import java.util.ArrayList;
 
 import butterknife.Bind;
 import butterknife.OnClick;
+import jp.wasabeef.recyclerview.animators.OvershootInLeftAnimator;
+import jp.wasabeef.recyclerview.animators.SlideInUpAnimator;
+import jp.wasabeef.recyclerview.animators.adapters.SlideInBottomAnimationAdapter;
+import jp.wasabeef.recyclerview.animators.adapters.SlideInLeftAnimationAdapter;
 import retrofit.Callback;
 import retrofit.RetrofitError;
 import retrofit.client.Response;
@@ -41,9 +50,11 @@ public class ProductListFragment extends BaseFragment
     @Bind(R.id.empty_result_text) TextView mEmptyText;
     @Bind(R.id.progress_loading) ProgressBar mProgressBar;
     @Bind(R.id.swipeRefreshLayout) SwipeRefreshLayout mSwipeRefreshLayout;
+    @Bind(R.id.fab_addProduct) FloatingActionButton mFabAddProduct;
 
     ProductListAdapter mAdapter;
     GridLayoutManager mLayoutManager;
+    private FloatingActionButtonController mFloatingActionButtonController;
 
     public static ProductListFragment newInstance()
     {
@@ -91,14 +102,29 @@ public class ProductListFragment extends BaseFragment
         mRecyclerView.setHasFixedSize(true);
         mRecyclerView.addItemDecoration(new MarginDecoration(getActivity()));
         mRecyclerView.setLayoutManager(mLayoutManager);
-        mRecyclerView.setAdapter(mAdapter);
+        //mRecyclerView.setAdapter(mAdapter);
         mRecyclerView.addOnItemTouchListener(new RecyclerItemClickListener(getActivity(), new RecyclerItemClickListener.OnItemClickListener()
         {
             @Override
             public void onItemClick(View view, int position)
             {
+                //View titleView = view.findViewById(R.id.tv_product_title);
+                //View priceView = view.findViewById(R.id.tv_product_price);
+                View imageView = view.findViewById(R.id.img_product_thumb);
+                //Pair<View, String> p1 = Pair.create((View) titleView, getString(R.string.transition_product_name));
+
+                Pair<View, String> imagePair = Pair.create((View) imageView, getString(R.string.transition_product_image));
+                //Pair<View, String> cardPair = Pair.create((View) view, getString(R.string.transition_card_view));
+                //Pair<View, String> p3 = Pair.create((View) priceView, getString(R.string.transition_product_price));
                 manager.currentProductDetailed = manager.productList.get(position);
-                ((BaseActivity_NavDrawer) getActivity()).navigator.openNewActivity(getActivity(), new ProductDetailActivity());
+                ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation(getActivity(), imagePair);
+                Intent i = new Intent(getActivity(), ProductDetailActivity.class);
+                Bundle extras = new Bundle();
+                extras.putInt(AppConstants.INTENT_FROM_ADD_PRODUCT, AppConstants.NOT_FROM_ADD);
+                i.putExtras(extras);
+                //navigator.openNewActivityWithExtras(AddProductActivity.this, new ProductDetailActivity(), extras);
+                startActivity(i, options.toBundle());
+                //((BaseActivity_NavDrawer) getActivity()).navigator.openNewActivity(getActivity(), new ProductDetailActivity());
                 Log.d("CLICK", "Clicked on item" + position);
             }
         }));
@@ -113,8 +139,21 @@ public class ProductListFragment extends BaseFragment
             }
         });
 
-
+        mFloatingActionButtonController = new FloatingActionButtonController(getActivity(), mFabAddProduct);
         makeAPICall();
+    }
+
+    @Override
+    public void onViewCreated(View view, Bundle savedInstanceState)
+    {
+        super.onViewCreated(view, savedInstanceState);
+        mFloatingActionButtonController.scaleIn(200);
+    }
+
+    @Override
+    public void onResume()
+    {
+        super.onResume();
     }
 
     void makeAPICall()
@@ -129,7 +168,6 @@ public class ProductListFragment extends BaseFragment
                 consumeApiData(productResponse.getProductList());
                 mSwipeRefreshLayout.setRefreshing(false);
                 mProgressBar.setVisibility(View.GONE);
-
             }
 
             @Override
@@ -151,7 +189,11 @@ public class ProductListFragment extends BaseFragment
     {
         Bundle extras = new Bundle();
         extras.putInt(AppConstants.INTENT_IS_NEW_PRODUCT, AppConstants.NEW_PRODUCT);
-        ((BaseActivity_NavDrawer) getActivity()).navigator.openNewActivityWithExtras(getActivity(), new AddProductActivity(), extras);
+        ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation(getActivity(), null);
+        Intent i = new Intent(getActivity(), AddProductActivity.class);
+        i.putExtras(extras);
+        startActivity(i, options.toBundle());
+        //((BaseActivity_NavDrawer) getActivity()).navigator.openNewActivityWithExtras(getActivity(), new AddProductActivity(), extras);
     }
 
     @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
@@ -179,8 +221,11 @@ public class ProductListFragment extends BaseFragment
                 }
             });
             mRecyclerView.setLayoutManager(mLayoutManager);
+            mRecyclerView.setItemAnimator(new SlideInUpAnimator());
+            mRecyclerView.getItemAnimator().setAddDuration(1000);
             mAdapter = new ProductListAdapter(getActivity(), manager.productList);
-            mRecyclerView.setAdapter(mAdapter);
+            mRecyclerView.setAdapter(new SlideInBottomAnimationAdapter(mAdapter));
+            //mRecyclerView.setAdapter(mAdapter);
             mEmptyText.setVisibility(View.INVISIBLE);
         }
         else

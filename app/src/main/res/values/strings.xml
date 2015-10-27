@@ -7,6 +7,10 @@
     <string name="action_profile_picture">Change Photo</string>
     <string name="closeDrawer">Navigation View</string>
     <string name="openDrawer">Navigation View Closed</string>
+    <string name="transition_product_name">transition_product_name</string>
+    <string name="transition_product_image">transition_product_image</string>
+    <string name="transition_product_price">transition_product_price</string>
+    <string name="transition_card_view">transition_card_view</string>
 
 <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>

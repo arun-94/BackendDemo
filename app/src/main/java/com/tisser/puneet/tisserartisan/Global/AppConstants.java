@@ -30,9 +30,12 @@ public final class AppConstants
 
     //Intent Extras - Names
     public static final String INTENT_IS_NEW_PRODUCT = "Intent_isNewProduct";
+    public static final String INTENT_FROM_ADD_PRODUCT = "Intent_fromAddProduct";
     public static final int INTENT_EXTRA_LIMIT = 0;
 
     //Intent Extras - Values
     public static final int NEW_PRODUCT = 1;
     public static final int EDIT_PRODUCT = 0;
+    public static final int FROM_ADD = 1;
+    public static final int NOT_FROM_ADD = 0;
 }

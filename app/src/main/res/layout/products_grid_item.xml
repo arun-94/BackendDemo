@@ -8,6 +8,7 @@
 
     <android.support.v7.widget.CardView
         android:id="@+id/product_card"
+        android:transitionName="@string/transition_card_view"
         android:layout_width="160dp"
         android:layout_height="wrap_content"
         card_view:cardElevation="2dp"
@@ -25,6 +26,7 @@
 
             <ImageView
                 android:id="@+id/img_product_thumb"
+                android:transitionName="@string/transition_product_image"
                 android:layout_width="match_parent"
                 android:layout_height="170dp"
                 android:layout_above="@+id/tv_species"

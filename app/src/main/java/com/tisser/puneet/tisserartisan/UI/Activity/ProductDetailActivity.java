@@ -2,19 +2,25 @@ package com.tisser.puneet.tisserartisan.UI.Activity;
 
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewTreeObserver;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.tisser.puneet.tisserartisan.Global.AppConstants;
+import com.tisser.puneet.tisserartisan.Model.Response.ImageResponse;
 import com.tisser.puneet.tisserartisan.R;
 import com.tisser.puneet.tisserartisan.UI.Adapters.ImageAdapter;
 import com.tisser.puneet.tisserartisan.UI.Adapters.ReviewAdapter;
 import com.tisser.puneet.tisserartisan.UI.Custom.DividerItemDecoration;
+import com.tisser.puneet.tisserartisan.UI.Custom.TransitionUtils;
+
+import java.util.ArrayList;
 
 import butterknife.Bind;
 
@@ -30,13 +36,19 @@ public class ProductDetailActivity extends BaseActivity
     @Bind(R.id.tv_reviews_placeholder) TextView tvreviewsplaceholder;
     @Bind(R.id.scroll_view) ScrollView scrollView;
     @Bind(R.id.reviewRecycler) RecyclerView reviewsRecycler;
+    @Bind(R.id.image_product_img) ViewPager viewPager;
+    @Bind(R.id.cardview_product_details_1) CardView cardView1;
 
     private ReviewAdapter mReviewAdapter;
     private LinearLayoutManager llm;
+    private Bundle intentBundle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
+        postponeEnterTransition();
+        getWindow().setEnterTransition(TransitionUtils.makeFadeEnterTransition());
+        getWindow().setExitTransition(TransitionUtils.makeFadeEnterTransition());
         super.onCreate(savedInstanceState);
     }
 
@@ -75,15 +87,22 @@ public class ProductDetailActivity extends BaseActivity
         tvproductabout.setText(manager.currentProductDetailed.getProductSummary());
         tvdetaileddescription.setText(manager.currentProductDetailed.getProductDescription());
         tvkeypoints.setText(manager.currentProductDetailed.getProductKeypoints());
-        ViewPager viewPager = (ViewPager) findViewById(R.id.image_product_img);
+
         if (manager.currentProductDetailed.getImages() != null)
         {
             ImageAdapter adapter = new ImageAdapter(this, manager.currentProductDetailed.getImages(), manager);
             viewPager.setAdapter(adapter);
         }
-        else
+        else if (manager.currentProductDetailed.getProductImgPaths() != null)
         {
-            ImageAdapter adapter = new ImageAdapter(this, manager.currentProductDetailed.getProductImgPaths(), manager, 0);
+            ArrayList<ImageResponse> localImageList = new ArrayList<>();
+            for(int i = 0; i < manager.currentProductDetailed.getProductImgPaths().size(); i++)
+            {
+                ImageResponse newImage = new ImageResponse();
+                newImage.setPath(manager.currentProductDetailed.getProductImgPaths().get(i));
+                localImageList.add(newImage);
+            }
+            ImageAdapter adapter = new ImageAdapter(this, localImageList, manager);
             viewPager.setAdapter(adapter);
         }
         if (manager.currentProductDetailed.getProductReviews().size() != 0)
@@ -91,6 +110,9 @@ public class ProductDetailActivity extends BaseActivity
             mReviewAdapter.addAll(manager.currentProductDetailed.getProductReviews());
             tvreviewsplaceholder.setVisibility(View.GONE);
         }
+
+        scheduleStartPostponedTransition(viewPager);
+
     }
 
     @Override
@@ -124,25 +146,31 @@ public class ProductDetailActivity extends BaseActivity
         return super.onOptionsItemSelected(item);
     }
 
+    private void scheduleStartPostponedTransition(final View sharedElement)
+    {
+        sharedElement.getViewTreeObserver().addOnPreDrawListener(new ViewTreeObserver.OnPreDrawListener()
+        {
+            @Override
+            public boolean onPreDraw()
+            {
+                sharedElement.getViewTreeObserver().removeOnPreDrawListener(this);
+                startPostponedEnterTransition();
+                return true;
+            }
+        });
+    }
+
     @Override
     public void onBackPressed()
     {
-        navigator.openNewActivity(ProductDetailActivity.this, new BaseActivity_NavDrawer());
-
-        /*FragmentManager fm = getFragmentManager();
-        if (fm.getBackStackEntryCount() > 0)
+        intentBundle = getIntent().getExtras();
+        if (intentBundle != null)
         {
-            int currentBackStackCount = fm.getBackStackEntryCount();
-            while (currentBackStackCount > 0)
+            if (intentBundle.getInt(AppConstants.INTENT_FROM_ADD_PRODUCT, AppConstants.FROM_ADD) == AppConstants.FROM_ADD)
             {
-                fm.popBackStack();
-                currentBackStackCount--;
+                navigator.openNewActivity(ProductDetailActivity.this, new BaseActivity_NavDrawer());
             }
-
         }
-        else
-        {
-            super.onBackPressed();
-        }*/
+        super.onBackPressed();
     }
 }

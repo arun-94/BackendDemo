@@ -26,7 +26,7 @@ public class FullScreenViewActivityWithDelete extends BaseActivity
     @OnClick(R.id.btnClose)
     void close()
     {
-        FullScreenViewActivityWithDelete.this.finish();
+        onBackPressed();
     }
 
     @OnClick(R.id.deleteImage)
@@ -84,7 +84,8 @@ public class FullScreenViewActivityWithDelete extends BaseActivity
     @Override
     public void onBackPressed()
     {
-
+        super.onBackPressed();
+        supportFinishAfterTransition();
     }
 
 }
