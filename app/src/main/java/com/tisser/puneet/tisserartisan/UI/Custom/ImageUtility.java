@@ -136,6 +136,29 @@ public class ImageUtility
         return new File(mContext.getCacheDir(), "img");
     }
 
+    public static File makeFileFromBitmap(Context mContext, Bitmap bm, String name) {
+        bm = getResizedBitmap(bm, 500);
+        File f = new File(mContext.getCacheDir(), name + ".jpg");
+        try
+        {
+            f.createNewFile();
+            //Convert bitmap to byte array
+            ByteArrayOutputStream bos = new ByteArrayOutputStream();
+            bm.compress(Bitmap.CompressFormat.JPEG, 100, bos);
+            byte[] bitmapdata = bos.toByteArray();
+
+//write the bytes in file
+            FileOutputStream fos = new FileOutputStream(f);
+            fos.write(bitmapdata);
+            fos.flush();
+            fos.close();
+        } catch (IOException e)
+        {
+            e.printStackTrace();
+        }
+        return new File(mContext.getCacheDir(), "img");
+    }
+
     public static Bitmap getResizedBitmap(Bitmap image, int maxSize) {
         int width = image.getWidth();
         int height = image.getHeight();

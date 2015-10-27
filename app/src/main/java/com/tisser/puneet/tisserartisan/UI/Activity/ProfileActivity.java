@@ -29,6 +29,7 @@ import com.cocosw.bottomsheet.BottomSheet;
 import com.tisser.puneet.tisserartisan.Global.AppConstants;
 import com.tisser.puneet.tisserartisan.Model.Response.LoginResponse;
 import com.tisser.puneet.tisserartisan.R;
+import com.tisser.puneet.tisserartisan.UI.Custom.ImageUtility;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -198,7 +199,7 @@ public class ProfileActivity extends BaseActivity
                 bm = (Bitmap) data.getExtras().get("data");
                 ByteArrayOutputStream bytes = new ByteArrayOutputStream();
                 assert bm != null;
-                bm.compress(Bitmap.CompressFormat.JPEG, 90, bytes);
+                bm.compress(Bitmap.CompressFormat.JPEG, 70, bytes);
 
                 File destination = new File(Environment.getExternalStorageDirectory(), System.currentTimeMillis() + ".jpg");
 
@@ -242,24 +243,7 @@ public class ProfileActivity extends BaseActivity
                 profileImage.setImageBitmap(bm);
             }
             //create a file to write bitmap data
-            f = new File(getCacheDir(), "temp");
-            try
-            {
-                f.createNewFile();
-                //Convert bitmap to byte array
-                ByteArrayOutputStream bos = new ByteArrayOutputStream();
-                bm.compress(Bitmap.CompressFormat.JPEG, 100, bos);
-                byte[] bitmapdata = bos.toByteArray();
-
-//write the bytes in file
-                FileOutputStream fos = new FileOutputStream(f);
-                fos.write(bitmapdata);
-                fos.flush();
-                fos.close();
-            } catch (IOException e)
-            {
-                e.printStackTrace();
-            }
+            f = ImageUtility.makeFileFromBitmap(ProfileActivity.this, bm, "profile_pic");
 
 
         }
