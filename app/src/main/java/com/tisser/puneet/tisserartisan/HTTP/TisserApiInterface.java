@@ -48,9 +48,9 @@ public interface TisserApiInterface
     @POST("/mobileAPIArtist.php")
     void validateLogin(@Field("action") String action, @Field("user_id") String userId, @Field("password") String password, Callback<LoginResponse> cb);
 
-    @FormUrlEncoded
+    @Multipart
     @POST("/mobileAPIArtist.php")
-    void editProfile(@Field("action") String action, @Field("user_id") String userId, @Field("user_address") String userAddress, @Field("user_phone") String userPhone, @Field("user_email") String userEmail, Callback<LoginResponse> cb);
+    void editProfile(@Part("action") String action, @Part("user_id") String userId, @Part("user_address") String userAddress, @Part("user_phone") String userPhone, @Part("user_email") String userEmail, @PartMap Map<String, TypedFile> image,  Callback<LoginResponse> cb);
 
 
     @Multipart

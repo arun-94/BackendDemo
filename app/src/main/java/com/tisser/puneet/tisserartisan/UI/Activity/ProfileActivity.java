@@ -10,10 +10,10 @@ import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
+import android.os.PersistableBundle;
 import android.provider.MediaStore;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.Snackbar;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -27,7 +27,6 @@ import android.widget.Toast;
 
 import com.cocosw.bottomsheet.BottomSheet;
 import com.tisser.puneet.tisserartisan.Global.AppConstants;
-import com.tisser.puneet.tisserartisan.Model.Response.AddProductResponse;
 import com.tisser.puneet.tisserartisan.Model.Response.LoginResponse;
 import com.tisser.puneet.tisserartisan.R;
 
@@ -35,6 +34,8 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -43,6 +44,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 import retrofit.Callback;
 import retrofit.RetrofitError;
 import retrofit.client.Response;
+import retrofit.mime.TypedFile;
 
 import static com.tisser.puneet.tisserartisan.HTTP.RestClient.getApiService;
 
@@ -58,6 +60,9 @@ public class ProfileActivity extends BaseActivity
     @Bind(R.id.tv_artisan_product_count) TextView mArtisanProductCount;
     @Bind(R.id.artisan_profile_image) CircleImageView profileImage;
     private boolean isEdited = false;
+    private Bitmap bm;
+    private File f = null;
+
 
     @OnClick(R.id.artisan_profile_image)
     void changeImage()
@@ -168,7 +173,7 @@ public class ProfileActivity extends BaseActivity
                 }
                 else
                 {
-                    if(!initialText.equals(popupEdittext.getText().toString().trim()))
+                    if (!initialText.equals(popupEdittext.getText().toString().trim()))
                     {
                         isEdited = true;
                     }
@@ -187,12 +192,13 @@ public class ProfileActivity extends BaseActivity
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == RESULT_OK)
         {
+            isEdited = true;
             if (requestCode == AppConstants.REQUEST_CAMERA)
             {
-                Bitmap thumbnail = (Bitmap) data.getExtras().get("data");
+                bm = (Bitmap) data.getExtras().get("data");
                 ByteArrayOutputStream bytes = new ByteArrayOutputStream();
-                assert thumbnail != null;
-                thumbnail.compress(Bitmap.CompressFormat.JPEG, 90, bytes);
+                assert bm != null;
+                bm.compress(Bitmap.CompressFormat.JPEG, 90, bytes);
 
                 File destination = new File(Environment.getExternalStorageDirectory(), System.currentTimeMillis() + ".jpg");
 
@@ -208,7 +214,7 @@ public class ProfileActivity extends BaseActivity
                     e.printStackTrace();
                 }
 
-                profileImage.setImageBitmap(thumbnail);
+                profileImage.setImageBitmap(bm);
 
             }
             else if (requestCode == AppConstants.REQUEST_GALLERY)
@@ -221,7 +227,7 @@ public class ProfileActivity extends BaseActivity
 
                 String selectedImagePath = cursor.getString(column_index);
 
-                Bitmap bm;
+
                 BitmapFactory.Options options = new BitmapFactory.Options();
                 options.inJustDecodeBounds = true;
                 BitmapFactory.decodeFile(selectedImagePath, options);
@@ -235,6 +241,27 @@ public class ProfileActivity extends BaseActivity
 
                 profileImage.setImageBitmap(bm);
             }
+            //create a file to write bitmap data
+            f = new File(getCacheDir(), "temp");
+            try
+            {
+                f.createNewFile();
+                //Convert bitmap to byte array
+                ByteArrayOutputStream bos = new ByteArrayOutputStream();
+                bm.compress(Bitmap.CompressFormat.JPEG, 100, bos);
+                byte[] bitmapdata = bos.toByteArray();
+
+//write the bytes in file
+                FileOutputStream fos = new FileOutputStream(f);
+                fos.write(bitmapdata);
+                fos.flush();
+                fos.close();
+            } catch (IOException e)
+            {
+                e.printStackTrace();
+            }
+
+
         }
     }
 
@@ -270,12 +297,17 @@ public class ProfileActivity extends BaseActivity
     @Override
     public void onBackPressed()
     {
-        if(isEdited)
+        if (isEdited)
         {
             String userAddress = addressText.getText().toString().trim();
             String userEmail = emailText.getText().toString().trim();
             String userPhone = phoneText.getText().toString().trim();
-            getApiService().editProfile(AppConstants.ACTION_EDIT_PROFILE, "999", userAddress, userPhone, userEmail,  new Callback<LoginResponse>()
+            Map<String, TypedFile> fileMap = new HashMap<>();
+
+            if(f != null)
+                fileMap.put("profileimage", new TypedFile("image/jpeg", f));
+
+            getApiService().editProfile(AppConstants.ACTION_EDIT_PROFILE, "999", userAddress, userPhone, userEmail, fileMap, new Callback<LoginResponse>()
             {
 
                 @Override
@@ -307,22 +339,24 @@ public class ProfileActivity extends BaseActivity
                 }
             });
         }
-        else
-            super.onBackPressed();
+        else super.onBackPressed();
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState, PersistableBundle outPersistentState)
+    {
+
     }
 
     void showNoInternetSnackbar()
     {
-        Snackbar.make(findViewById(android.R.id.content), "No Internet Connection", Snackbar.LENGTH_LONG)
-                .setAction("RETRY", new View.OnClickListener()
-                {
-                    @Override
-                    public void onClick(View v)
-                    {
-                        onBackPressed();
-                    }
-                })
-                .setActionTextColor(Color.GREEN)
-                .show();
+        Snackbar.make(findViewById(android.R.id.content), "No Internet Connection", Snackbar.LENGTH_LONG).setAction("RETRY", new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                onBackPressed();
+            }
+        }).setActionTextColor(Color.GREEN).show();
     }
 }
