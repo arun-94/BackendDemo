@@ -25,11 +25,11 @@
             android:icon="@drawable/ic_info_black_24dp"
             android:title="About Tisser" />
 
-        <item
+<!--        <item
             android:id="@+id/nav_settings"
             android:checked="false"
             android:icon="@drawable/ic_settings_black_24dp"
-            android:title="Settings" />
+            android:title="Settings" />-->
 
 
         <item
