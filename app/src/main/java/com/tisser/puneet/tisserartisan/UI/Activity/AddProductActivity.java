@@ -5,6 +5,8 @@ import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Point;
 import android.os.Build;
 import android.os.Bundle;
@@ -43,7 +45,9 @@ import com.tisser.puneet.tisserartisan.R;
 import com.tisser.puneet.tisserartisan.UI.Adapters.GalleryImagesAdapter;
 import com.tisser.puneet.tisserartisan.UI.Custom.ExpandableHeightGridView;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -487,7 +491,26 @@ public class AddProductActivity extends BaseActivity implements Validator.Valida
 
         for (int i = 0; i < imagePaths.size(); i++)
         {
-            files.put("image" + i, new TypedFile("image/jpeg", new File(imagePaths.get(i))));
+            File f = new File(getCacheDir(), "temp");
+            try
+            {
+                f.createNewFile();
+                Bitmap bmp = BitmapFactory.decodeFile(imagePaths.get(i));
+                ByteArrayOutputStream bos = new ByteArrayOutputStream();
+                bmp.compress(Bitmap.CompressFormat.JPEG, 70, bos);
+                byte[] bitmapdata = bos.toByteArray();
+
+//write the bytes in file
+                FileOutputStream fos = new FileOutputStream(f);
+                fos.write(bitmapdata);
+                fos.flush();
+                fos.close();
+                files.put("image" + i, new TypedFile("image/jpeg", f));
+            } catch (IOException e)
+            {
+                e.printStackTrace();
+            }
+
         }
 
         getApiService().addNewProduct(AppConstants.ACTION_ADD_PRODUCT, manager.getSessionID(), files, p.getProductName(), p.getProductPrice(), p.getProductQuantity(), manager.currentCategory.getCategoryID(), manager.currentSubCategory.getCategoryID(), manager.currentSubsubCategory.getCategoryID(), p.getProductColor(), p.getProductDescription(), p.getProductSummary(), p.getProductKeypoints(), new Callback<AddProductResponse>()
@@ -540,7 +563,27 @@ public class AddProductActivity extends BaseActivity implements Validator.Valida
         for (int i = 0; i < imagePaths.size(); i++)
         {
             if(!imagePaths.get(i).startsWith("http"))
-                files.put("image" + i, new TypedFile("image/jpeg", new File(imagePaths.get(i))));
+            {
+                File f = new File(getCacheDir(), "temp");
+                try
+                {
+                    f.createNewFile();
+                    Bitmap bmp = BitmapFactory.decodeFile(imagePaths.get(i));
+                    ByteArrayOutputStream bos = new ByteArrayOutputStream();
+                    bmp.compress(Bitmap.CompressFormat.JPEG, 70, bos);
+                    byte[] bitmapdata = bos.toByteArray();
+
+//write the bytes in file
+                    FileOutputStream fos = new FileOutputStream(f);
+                    fos.write(bitmapdata);
+                    fos.flush();
+                    fos.close();
+                    files.put("image" + i, new TypedFile("image/jpeg", f));
+                } catch (IOException e)
+                {
+                    e.printStackTrace();
+                }
+            }
         }
 
         for (int i = 0; i < deletedImagePaths.size(); i++)
