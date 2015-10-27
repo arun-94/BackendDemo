@@ -22,4 +22,4 @@
     <item android:drawable="@color/chips_dropdown_background_pressed" android:state_pressed="true"/>
     <item android:drawable="@android:color/white"/>
 
-</selector><!-- From: file:/F:/COEP/TisserIndia/TisserArtisan/GoogleChips/src/main/res/drawable/chips_dropdown_background.xml -->
+</selector><!-- From: file:/C:/Users/Arun/AndroidStudioProjects/TisserArtisan/GoogleChips/src/main/res/drawable/chips_dropdown_background.xml -->

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:ns1="urn:oasis:names:tc:xliff:document:1.2">
-    <!-- From: file:/F:/COEP/TisserIndia/TisserArtisan/GoogleChips/src/main/res/values-am/strings.xml -->
+    <!-- From: file:/C:/Users/Arun/AndroidStudioProjects/TisserArtisan/GoogleChips/src/main/res/values-am/strings.xml -->
     <eat-comment/>
     <string msgid="3231589819168382515" name="accessbility_suggestion_dropdown_opened">"የእውቂያ አስተያየት ጥቆማዎች ተከፍቷል"</string>
     <string msgid="1318401633653605424" name="action_label">"ተመለስ"</string>

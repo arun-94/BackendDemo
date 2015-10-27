@@ -32,6 +32,7 @@ import com.mobsandgeeks.saripaar.annotation.DecimalMin;
 import com.mobsandgeeks.saripaar.annotation.NotEmpty;
 import com.tisser.puneet.tisserartisan.CustomRules.IsCategorySelected;
 import com.tisser.puneet.tisserartisan.Global.AppConstants;
+import com.tisser.puneet.tisserartisan.HTTP.EditProductResponse;
 import com.tisser.puneet.tisserartisan.Model.Category;
 import com.tisser.puneet.tisserartisan.Model.ProductDetailed;
 import com.tisser.puneet.tisserartisan.Model.Response.AddProductResponse;
@@ -527,7 +528,7 @@ public class AddProductActivity extends BaseActivity implements Validator.Valida
         mProgress.show();
 
 
-       /* for (int i = 0; i < imagePaths.size(); i++)
+        /*for (int i = 0; i < imagePaths.size(); i++)
         {
             if(imagePaths.get(i).startsWith("http")) {
                 URL imageurl = new URL(imagePaths.get(i));
@@ -546,7 +547,7 @@ public class AddProductActivity extends BaseActivity implements Validator.Valida
             }
             else
                 files.put("image" + i, new TypedFile("image/jpeg", new File(imagePaths.get(i))));
-        }
+        }*/
 
         getApiService().editProduct(AppConstants.ACTION_EDIT_PRODUCT ,manager.getSessionID(), files, p.getProductID() , p.getProductName(), p.getProductPrice(), p.getProductQuantity(), manager.currentCategory.getCategoryID(), manager.currentSubCategory.getCategoryID(), manager.currentSubsubCategory.getCategoryID(),p.getProductColor(), p.getProductDescription(), p.getProductSummary(), p.getProductKeypoints(), new Callback<EditProductResponse>()
         {
@@ -555,15 +556,15 @@ public class AddProductActivity extends BaseActivity implements Validator.Valida
             {
                 mProgress.dismiss();
                 Log.d("Upload", "success");
-                Log.d("Data", "" + responseObj.getError());
-                if(responseObj.getError() == 0)
-                {
-                    Toast.makeText(AddProductActivity.this, responseObj.getStatus(), Toast.LENGTH_LONG).show();
+                //Log.d("Data", "" + responseObj.getError());
+                //if(responseObj.getError() == 0)
+                //{
+//                    Toast.makeText(AddProductActivity.this, responseObj.getStatus(), Toast.LENGTH_LONG).show();
                     manager.currentProductDetailed = p;
                     navigator.openNewActivity(AddProductActivity.this, new ProductDetailActivity());
-                }
-                else
-                    Toast.makeText(AddProductActivity.this, responseObj.getStatus(), Toast.LENGTH_LONG).show();
+                //}
+                //else
+                //    Toast.makeText(AddProductActivity.this, responseObj.getStatus(), Toast.LENGTH_LONG).show();
             }
 
             @Override
@@ -579,8 +580,8 @@ public class AddProductActivity extends BaseActivity implements Validator.Valida
                 Log.e("Upload", "error");
                 Log.e("Data", "" + error);
             }
-        });*/
-        Toast.makeText(AddProductActivity.this, "Edit Product API not available", Toast.LENGTH_SHORT).show();
+        });
+        //Toast.makeText(AddProductActivity.this, "Edit Product API not available", Toast.LENGTH_SHORT).show();
     }
 
 

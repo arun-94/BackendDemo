@@ -137,7 +137,7 @@ public class RecipientEditTextView extends MultiAutoCompleteTextView implements 
     /*package*/ static final int CHIP_LIMIT = 4;
     /*package*/ static final int MAX_CHIP_COUNT = 4;
 
-    private static final int MAX_CHIPS_PARSED = 2;
+    private static final int MAX_CHIPS_PARSED = 3;
 
     private int mSelectedChipTextColor;
     private int mUnselectedChipTextColor;
@@ -1069,7 +1069,7 @@ public class RecipientEditTextView extends MultiAutoCompleteTextView implements 
             mChipTextEndPadding = overridePadding;
         }
 
-        mDefaultContactPhoto = BitmapFactory.decodeResource(r, R.drawable.ic_contact_picture);
+        //mDefaultContactPhoto = BitmapFactory.decodeResource(r, R.drawable.ic_contact_picture);
 
         mMoreItem = (TextView) LayoutInflater.from(getContext()).inflate(R.layout.more_item, null);
 
