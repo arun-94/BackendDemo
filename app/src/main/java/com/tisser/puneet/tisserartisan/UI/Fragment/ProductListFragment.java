@@ -161,10 +161,23 @@ public class ProductListFragment extends BaseFragment
         {
             manager.productList.clear();
             //Log.d("SEARCHRETRO", products.get(0).getProductName());
-            if(mProgressBar != null)
-                mProgressBar.setVisibility(View.GONE);
+            if (mProgressBar != null) mProgressBar.setVisibility(View.GONE);
             //Error case where there is no data!
+            ArrayList<ProductDetailed> removeList = new ArrayList<>();
+            for (int i = 0; i < products.size(); i++)
+            {
+                for (int j = 0; j < products.get(i).getImages().size(); j++)
+                {
+                    if (products.get(i).getImages().get(j).getPath().equals(""))
+                    {
+                        removeList.add(products.get(i));
+                        break;
+                    }
+                }
+            }
+            products.removeAll(removeList);
             manager.productList.addAll(products);
+
             mRecyclerView.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener()
             {
                 @Override

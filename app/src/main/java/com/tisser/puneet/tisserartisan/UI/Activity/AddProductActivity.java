@@ -491,14 +491,16 @@ public class AddProductActivity extends BaseActivity implements Validator.Valida
 
         for (int i = 0; i < imagePaths.size(); i++)
         {
-            File f = new File(getCacheDir(), "temp");
+            File f = new File(getCacheDir(), "img"+i+".jpg");
             try
             {
                 f.createNewFile();
-                Bitmap bmp = BitmapFactory.decodeFile(imagePaths.get(i));
+                BitmapFactory.Options options = new BitmapFactory.Options();
+                options.inJustDecodeBounds = true;
+                Bitmap bmp = BitmapFactory.decodeFile(imagePaths.get(i), options);
                 bmp = getResizedBitmap(bmp, 500);
                 ByteArrayOutputStream bos = new ByteArrayOutputStream();
-                bmp.compress(Bitmap.CompressFormat.JPEG, 70, bos);
+                bmp.compress(Bitmap.CompressFormat.JPEG, 50, bos);
                 byte[] bitmapdata = bos.toByteArray();
 
 //write the bytes in file
@@ -565,15 +567,16 @@ public class AddProductActivity extends BaseActivity implements Validator.Valida
         {
             if(!imagePaths.get(i).startsWith("http"))
             {
-                File f = new File(getCacheDir(), "temp");
+                File f = new File(getCacheDir(), "img"+i+".jpg");
                 try
                 {
                     f.createNewFile();
-
-                    Bitmap bmp = BitmapFactory.decodeFile(imagePaths.get(i));
+                    BitmapFactory.Options options = new BitmapFactory.Options();
+                    options.inJustDecodeBounds = true;
+                    Bitmap bmp = BitmapFactory.decodeFile(imagePaths.get(i), options);
                     bmp = getResizedBitmap(bmp, 500);
                     ByteArrayOutputStream bos = new ByteArrayOutputStream();
-                    bmp.compress(Bitmap.CompressFormat.JPEG, 70, bos);
+                    bmp.compress(Bitmap.CompressFormat.JPEG, 50, bos);
                     byte[] bitmapdata = bos.toByteArray();
 
 //write the bytes in file

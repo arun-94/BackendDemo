@@ -7,12 +7,20 @@ import android.widget.ImageView;
 
 import com.tisser.puneet.tisserartisan.R;
 
+import butterknife.Bind;
+import butterknife.OnClick;
+
 
 public class FullScreenViewActivity extends BaseActivity
 {
 
-    ImageView imgDisplay;
-    Button btnClose;
+    @Bind(R.id.imgDisplay) ImageView imgDisplay;
+
+    @OnClick(R.id.btnClose)
+    void close()
+    {
+        onBackPressed();
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -35,17 +43,7 @@ public class FullScreenViewActivity extends BaseActivity
     @Override
     protected void setupLayout()
     {
-        imgDisplay = (ImageView) findViewById(R.id.imgDisplay);
         imgDisplay.setImageDrawable(manager.currentImage);
-        btnClose = (Button) findViewById(R.id.btnClose);
-        btnClose.setOnClickListener(new View.OnClickListener()
-        {
-            @Override
-            public void onClick(View v)
-            {
-                FullScreenViewActivity.this.finish();
-            }
-        });
     }
 
 }

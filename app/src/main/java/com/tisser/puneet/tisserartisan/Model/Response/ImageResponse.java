@@ -9,8 +9,13 @@ public class ImageResponse
 {
     public String getPath()
     {
-        String newPath = "http://www.tisserindia.com/stores/" + path.substring(3);
-        return newPath;
+        if(path != "" && path != null)
+        {
+            String newPath = "http://www.tisserindia.com/stores/" + path.substring(3);
+            return newPath;
+        }
+        else
+            return "";
     }
 
     public void setPath(String path)

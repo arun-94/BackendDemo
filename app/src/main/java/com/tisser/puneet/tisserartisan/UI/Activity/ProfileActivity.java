@@ -339,7 +339,7 @@ public class ProfileActivity extends BaseActivity
                 }
             });
         }
-        else super.onBackPressed();
+        else this.finish();
     }
 
     @Override
