@@ -72,19 +72,19 @@ public class ImageAdapter extends PagerAdapter
         imageView.setScaleType(ImageView.ScaleType.FIT_CENTER);
         if(imageURLS.size() != 0 && imagePaths.size() == 0)
         {
-            Picasso.with(mContext).load(imageURLS.get(position).getPath()).placeholder(R.drawable.logo_small).into(imageView);
+            Picasso.with(mContext).load(imageURLS.get(position).getPath()).resize(300, 300).placeholder(R.drawable.logo_small).into(imageView);
         }
         else if(imagePaths.size() != 0 && imageURLS.size() == 0){
             Uri uri = Uri.fromFile(new File(imagePaths.get(position)));
-            Picasso.with(mContext).load(uri).placeholder(R.drawable.logo_small).into(imageView);
+            Picasso.with(mContext).load(uri).placeholder(R.drawable.logo_small).resize(300, 300).into(imageView);
         }
         else {
             if(position < imageURLS.size()) {
-                Picasso.with(mContext).load(imageURLS.get(position).getPath()).placeholder(R.drawable.logo_small).into(imageView);
+                Picasso.with(mContext).load(imageURLS.get(position).getPath()).resize(300, 300).placeholder(R.drawable.logo_small).into(imageView);
             }
             else {
                 Uri uri = Uri.fromFile(new File(imagePaths.get(position - imageURLS.size())));
-                Picasso.with(mContext).load(uri).placeholder(R.drawable.logo_small).into(imageView);
+                Picasso.with(mContext).load(uri).resize(300, 300).placeholder(R.drawable.logo_small).into(imageView);
             }
         }
         //ImageLoader imgLoader = new ImageLoader(context);

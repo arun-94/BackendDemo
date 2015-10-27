@@ -77,7 +77,7 @@ public class FullScreenViewActivityWithDelete extends BaseActivity
         else
         {
             Uri uri = Uri.fromFile(new File(manager.currentImagePath));
-            Picasso.with(FullScreenViewActivityWithDelete.this).load(uri).placeholder(R.drawable.logo_small).into(imgDisplay);
+            Picasso.with(FullScreenViewActivityWithDelete.this).load(uri).resize(500, 500).placeholder(R.drawable.logo_small).into(imgDisplay);
         }
     }
 
