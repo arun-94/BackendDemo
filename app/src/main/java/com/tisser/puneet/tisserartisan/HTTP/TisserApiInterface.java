@@ -47,4 +47,9 @@ public interface TisserApiInterface
     @FormUrlEncoded
     @POST("/mobileAPIArtist.php")
     void validateLogin(@Field("action") String action, @Field("user_id") String userId, @Field("password") String password, Callback<LoginResponse> cb);
+
+    @FormUrlEncoded
+    @POST("/mobileAPIArtist.php")
+    void editProfile(@Field("action") String action, @Field("user_id") String userId);
+
 }
