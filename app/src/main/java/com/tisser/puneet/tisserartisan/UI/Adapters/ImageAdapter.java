@@ -2,6 +2,8 @@ package com.tisser.puneet.tisserartisan.UI.Adapters;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
@@ -10,10 +12,12 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.squareup.picasso.Picasso;
+import com.squareup.picasso.Target;
 import com.tisser.puneet.tisserartisan.Global.AppManager;
 import com.tisser.puneet.tisserartisan.Model.Response.ImageResponse;
 import com.tisser.puneet.tisserartisan.R;
 import com.tisser.puneet.tisserartisan.UI.Activity.FullScreenViewActivity;
+import com.tisser.puneet.tisserartisan.UI.Custom.ImageUtility;
 import com.tisser.puneet.tisserartisan.UI.Custom.TouchImageView;
 
 import java.io.File;
@@ -72,19 +76,99 @@ public class ImageAdapter extends PagerAdapter
         imageView.setScaleType(ImageView.ScaleType.FIT_CENTER);
         if(imageURLS.size() != 0 && imagePaths.size() == 0)
         {
-            Picasso.with(mContext).load(imageURLS.get(position).getPath()).resize(300, 300).placeholder(R.drawable.logo_small).into(imageView);
+            Picasso.with(mContext).load(imageURLS.get(position).getPath()).placeholder(R.drawable.logo_small).into(new Target()
+            {
+                @Override
+                public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from)
+                {
+                    Bitmap bm = ImageUtility.getResizedBitmap(bitmap, 500);
+                    imageView.setImageBitmap(bm);
+                }
+
+                @Override
+                public void onBitmapFailed(Drawable errorDrawable)
+                {
+
+                }
+
+                @Override
+                public void onPrepareLoad(Drawable placeHolderDrawable)
+                {
+
+                }
+            });
         }
         else if(imagePaths.size() != 0 && imageURLS.size() == 0){
             Uri uri = Uri.fromFile(new File(imagePaths.get(position)));
-            Picasso.with(mContext).load(uri).placeholder(R.drawable.logo_small).resize(300, 300).into(imageView);
+            Picasso.with(mContext).load(uri).placeholder(R.drawable.logo_small).into(new Target()
+            {
+                @Override
+                public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from)
+                {
+                    Bitmap bm = ImageUtility.getResizedBitmap(bitmap, 500);
+                    imageView.setImageBitmap(bm);
+                }
+
+                @Override
+                public void onBitmapFailed(Drawable errorDrawable)
+                {
+
+                }
+
+                @Override
+                public void onPrepareLoad(Drawable placeHolderDrawable)
+                {
+
+                }
+            });
         }
         else {
             if(position < imageURLS.size()) {
-                Picasso.with(mContext).load(imageURLS.get(position).getPath()).resize(300, 300).placeholder(R.drawable.logo_small).into(imageView);
+                Picasso.with(mContext).load(imageURLS.get(position).getPath()).placeholder(R.drawable.logo_small).into(new Target()
+                {
+                    @Override
+                    public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from)
+                    {
+                        Bitmap bm = ImageUtility.getResizedBitmap(bitmap, 500);
+                        imageView.setImageBitmap(bm);
+                    }
+
+                    @Override
+                    public void onBitmapFailed(Drawable errorDrawable)
+                    {
+
+                    }
+
+                    @Override
+                    public void onPrepareLoad(Drawable placeHolderDrawable)
+                    {
+
+                    }
+                });
             }
             else {
                 Uri uri = Uri.fromFile(new File(imagePaths.get(position - imageURLS.size())));
-                Picasso.with(mContext).load(uri).resize(300, 300).placeholder(R.drawable.logo_small).into(imageView);
+                Picasso.with(mContext).load(uri).placeholder(R.drawable.logo_small).into(new Target()
+                {
+                    @Override
+                    public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from)
+                    {
+                        Bitmap bm = ImageUtility.getResizedBitmap(bitmap, 500);
+                        imageView.setImageBitmap(bm);
+                    }
+
+                    @Override
+                    public void onBitmapFailed(Drawable errorDrawable)
+                    {
+
+                    }
+
+                    @Override
+                    public void onPrepareLoad(Drawable placeHolderDrawable)
+                    {
+
+                    }
+                });
             }
         }
         //ImageLoader imgLoader = new ImageLoader(context);

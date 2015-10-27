@@ -1,7 +1,9 @@
 package com.tisser.puneet.tisserartisan.UI.Activity;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
@@ -9,7 +11,9 @@ import android.view.View;
 import android.widget.ImageView;
 
 import com.squareup.picasso.Picasso;
+import com.squareup.picasso.Target;
 import com.tisser.puneet.tisserartisan.R;
+import com.tisser.puneet.tisserartisan.UI.Custom.ImageUtility;
 
 import java.io.File;
 
@@ -77,7 +81,27 @@ public class FullScreenViewActivityWithDelete extends BaseActivity
         else
         {
             Uri uri = Uri.fromFile(new File(manager.currentImagePath));
-            Picasso.with(FullScreenViewActivityWithDelete.this).load(uri).resize(500, 500).placeholder(R.drawable.logo_small).into(imgDisplay);
+            Picasso.with(FullScreenViewActivityWithDelete.this).load(uri).placeholder(R.drawable.logo_small).into(new Target()
+            {
+                @Override
+                public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from)
+                {
+                    Bitmap bm = ImageUtility.getResizedBitmap(bitmap, 500);
+                    imgDisplay.setImageBitmap(bm);
+                }
+
+                @Override
+                public void onBitmapFailed(Drawable errorDrawable)
+                {
+
+                }
+
+                @Override
+                public void onPrepareLoad(Drawable placeHolderDrawable)
+                {
+
+                }
+            });
         }
     }
 
