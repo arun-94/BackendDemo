@@ -48,6 +48,11 @@ public interface TisserApiInterface
     @POST("/mobileAPIArtist.php")
     void validateLogin(@Field("action") String action, @Field("user_id") String userId, @Field("password") String password, Callback<LoginResponse> cb);
 
+    @FormUrlEncoded
+    @POST("/mobileAPIArtist.php")
+    void editProfile(@Field("action") String action, @Field("user_id") String userId, @Field("user_address") String userAddress, @Field("user_phone") String userPhone, @Field("user_email") String userEmail, Callback<LoginResponse> cb);
+
+
     @Multipart
     @POST("/mobileAPIArtist.php")
     void editProduct(@Part("action") String actionAddProduct, @Part("session_id") String sessionID, @PartMap Map<String, TypedFile> files, @Part("product_id") String productId, @Part("product_name") String productName, @Part("product_price") double productPrice, @Part("product_quantity") int productQuantity, @Part("product_category_id") int categoryID, @Part("product_subcategory_id") int categoryID1, @Part("product_subsubcategory_id") int categoryID2, @Part("product_color") String productColor, @Part("product_long_description") String productDescription, @Part("product_short_description") String productSummary, @Part("product_keypoints") String productKeypoints, Callback<EditProductResponse> callback);

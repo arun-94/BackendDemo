@@ -28,6 +28,7 @@ public final class AppConstants
     public static final String ACTION_ADD_PRODUCT = "AddNewProduct";
     public static final String ACTION_EDIT_PRODUCT = "EditProduct";
     public static final String ACTION_SHOW_PRODUCTS = "ShowMyProducts";
+    public static final String ACTION_EDIT_PROFILE = "editProfile";
 
     //Intent Extras - Names
     public static final String INTENT_IS_NEW_PRODUCT = "Intent_isNewProduct";

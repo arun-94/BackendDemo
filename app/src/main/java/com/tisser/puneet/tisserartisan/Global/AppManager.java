@@ -27,6 +27,7 @@ public class AppManager extends Application
 
     private ApplicationComponent applicationComponent;
     private String sessionID;
+    private String userID;
 
     public ArrayList<Category> categoryList = new ArrayList<>();
     public ArrayList<TisserColor> colorList = new ArrayList<>();

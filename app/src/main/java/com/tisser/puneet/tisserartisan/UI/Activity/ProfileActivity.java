@@ -6,11 +6,14 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.design.widget.AppBarLayout;
+import android.support.design.widget.Snackbar;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -24,6 +27,8 @@ import android.widget.Toast;
 
 import com.cocosw.bottomsheet.BottomSheet;
 import com.tisser.puneet.tisserartisan.Global.AppConstants;
+import com.tisser.puneet.tisserartisan.Model.Response.AddProductResponse;
+import com.tisser.puneet.tisserartisan.Model.Response.LoginResponse;
 import com.tisser.puneet.tisserartisan.R;
 
 import java.io.ByteArrayOutputStream;
@@ -35,6 +40,11 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import de.hdodenhof.circleimageview.CircleImageView;
+import retrofit.Callback;
+import retrofit.RetrofitError;
+import retrofit.client.Response;
+
+import static com.tisser.puneet.tisserartisan.HTTP.RestClient.getApiService;
 
 public class ProfileActivity extends BaseActivity
 {
@@ -47,7 +57,7 @@ public class ProfileActivity extends BaseActivity
     @Bind(R.id.tv_artisan_location) TextView mArtisanLocation;
     @Bind(R.id.tv_artisan_product_count) TextView mArtisanProductCount;
     @Bind(R.id.artisan_profile_image) CircleImageView profileImage;
-
+    private boolean isEdited = false;
 
     @OnClick(R.id.artisan_profile_image)
     void changeImage()
@@ -145,7 +155,9 @@ public class ProfileActivity extends BaseActivity
         builder.setTitle("Edit " + field);
         View customDialogView = inflater.inflate(R.layout.profile_popup_edit_details, null, false);
         final EditText popupEdittext = (EditText) customDialogView.findViewById(R.id.popup_editText);
-        popupEdittext.setText(textView.getText());
+        final String initialText = textView.getText().toString().trim();
+        popupEdittext.setText(initialText);
+
         builder.setPositiveButton("Save", new DialogInterface.OnClickListener()
         {
             public void onClick(DialogInterface dialog, int whichButton)
@@ -156,6 +168,10 @@ public class ProfileActivity extends BaseActivity
                 }
                 else
                 {
+                    if(!initialText.equals(popupEdittext.getText().toString().trim()))
+                    {
+                        isEdited = true;
+                    }
                     textView.setText(popupEdittext.getText().toString());
                 }
             }
@@ -249,5 +265,64 @@ public class ProfileActivity extends BaseActivity
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onBackPressed()
+    {
+        if(isEdited)
+        {
+            String userAddress = addressText.getText().toString().trim();
+            String userEmail = emailText.getText().toString().trim();
+            String userPhone = phoneText.getText().toString().trim();
+            getApiService().editProfile(AppConstants.ACTION_EDIT_PROFILE, "999", userAddress, userPhone, userEmail,  new Callback<LoginResponse>()
+            {
+
+                @Override
+                public void success(LoginResponse loginResponse, Response response)
+                {
+                    //Log.d("Response", "Response string is  : " + loginResponse.getSessionID());
+                    isEdited = false;
+                    onBackPressed();
+                    Toast.makeText(ProfileActivity.this, "Profile edited successfully.", Toast.LENGTH_SHORT).show();
+                    /*if (loginResponse.getError() == 0)
+                    {
+                        Log.d("LoginSuccess", "Success. edit product successful");
+                        isEdited = false;
+                        onBackPressed();
+                    }
+                    else
+                    {
+                        Toast.makeText(ProfileActivity.this, "Failed. Unknown error", Toast.LENGTH_SHORT).show();
+                    }*/
+                }
+
+                @Override
+                public void failure(RetrofitError error)
+                {
+                    if (error.getKind().equals(RetrofitError.Kind.NETWORK))
+                    {
+                        showNoInternetSnackbar();
+                    }
+                }
+            });
+        }
+        else
+            super.onBackPressed();
+    }
+
+    void showNoInternetSnackbar()
+    {
+        Snackbar.make(findViewById(android.R.id.content), "No Internet Connection", Snackbar.LENGTH_LONG)
+                .setAction("RETRY", new View.OnClickListener()
+                {
+                    @Override
+                    public void onClick(View v)
+                    {
+                        onBackPressed();
+                    }
+                })
+                .setActionTextColor(Color.GREEN)
+                .show();
     }
 }
