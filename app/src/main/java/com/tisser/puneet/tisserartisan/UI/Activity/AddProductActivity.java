@@ -158,6 +158,8 @@ public class AddProductActivity extends BaseActivity implements Validator.Valida
         mAdapter = new GalleryImagesAdapter(this, null);
         images = new ArrayList<>();
         imagePaths = new ArrayList<>();
+        productDetailed = new ProductDetailed();
+
 
         editTextProductTags.setTokenizer(new Rfc822Tokenizer());
 
@@ -176,7 +178,7 @@ public class AddProductActivity extends BaseActivity implements Validator.Valida
         if(productBundle != null && productBundle.getInt(AppConstants.INTENT_IS_NEW_PRODUCT) == AppConstants.EDIT_PRODUCT)
         {
             intentType = productBundle.getInt(AppConstants.INTENT_IS_NEW_PRODUCT);
-            ProductDetailed productDetailed = manager.currentProductDetailed;
+            productDetailed = manager.currentProductDetailed;
 
             editTextProductName.setText(productDetailed.getProductName());
             editTextPrice.setText(productDetailed.getProductPrice() + "");
@@ -189,7 +191,6 @@ public class AddProductActivity extends BaseActivity implements Validator.Valida
             if(productDetailed.getProductQuantity() != 0)
                 editTextQuantity.setText("" + productDetailed.getProductQuantity());
             int id = productDetailed.getProductCategoryID();
-
             String keywordList = productDetailed.getProductKeypoints();
 
             String[] keywords =  keywordList.split(",");
@@ -390,7 +391,6 @@ public class AddProductActivity extends BaseActivity implements Validator.Valida
         else
         {
             // further logic
-            productDetailed = new ProductDetailed();
             productDetailed.setProductName(editTextProductName.getText().toString().trim());
             productDetailed.setProductPrice(Double.parseDouble(String.format("%.2f", Double.parseDouble(editTextPrice.getText().toString()))));
             productDetailed.setProductColor(selected_colorText.getText().toString().trim());
@@ -549,7 +549,7 @@ public class AddProductActivity extends BaseActivity implements Validator.Valida
                 files.put("image" + i, new TypedFile("image/jpeg", new File(imagePaths.get(i))));
         }*/
 
-        getApiService().editProduct(AppConstants.ACTION_EDIT_PRODUCT ,manager.getSessionID(), files, p.getProductID() , p.getProductName(), p.getProductPrice(), p.getProductQuantity(), manager.currentCategory.getCategoryID(), manager.currentSubCategory.getCategoryID(), manager.currentSubsubCategory.getCategoryID(),p.getProductColor(), p.getProductDescription(), p.getProductSummary(), p.getProductKeypoints(), new Callback<EditProductResponse>()
+        getApiService().editProduct(AppConstants.ACTION_EDIT_PRODUCT, manager.getSessionID(), files, p.getProductID(), p.getProductName(), p.getProductPrice(), p.getProductQuantity(), manager.currentCategory.getCategoryID(), manager.currentSubCategory.getCategoryID(), manager.currentSubsubCategory.getCategoryID(), p.getProductColor(), p.getProductDescription(), p.getProductSummary(), p.getProductKeypoints(), new Callback<EditProductResponse>()
         {
             @Override
             public void success(EditProductResponse responseObj, Response response)
@@ -560,8 +560,8 @@ public class AddProductActivity extends BaseActivity implements Validator.Valida
                 //if(responseObj.getError() == 0)
                 //{
 //                    Toast.makeText(AddProductActivity.this, responseObj.getStatus(), Toast.LENGTH_LONG).show();
-                    manager.currentProductDetailed = p;
-                    navigator.openNewActivity(AddProductActivity.this, new ProductDetailActivity());
+                manager.currentProductDetailed = p;
+                navigator.openNewActivity(AddProductActivity.this, new ProductDetailActivity());
                 //}
                 //else
                 //    Toast.makeText(AddProductActivity.this, responseObj.getStatus(), Toast.LENGTH_LONG).show();
@@ -594,16 +594,19 @@ public class AddProductActivity extends BaseActivity implements Validator.Valida
         {
             if(c.getCategoryID() == pD.getProductCategoryID())
             {
+                manager.currentCategory = c;
                 categoryString = categoryString.concat(c.getCategoryName());
                 for(Subcategory sc : c.getSubcategories())
                 {
                     if(sc.getCategoryID() == pD.getProductSubcategoryID())
                     {
+                        manager.currentSubCategory = sc;
                         categoryString = categoryString.concat(" > " + sc.getCategoryName());
                         for(Subsubcategory ssc : sc.getSubcategories())
                         {
                             if(ssc.getCategoryID() == pD.getProductSubsubcategoryID())
                             {
+                                manager.currentSubsubCategory = ssc;
                                 categoryString = categoryString.concat(" > " + ssc.getCategoryName());
                                 break;
                             }
