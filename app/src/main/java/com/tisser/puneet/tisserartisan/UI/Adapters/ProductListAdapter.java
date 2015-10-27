@@ -78,69 +78,7 @@ public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.
                 imgPath = product.getProductImgPaths().get(0).replace(" ", "%20");
             }
 
-            Glide.with(mContext).load(product.getImages().get(0).getPath()).asBitmap().centerCrop().placeholder(R.drawable.logo_small).into(new Target<Bitmap>()
-            {
-                @Override
-                public void onLoadStarted(Drawable placeholder)
-                {
-
-                }
-
-                @Override
-                public void onLoadFailed(Exception e, Drawable errorDrawable)
-                {
-
-                }
-
-                @Override
-                public void onResourceReady(Bitmap resource, GlideAnimation<? super Bitmap> glideAnimation)
-                {
-                        Bitmap bm = ImageUtility.getResizedBitmap(resource, 300);
-                        holder.image.setImageBitmap(bm);
-                }
-
-                @Override
-                public void onLoadCleared(Drawable placeholder)
-                {
-
-                }
-
-                @Override
-                public void getSize(SizeReadyCallback cb)
-                {
-
-                }
-
-                @Override
-                public void setRequest(Request request)
-                {
-
-                }
-
-                @Override
-                public Request getRequest()
-                {
-                    return null;
-                }
-
-                @Override
-                public void onStart()
-                {
-
-                }
-
-                @Override
-                public void onStop()
-                {
-
-                }
-
-                @Override
-                public void onDestroy()
-                {
-
-                }
-            });
+            Glide.with(mContext).load(product.getImages().get(0).getPath()).asBitmap().centerCrop().placeholder(R.drawable.logo_small).into(holder.image);
             holder.image.setScaleType(ImageView.ScaleType.CENTER_CROP);
         }
         holder.title.setText(mData.get(position).getProductName());

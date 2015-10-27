@@ -152,11 +152,12 @@ public class ImageUtility
             fos.write(bitmapdata);
             fos.flush();
             fos.close();
+            return f;
         } catch (IOException e)
         {
             e.printStackTrace();
         }
-        return new File(mContext.getCacheDir(), "img");
+        return new File(mContext.getCacheDir(), "img_error");
     }
 
     public static Bitmap getResizedBitmap(Bitmap image, int maxSize) {
