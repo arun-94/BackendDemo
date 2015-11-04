@@ -178,24 +178,31 @@ public class ProductListFragment extends BaseFragment
             products.removeAll(removeList);
             manager.productList.addAll(products);
 
-            mRecyclerView.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener()
+            if(manager.productList.size() != 0)
             {
-                @Override
-                public void onGlobalLayout()
+                mRecyclerView.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener()
                 {
-                    mRecyclerView.getViewTreeObserver().removeOnGlobalLayoutListener(this);
-                    int viewWidth = mRecyclerView.getMeasuredWidth();
-                    Log.d("WIDTH", "Value of recycler view is " + viewWidth);
-                    float cardViewWidth = getView().findViewById(R.id.product_card).getMeasuredWidth();
-                    int newSpanCount = (int) Math.floor(viewWidth / cardViewWidth);
-                    mLayoutManager.setSpanCount(newSpanCount);
-                    mLayoutManager.requestLayout();
-                }
-            });
-            mRecyclerView.setLayoutManager(mLayoutManager);
-            mAdapter = new ProductListAdapter(getActivity(), manager.productList);
-            mRecyclerView.setAdapter(mAdapter);
-            mEmptyText.setVisibility(View.INVISIBLE);
+                    @Override
+                    public void onGlobalLayout()
+                    {
+                        mRecyclerView.getViewTreeObserver().removeOnGlobalLayoutListener(this);
+                        int viewWidth = mRecyclerView.getMeasuredWidth();
+                        Log.d("WIDTH", "Value of recycler view is " + viewWidth);
+                        float cardViewWidth = getView().findViewById(R.id.product_card).getMeasuredWidth();
+                        int newSpanCount = (int) Math.floor(viewWidth / cardViewWidth);
+                        mLayoutManager.setSpanCount(newSpanCount);
+                        mLayoutManager.requestLayout();
+                    }
+                });
+                mRecyclerView.setLayoutManager(mLayoutManager);
+                mAdapter = new ProductListAdapter(getActivity(), manager.productList);
+                mRecyclerView.setAdapter(mAdapter);
+                mEmptyText.setVisibility(View.INVISIBLE);
+            }
+            else {
+                mEmptyText.setVisibility(View.VISIBLE);
+            }
+
         }
         else
         {
