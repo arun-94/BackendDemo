@@ -280,7 +280,9 @@ public class ProfileActivity extends BaseActivity
                 options.inSampleSize = scale;
                 options.inJustDecodeBounds = false;
                 bm = BitmapFactory.decodeFile(selectedImagePath, options);
-
+                ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+                assert bm != null;
+                bm.compress(Bitmap.CompressFormat.JPEG, 70, bytes);
                 profileImage.setImageBitmap(bm);
                 f = ImageUtility.makeFileFromPath(ProfileActivity.this, selectedImagePath, 0);
 

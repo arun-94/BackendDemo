@@ -82,27 +82,7 @@ public class FullScreenViewActivityWithDelete extends BaseActivity
         else
         {
             Uri uri = Uri.fromFile(new File(manager.currentImagePath));
-            Picasso.with(FullScreenViewActivityWithDelete.this).load(uri).placeholder(R.drawable.logo_small).into(new Target()
-            {
-                @Override
-                public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from)
-                {
-                    Bitmap bm = ImageUtility.getResizedBitmap(bitmap, AppConstants.IMAGE_RESIZE_DIMEN);
-                    imgDisplay.setImageBitmap(bm);
-                }
-
-                @Override
-                public void onBitmapFailed(Drawable errorDrawable)
-                {
-
-                }
-
-                @Override
-                public void onPrepareLoad(Drawable placeHolderDrawable)
-                {
-
-                }
-            });
+            Picasso.with(FullScreenViewActivityWithDelete.this).load(uri).placeholder(R.drawable.logo_small).into(imgDisplay);
         }
     }
 
