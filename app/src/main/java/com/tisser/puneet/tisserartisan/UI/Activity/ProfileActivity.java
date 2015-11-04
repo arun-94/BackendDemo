@@ -13,6 +13,7 @@ import android.os.Environment;
 import android.os.PersistableBundle;
 import android.provider.MediaStore;
 import android.support.design.widget.AppBarLayout;
+import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -60,10 +61,10 @@ public class ProfileActivity extends BaseActivity
     @Bind(R.id.tv_artisan_location) TextView mArtisanLocation;
     @Bind(R.id.tv_artisan_product_count) TextView mArtisanProductCount;
     @Bind(R.id.artisan_profile_image) CircleImageView profileImage;
+    @Bind(R.id.fab_saveProfile) FloatingActionButton fab;
     private boolean isEdited = false;
     private Bitmap bm;
     private File f = null;
-
 
     @OnClick(R.id.artisan_profile_image)
     void changeImage()
@@ -87,6 +88,43 @@ public class ProfileActivity extends BaseActivity
                 }
             }
         }).show();
+    }
+
+
+    @OnClick(R.id.fab_saveProfile)
+    void saveProfile()
+    {
+        if (isEdited)
+        {
+            String userAddress = addressText.getText().toString().trim();
+            String userEmail = emailText.getText().toString().trim();
+            String userPhone = phoneText.getText().toString().trim();
+            Map<String, TypedFile> fileMap = new HashMap<>();
+
+            if (f != null) fileMap.put("profileimage", new TypedFile("image/jpeg", f));
+
+            getApiService().editProfile(AppConstants.ACTION_EDIT_PROFILE, manager.getSessionID(), userAddress, userPhone, userEmail, fileMap, new Callback<LoginResponse>()
+            {
+
+                @Override
+                public void success(LoginResponse loginResponse, Response response)
+                {
+                    //Log.d("Response", "Response string is  : " + loginResponse.getSessionID());
+                    isEdited = false;
+                    Toast.makeText(ProfileActivity.this, "Profile edited successfully.", Toast.LENGTH_SHORT).show();
+                    onBackPressed();
+                }
+
+                @Override
+                public void failure(RetrofitError error)
+                {
+                    if (error.getKind().equals(RetrofitError.Kind.NETWORK))
+                    {
+                        showNoInternetSnackbar();
+                    }
+                }
+            });
+        }
     }
 
 
@@ -177,6 +215,7 @@ public class ProfileActivity extends BaseActivity
                     if (!initialText.equals(popupEdittext.getText().toString().trim()))
                     {
                         isEdited = true;
+                        fab.setVisibility(View.VISIBLE);
                     }
                     textView.setText(popupEdittext.getText().toString());
                 }
@@ -194,6 +233,7 @@ public class ProfileActivity extends BaseActivity
         if (resultCode == RESULT_OK)
         {
             isEdited = true;
+            fab.setVisibility(View.VISIBLE);
             if (requestCode == AppConstants.REQUEST_CAMERA)
             {
                 bm = (Bitmap) data.getExtras().get("data");
@@ -210,6 +250,7 @@ public class ProfileActivity extends BaseActivity
                     fo = new FileOutputStream(destination);
                     fo.write(bytes.toByteArray());
                     fo.close();
+                    f = destination;
                 } catch (IOException e)
                 {
                     e.printStackTrace();
@@ -241,9 +282,10 @@ public class ProfileActivity extends BaseActivity
                 bm = BitmapFactory.decodeFile(selectedImagePath, options);
 
                 profileImage.setImageBitmap(bm);
+                f = ImageUtility.makeFileFromPath(ProfileActivity.this, selectedImagePath, 0);
+
             }
             //create a file to write bitmap data
-            f = ImageUtility.makeFileFromBitmap(ProfileActivity.this, bm, "profile_pic");
 
 
         }
@@ -276,54 +318,6 @@ public class ProfileActivity extends BaseActivity
         }
 
         return super.onOptionsItemSelected(item);
-    }
-
-    @Override
-    public void onBackPressed()
-    {
-        if (isEdited)
-        {
-            String userAddress = addressText.getText().toString().trim();
-            String userEmail = emailText.getText().toString().trim();
-            String userPhone = phoneText.getText().toString().trim();
-            Map<String, TypedFile> fileMap = new HashMap<>();
-
-            if(f != null)
-                fileMap.put("profileimage", new TypedFile("image/jpeg", f));
-
-            getApiService().editProfile(AppConstants.ACTION_EDIT_PROFILE, "999", userAddress, userPhone, userEmail, fileMap, new Callback<LoginResponse>()
-            {
-
-                @Override
-                public void success(LoginResponse loginResponse, Response response)
-                {
-                    //Log.d("Response", "Response string is  : " + loginResponse.getSessionID());
-                    isEdited = false;
-                    onBackPressed();
-                    Toast.makeText(ProfileActivity.this, "Profile edited successfully.", Toast.LENGTH_SHORT).show();
-                    /*if (loginResponse.getError() == 0)
-                    {
-                        Log.d("LoginSuccess", "Success. edit product successful");
-                        isEdited = false;
-                        onBackPressed();
-                    }
-                    else
-                    {
-                        Toast.makeText(ProfileActivity.this, "Failed. Unknown error", Toast.LENGTH_SHORT).show();
-                    }*/
-                }
-
-                @Override
-                public void failure(RetrofitError error)
-                {
-                    if (error.getKind().equals(RetrofitError.Kind.NETWORK))
-                    {
-                        showNoInternetSnackbar();
-                    }
-                }
-            });
-        }
-        else this.finish();
     }
 
     @Override

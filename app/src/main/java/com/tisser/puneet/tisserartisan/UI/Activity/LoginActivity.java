@@ -14,8 +14,9 @@ import android.widget.Toast;
 
 import com.mobsandgeeks.saripaar.ValidationError;
 import com.mobsandgeeks.saripaar.Validator;
-import com.mobsandgeeks.saripaar.annotation.Email;
+import com.mobsandgeeks.saripaar.annotation.Length;
 import com.mobsandgeeks.saripaar.annotation.NotEmpty;
+import com.mobsandgeeks.saripaar.annotation.Password;
 import com.tisser.puneet.tisserartisan.Global.AppConstants;
 import com.tisser.puneet.tisserartisan.Model.Response.LoginResponse;
 import com.tisser.puneet.tisserartisan.R;
@@ -37,7 +38,7 @@ public class LoginActivity extends BaseActivity implements Validator.ValidationL
     //TODO Handle Retrofit Timeout Error
 
     @Bind(R.id.loginButton) Button mLoginButton;
-    @Email @Bind(R.id.editText_custid) EditText mCustIdEditText;
+    @Length(min = 10, max = 10, message = "Invalid Mobile No") @Password(min = 10, scheme = Password.Scheme.NUMERIC, message = "") @Bind(R.id.editText_custid) EditText mCustIdEditText;
     /*@Password(min = 6, scheme = Password.Scheme.ALPHA_NUMERIC_MIXED_CASE)*/
     @NotEmpty @Bind(R.id.editText_password) EditText mPasswordEditText;
     @Bind(R.id.progress_login) ProgressBar mProgressLogin;

@@ -46,11 +46,11 @@ public interface TisserApiInterface
 
     @FormUrlEncoded
     @POST("/mobileAPIArtist.php")
-    void validateLogin(@Field("action") String action, @Field("user_id") String userId, @Field("password") String password, Callback<LoginResponse> cb);
+    void validateLogin(@Field("action") String action, @Field("mobile_number") String userId, @Field("password") String password, Callback<LoginResponse> cb);
 
     @Multipart
     @POST("/mobileAPIArtist.php")
-    void editProfile(@Part("action") String action, @Part("user_id") String userId, @Part("user_address") String userAddress, @Part("user_phone") String userPhone, @Part("user_email") String userEmail, @PartMap Map<String, TypedFile> image,  Callback<LoginResponse> cb);
+    void editProfile(@Part("action") String action, @Part("session_id") String sessionID, @Part("user_address") String userAddress, @Part("user_phone") String userPhone, @Part("user_email") String userEmail, @PartMap Map<String, TypedFile> image,  Callback<LoginResponse> cb);
 
 
     @Multipart

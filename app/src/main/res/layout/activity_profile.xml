@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<LinearLayout
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
@@ -130,7 +130,7 @@
         android:layout_gravity="center_vertical"
         android:gravity="center_vertical"
         android:orientation="vertical"
-        >
+        android:layout_below="@+id/appbar">
 
         <include
             android:id="@+id/profile_address_layout"
@@ -166,4 +166,20 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
     </LinearLayout>
-</LinearLayout>
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fab_saveProfile"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_margin="16dp"
+        android:clickable="true"
+        android:src="@android:drawable/checkbox_on_background"
+        app:borderWidth="0dp"
+        app:fabSize="normal"
+        app:fab_colorNormal="@color/app_primary"
+        app:fab_colorPressed="@color/app_primary"
+        app:layout_anchor="@id/coordinator_product_list"
+        android:visibility="invisible"
+        app:layout_anchorGravity="bottom|right|end"/>
+</RelativeLayout>
