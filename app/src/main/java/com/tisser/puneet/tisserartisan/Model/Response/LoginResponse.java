@@ -9,6 +9,29 @@ public class LoginResponse
 {
     @SerializedName("status") String sessionID = "";
     @SerializedName("error") int errorCode = 0;
+    @SerializedName("id") String userId;
+    @SerializedName("firstName") String firstName;
+    @SerializedName("lastName") String lastName;
+    @SerializedName("email") String email;
+    @SerializedName("mobile") String mobile;
+    @SerializedName("landline") String landline;
+    @SerializedName("company") String company;
+    @SerializedName("address1") String address1;
+    @SerializedName("address2") String address2;
+    @SerializedName("city") String city;
+    @SerializedName("postcode") String postcode;
+    @SerializedName("country") String country;
+    @SerializedName("region") String region;
+    @SerializedName("password") String password;
+    @SerializedName("profile_image") String profileImage;
+    @SerializedName("activationtoken") String activationToken;
+    @SerializedName("active") String active;
+    @SerializedName("artistmobileSession") String artistMobileSession;
+
+
+    public String getFullName() {
+        return getFirstName() + " " + getLastName();
+    }
 
     public String getSessionID()
     {
@@ -20,4 +43,98 @@ public class LoginResponse
         return errorCode;
     }
 
+    public int getErrorCode()
+    {
+        return errorCode;
+    }
+
+    public String getUserId()
+    {
+        return userId;
+    }
+
+    public String getFirstName()
+    {
+        return firstName;
+    }
+
+    public String getLastName()
+    {
+        return lastName;
+    }
+
+    public String getEmail()
+    {
+        return email;
+    }
+
+    public String getMobile()
+    {
+        return mobile;
+    }
+
+    public String getLandline()
+    {
+        return landline;
+    }
+
+    public String getCompany()
+    {
+        return company;
+    }
+
+    public String getAddress1()
+    {
+        return address1;
+    }
+
+    public String getAddress2()
+    {
+        return address2;
+    }
+
+    public String getCity()
+    {
+        return city;
+    }
+
+    public String getPostcode()
+    {
+        return postcode;
+    }
+
+    public String getCountry()
+    {
+        return country;
+    }
+
+    public String getRegion()
+    {
+        return region;
+    }
+
+    public String getPassword()
+    {
+        return password;
+    }
+
+    public String getProfileImage()
+    {
+        return profileImage;
+    }
+
+    public String getActivationToken()
+    {
+        return activationToken;
+    }
+
+    public String getActive()
+    {
+        return active;
+    }
+
+    public String getArtistMobileSession()
+    {
+        return artistMobileSession;
+    }
 }
