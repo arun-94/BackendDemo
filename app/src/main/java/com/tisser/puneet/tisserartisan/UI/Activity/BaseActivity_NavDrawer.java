@@ -12,6 +12,7 @@ import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -24,15 +25,14 @@ import com.tisser.puneet.tisserartisan.Global.AppConstants;
 import com.tisser.puneet.tisserartisan.Queries.AsyncResponse;
 import com.tisser.puneet.tisserartisan.R;
 import com.tisser.puneet.tisserartisan.UI.Fragment.AboutFragment;
-import com.tisser.puneet.tisserartisan.UI.Fragment.ProductListFragment;
 
 import butterknife.Bind;
-import butterknife.ButterKnife;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 
 public class BaseActivity_NavDrawer extends BaseActivity implements AsyncResponse
 {
+    private static final String LOG_TAG = BaseActivity_NavDrawer.class.getCanonicalName();
     @Bind(R.id.content_frame) FrameLayout frameLayout;
     @Bind(R.id.drawer_layout) DrawerLayout mDrawerLayout;
     @Bind(R.id.profile_image) CircleImageView mProfileImg;
@@ -70,7 +70,6 @@ public class BaseActivity_NavDrawer extends BaseActivity implements AsyncRespons
         {
             currentCheckedItem = savedInstanceState.getInt("STATE_SELECTED_POSITION");
         }
-        ButterKnife.bind(this);
         navigator.openNewProductFragment(BaseActivity_NavDrawer.this);
     }
 
@@ -87,7 +86,7 @@ public class BaseActivity_NavDrawer extends BaseActivity implements AsyncRespons
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
-    @Override
+   /* @Override
     protected void onResume()
     {
         super.onResume();
@@ -98,7 +97,7 @@ public class BaseActivity_NavDrawer extends BaseActivity implements AsyncRespons
         else
             Picasso.with(BaseActivity_NavDrawer.this).load(manager.loginResponse.getProfileLocalFile()).placeholder(R.drawable.profile_placeholder).into(mProfileImg);
 
-    }
+    }*/
 
     @Override
     protected void setupLayout()
@@ -107,7 +106,7 @@ public class BaseActivity_NavDrawer extends BaseActivity implements AsyncRespons
         resetDrawer();
 
         getLayoutInflater().inflate(getLayoutResource(), frameLayout); /*** SET ACTIVITY HERE***/
-        if(manager.loginResponse.getProfileLocalFile() == null)
+        if (manager.loginResponse.getProfileLocalFile() == null)
             Picasso.with(BaseActivity_NavDrawer.this).load("http://www.tisserindia.com/stores" + manager.loginResponse.getProfileImage()).placeholder(R.drawable.profile_placeholder).into(mProfileImg);
         else
             Picasso.with(BaseActivity_NavDrawer.this).load(manager.loginResponse.getProfileLocalFile()).placeholder(R.drawable.profile_placeholder).into(mProfileImg);
@@ -142,13 +141,31 @@ public class BaseActivity_NavDrawer extends BaseActivity implements AsyncRespons
                         {
                             return true;
                         }
+                        FragmentManager fm = getFragmentManager();
 
-                        navigator.openNewFragment(BaseActivity_NavDrawer.this, ProductListFragment.newInstance());
+                        if (fm.getBackStackEntryCount() > 0)
+                        {
+
+                            int currentBackStackCount = fm.getBackStackEntryCount();
+                            FragmentManager.BackStackEntry lastEntry = fm.getBackStackEntryAt(fm.getBackStackEntryCount() - 1);
+
+                            switch (lastEntry.getName())
+                            {
+                                case "com.tisser.puneet.tisserartisan.UI.Fragment.ProductListFragment":
+                                case "ProductListFragment":
+
+                                    break;
+                                default: fm.popBackStack();
+                            }
+                        }
+
+                        //navigator.openNewFragment(BaseActivity_NavDrawer.this, ProductListFragment.newInstance());
                         currentCheckedItem = 0;
 
                         return true;
                     case R.id.nav_profile:
-                        navigator.openNewActivity(BaseActivity_NavDrawer.this, new ProfileActivity());
+
+                        navigator.openNewActivityForResult(BaseActivity_NavDrawer.this, new ProfileActivity(), AppConstants.REQUEST_CODE);
                         currentCheckedItem = 1;
                         return true;
                     case R.id.nav_add_product:
@@ -235,6 +252,36 @@ public class BaseActivity_NavDrawer extends BaseActivity implements AsyncRespons
         return super.onOptionsItemSelected(item);
     }
 
+    @Override
+    protected void onResume()
+    {
+        super.onResume();
+        Menu menu = navigationView.getMenu();
+        currentCheckedItem = 0;
+        menu.getItem(currentCheckedItem).setChecked(true);
+        mDrawerLayout.invalidate();
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data)
+    {
+        if (requestCode == AppConstants.REQUEST_CODE)
+        {
+            switch (resultCode)
+            {
+                case AppConstants.EDIT_PROFILE:
+                    mArtisanEmail.setText(manager.loginResponse.getEmail());
+                    if (manager.loginResponse.getProfileLocalFile() == null)
+                        Picasso.with(BaseActivity_NavDrawer.this).load("http://www.tisserindia.com/stores" + manager.loginResponse.getProfileImage()).placeholder(R.drawable.profile_placeholder).into(mProfileImg);
+                    else
+                        Picasso.with(BaseActivity_NavDrawer.this).load(manager.loginResponse.getProfileLocalFile()).placeholder(R.drawable.profile_placeholder).into(mProfileImg);
+                    Log.d(LOG_TAG, mArtisanEmail.getText().toString());
+                    mDrawerLayout.invalidate();
+                    break;
+            }
+        }
+    }
+
     @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
     @Override
     public void onBackPressed()
@@ -277,10 +324,15 @@ public class BaseActivity_NavDrawer extends BaseActivity implements AsyncRespons
                 case "com.tisser.puneet.tisserartisan.UI.Fragment.AboutFragment":
                     while (currentBackStackCount > 1)
                     {
+                        //fm.popBackStack();
                         fm.popBackStack();
                         currentBackStackCount--;
                     }
-
+                    Menu menu = navigationView.getMenu();
+                    currentCheckedItem = 0;
+                    menu.getItem(currentCheckedItem).setChecked(true);
+                    mDrawerLayout.invalidate();
+                    break;
             }
         }
         else

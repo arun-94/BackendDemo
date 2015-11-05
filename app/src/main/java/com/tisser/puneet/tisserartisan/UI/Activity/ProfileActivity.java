@@ -37,7 +37,6 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.net.URI;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -120,7 +119,8 @@ public class ProfileActivity extends BaseActivity
                     //Log.d("Response", "Response string is  : " + loginResponse.getSessionID());
                     isEdited = false;
                     Toast.makeText(ProfileActivity.this, "Profile edited successfully.", Toast.LENGTH_SHORT).show();
-                    onBackPressed();
+                    setResult(AppConstants.EDIT_PROFILE);
+                    finish();
                 }
 
                 @Override

@@ -79,7 +79,10 @@ public class ProductListFragment extends BaseFragment
     public void onViewStateRestored(Bundle savedInstanceState)
     {
         super.onViewStateRestored(savedInstanceState);
-        makeAPICall();
+        if(savedInstanceState != null)
+        {
+            makeAPICall();
+        }
     }
 
     @Override
