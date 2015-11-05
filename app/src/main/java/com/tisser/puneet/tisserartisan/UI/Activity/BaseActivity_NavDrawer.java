@@ -87,15 +87,12 @@ public class BaseActivity_NavDrawer extends BaseActivity implements AsyncRespons
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
-
-    //Change to onactivity result
-
     @Override
     protected void onResume()
     {
         super.onResume();
 
-        mArtisanEmail.setText("swag");
+        mArtisanEmail.setText(manager.loginResponse.getEmail());
         if(manager.loginResponse.getProfileLocalFile() == null)
             Picasso.with(BaseActivity_NavDrawer.this).load("http://www.tisserindia.com/stores" + manager.loginResponse.getProfileImage()).placeholder(R.drawable.profile_placeholder).into(mProfileImg);
         else
