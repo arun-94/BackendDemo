@@ -7,6 +7,7 @@ import com.tisser.puneet.tisserartisan.Injection.Component.ApplicationComponent;
 import com.tisser.puneet.tisserartisan.Injection.Component.DaggerApplicationComponent;
 import com.tisser.puneet.tisserartisan.Model.Category;
 import com.tisser.puneet.tisserartisan.Model.ProductDetailed;
+import com.tisser.puneet.tisserartisan.Model.Response.LoginResponse;
 import com.tisser.puneet.tisserartisan.Model.Subcategory;
 import com.tisser.puneet.tisserartisan.Model.Subsubcategory;
 import com.tisser.puneet.tisserartisan.Model.TisserColor;
@@ -39,6 +40,8 @@ public class AppManager extends Application
     public Subcategory currentSubCategory = new Subcategory();
     public Subsubcategory currentSubsubCategory = new Subsubcategory();
     public ProductDetailed currentProductDetailed = new ProductDetailed();
+    public LoginResponse loginResponse = new LoginResponse();
+
     public int currentCategoryID;
     public String currentImagePath;
     public Drawable currentImage;

@@ -38,7 +38,7 @@
                     android:layout_marginTop="40dp"
                     android:clickable="true"
                     android:foreground="?android:attr/selectableItemBackground"
-                    android:src="@drawable/photo"
+                    android:src="@drawable/profile_placeholder"
                     app:border_color="@android:color/white"
                     app:border_width="2dp"/>
 
@@ -174,7 +174,7 @@
         android:layout_alignParentRight="true"
         android:layout_margin="16dp"
         android:clickable="true"
-        android:src="@android:drawable/checkbox_on_background"
+        android:src="@drawable/ic_done_white_24dp"
         app:borderWidth="0dp"
         app:fabSize="normal"
         app:fab_colorNormal="@color/app_primary"

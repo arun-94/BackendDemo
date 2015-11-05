@@ -27,6 +27,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.cocosw.bottomsheet.BottomSheet;
+import com.squareup.picasso.Picasso;
 import com.tisser.puneet.tisserartisan.Global.AppConstants;
 import com.tisser.puneet.tisserartisan.Model.Response.LoginResponse;
 import com.tisser.puneet.tisserartisan.R;
@@ -36,6 +37,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.net.URI;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -99,10 +101,16 @@ public class ProfileActivity extends BaseActivity
             String userAddress = addressText.getText().toString().trim();
             String userEmail = emailText.getText().toString().trim();
             String userPhone = phoneText.getText().toString().trim();
+            manager.loginResponse.setAddress1(userAddress);
+            manager.loginResponse.setEmail(userEmail);
+            manager.loginResponse.setMobile(userPhone);
             Map<String, TypedFile> fileMap = new HashMap<>();
 
-            if (f != null) fileMap.put("profileimage", new TypedFile("image/jpeg", f));
-
+            if (f != null)
+            {
+                fileMap.put("profileimage", new TypedFile("image/jpeg", f));
+                manager.loginResponse.setProfileLocalFile(f);
+            }
             getApiService().editProfile(AppConstants.ACTION_EDIT_PROFILE, manager.getSessionID(), userAddress, userPhone, userEmail, fileMap, new Callback<LoginResponse>()
             {
 
@@ -156,9 +164,9 @@ public class ProfileActivity extends BaseActivity
         phoneText = ButterKnife.findById(PhoneLayout, R.id.profile_item_text);
         addressText = ButterKnife.findById(AddressLayout, R.id.profile_item_text);
         emailText = ButterKnife.findById(EmailLayout, R.id.profile_item_text);
-        phoneText.setText("+91 9819954448");
-        addressText.setText("XYZ Building, ABC Apartments, Shivaji Nagar, Pune 411-020, Maharashtra, India ");
-        emailText.setText("punkohl@gmail.com");
+        phoneText.setText(manager.loginResponse.getMobile());
+        addressText.setText(manager.loginResponse.getAddress1());
+        emailText.setText(manager.loginResponse.getEmail());
 
         phoneIcon = ButterKnife.findById(PhoneLayout, R.id.profile_item_image);
         emailIcon = ButterKnife.findById(EmailLayout, R.id.profile_item_image);
@@ -166,12 +174,20 @@ public class ProfileActivity extends BaseActivity
         phoneIcon.setImageDrawable(getResources().getDrawable(R.drawable.ic_action_call));
         emailIcon.setImageDrawable(getResources().getDrawable(R.drawable.ic_action_email));
         addressIcon.setImageDrawable(getResources().getDrawable(R.drawable.ic_map_grey_24dp));
+
+        mArtisanLocation.setText(manager.loginResponse.getCity() + ", " + manager.loginResponse.getRegion());
+        mArtisanName.setText(manager.loginResponse.getFullName());
+        mArtisanProductCount.setText(manager.productList.size() + " Products");
+        if(manager.loginResponse.getProfileLocalFile() == null)
+            Picasso.with(ProfileActivity.this).load("http://www.tisserindia.com/stores" + manager.loginResponse.getProfileImage()).placeholder(R.drawable.profile_placeholder).into(profileImage);
+        else
+            Picasso.with(ProfileActivity.this).load(manager.loginResponse.getProfileLocalFile()).placeholder(R.drawable.profile_placeholder).into(profileImage);
     }
 
     String field = "";
     TextView textView = null;
 
-    @OnClick({R.id.profile_address_layout, R.id.profile_email_layout, R.id.profile_phone_layout})
+    @OnClick({R.id.profile_address_layout, R.id.profile_email_layout})
     public void showDetailFillAlert(LinearLayout view)
     {
 
@@ -251,13 +267,13 @@ public class ProfileActivity extends BaseActivity
                     fo.write(bytes.toByteArray());
                     fo.close();
                     f = destination;
-                } catch (IOException e)
+                }
+                catch (IOException e)
                 {
                     e.printStackTrace();
                 }
 
                 profileImage.setImageBitmap(bm);
-
             }
             else if (requestCode == AppConstants.REQUEST_GALLERY)
             {
@@ -273,7 +289,7 @@ public class ProfileActivity extends BaseActivity
                 BitmapFactory.Options options = new BitmapFactory.Options();
                 options.inJustDecodeBounds = true;
                 BitmapFactory.decodeFile(selectedImagePath, options);
-                final int REQUIRED_SIZE = 200;
+                final int REQUIRED_SIZE = 100;
                 int scale = 1;
                 while (options.outWidth / scale / 2 >= REQUIRED_SIZE && options.outHeight / scale / 2 >= REQUIRED_SIZE)
                     scale *= 2;

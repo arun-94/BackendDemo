@@ -2,6 +2,8 @@ package com.tisser.puneet.tisserartisan.Model.Response;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.io.File;
+
 /**
  * Created by Puneet on 14-10-2015.
  */
@@ -27,6 +29,7 @@ public class LoginResponse
     @SerializedName("activationtoken") String activationToken;
     @SerializedName("active") String active;
     @SerializedName("artistmobileSession") String artistMobileSession;
+    private File profileLocalFile = null;
 
 
     public String getFullName() {
@@ -120,7 +123,7 @@ public class LoginResponse
 
     public String getProfileImage()
     {
-        return profileImage;
+        return profileImage.substring(2);
     }
 
     public String getActivationToken()
@@ -136,5 +139,35 @@ public class LoginResponse
     public String getArtistMobileSession()
     {
         return artistMobileSession;
+    }
+
+    public File getProfileLocalFile()
+    {
+        return profileLocalFile;
+    }
+
+    public void setEmail(String email)
+    {
+        this.email = email;
+    }
+
+    public void setMobile(String mobile)
+    {
+        this.mobile = mobile;
+    }
+
+    public void setAddress1(String address1)
+    {
+        this.address1 = address1;
+    }
+
+    public void setProfileImage(String profileImage)
+    {
+        this.profileImage = profileImage;
+    }
+
+    public void setProfileLocalFile(File profileLocalFile)
+    {
+        this.profileLocalFile = profileLocalFile;
     }
 }

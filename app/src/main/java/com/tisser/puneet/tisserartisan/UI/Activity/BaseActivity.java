@@ -11,6 +11,7 @@ import android.view.MenuItem;
 
 import com.tisser.puneet.tisserartisan.Injection.Component.ApplicationComponent;
 import com.tisser.puneet.tisserartisan.Global.AppManager;
+import com.tisser.puneet.tisserartisan.Model.Response.LoginResponse;
 import com.tisser.puneet.tisserartisan.Queries.AsyncResponse;
 import com.tisser.puneet.tisserartisan.R;
 
@@ -25,7 +26,6 @@ public abstract class BaseActivity extends AppCompatActivity implements AsyncRes
     @Inject public Navigator navigator;
     @Nullable @Bind(R.id.toolbar) Toolbar toolbar;
     AppManager manager;
-
 
     AlertDialog dialog;
 

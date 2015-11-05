@@ -16,8 +16,10 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.FrameLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.squareup.picasso.Picasso;
 import com.tisser.puneet.tisserartisan.Global.AppConstants;
 import com.tisser.puneet.tisserartisan.Queries.AsyncResponse;
 import com.tisser.puneet.tisserartisan.R;
@@ -26,12 +28,16 @@ import com.tisser.puneet.tisserartisan.UI.Fragment.ProductListFragment;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import de.hdodenhof.circleimageview.CircleImageView;
 
 
 public class BaseActivity_NavDrawer extends BaseActivity implements AsyncResponse
 {
     @Bind(R.id.content_frame) FrameLayout frameLayout;
     @Bind(R.id.drawer_layout) DrawerLayout mDrawerLayout;
+    @Bind(R.id.profile_image) CircleImageView mProfileImg;
+    @Bind(R.id.username) TextView mArtisanName;
+    @Bind(R.id.email) TextView mArtisanEmail;
 
     public NavigationView getNavigationView()
     {
@@ -81,6 +87,22 @@ public class BaseActivity_NavDrawer extends BaseActivity implements AsyncRespons
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
+
+    //Change to onactivity result
+
+    @Override
+    protected void onResume()
+    {
+        super.onResume();
+
+        mArtisanEmail.setText("swag");
+        if(manager.loginResponse.getProfileLocalFile() == null)
+            Picasso.with(BaseActivity_NavDrawer.this).load("http://www.tisserindia.com/stores" + manager.loginResponse.getProfileImage()).placeholder(R.drawable.profile_placeholder).into(mProfileImg);
+        else
+            Picasso.with(BaseActivity_NavDrawer.this).load(manager.loginResponse.getProfileLocalFile()).placeholder(R.drawable.profile_placeholder).into(mProfileImg);
+
+    }
+
     @Override
     protected void setupLayout()
     {
@@ -88,7 +110,12 @@ public class BaseActivity_NavDrawer extends BaseActivity implements AsyncRespons
         resetDrawer();
 
         getLayoutInflater().inflate(getLayoutResource(), frameLayout); /*** SET ACTIVITY HERE***/
-
+        if(manager.loginResponse.getProfileLocalFile() == null)
+            Picasso.with(BaseActivity_NavDrawer.this).load("http://www.tisserindia.com/stores" + manager.loginResponse.getProfileImage()).placeholder(R.drawable.profile_placeholder).into(mProfileImg);
+        else
+            Picasso.with(BaseActivity_NavDrawer.this).load(manager.loginResponse.getProfileLocalFile()).placeholder(R.drawable.profile_placeholder).into(mProfileImg);
+        mArtisanName.setText(manager.loginResponse.getFullName());
+        mArtisanEmail.setText(manager.loginResponse.getEmail());
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener()
         {
 

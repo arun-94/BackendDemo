@@ -38,7 +38,7 @@ public class LoginActivity extends BaseActivity implements Validator.ValidationL
     //TODO Handle Retrofit Timeout Error
 
     @Bind(R.id.loginButton) Button mLoginButton;
-    @Length(min = 10, max = 10, message = "Invalid Mobile No") @Password(min = 10, scheme = Password.Scheme.NUMERIC, message = "") @Bind(R.id.editText_custid) EditText mCustIdEditText;
+    /*@Length(min = 10, max = 10, message = "Invalid Mobile No") @Password(min = 10, scheme = Password.Scheme.NUMERIC, message = "")*/ @Bind(R.id.editText_custid) EditText mCustIdEditText;
     /*@Password(min = 6, scheme = Password.Scheme.ALPHA_NUMERIC_MIXED_CASE)*/
     @NotEmpty @Bind(R.id.editText_password) EditText mPasswordEditText;
     @Bind(R.id.progress_login) ProgressBar mProgressLogin;
@@ -117,6 +117,7 @@ public class LoginActivity extends BaseActivity implements Validator.ValidationL
                 {
                     Log.d("LoginSuccess", "Success. Session Id is : " + loginData.getSessionID());
                     manager.setSessionID(loginData.getSessionID());
+                    manager.loginResponse = loginData;
                     openNextActivity();
                 }
                 else
