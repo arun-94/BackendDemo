@@ -178,10 +178,17 @@ public class ProfileActivity extends BaseActivity
         mArtisanLocation.setText(manager.loginResponse.getCity() + ", " + manager.loginResponse.getRegion());
         mArtisanName.setText(manager.loginResponse.getFullName());
         mArtisanProductCount.setText(manager.productList.size() + " Products");
-        if(manager.loginResponse.getProfileLocalFile() == null)
-            Picasso.with(ProfileActivity.this).load("http://www.tisserindia.com/stores" + manager.loginResponse.getProfileImage()).placeholder(R.drawable.profile_placeholder).into(profileImage);
+        if (manager.loginResponse.getProfileImage().equals(""))
+        {
+            Picasso.with(ProfileActivity.this).load(R.drawable.profile_placeholder).into(profileImage);
+        }
         else
-            Picasso.with(ProfileActivity.this).load(manager.loginResponse.getProfileLocalFile()).placeholder(R.drawable.profile_placeholder).into(profileImage);
+        {
+            if (manager.loginResponse.getProfileLocalFile() == null)
+                Picasso.with(ProfileActivity.this).load("http://www.tisserindia.com/stores" + manager.loginResponse.getProfileImage()).placeholder(R.drawable.profile_placeholder).into(profileImage);
+            else
+                Picasso.with(ProfileActivity.this).load(manager.loginResponse.getProfileLocalFile()).placeholder(R.drawable.profile_placeholder).into(profileImage);
+        }
     }
 
     String field = "";
@@ -267,8 +274,7 @@ public class ProfileActivity extends BaseActivity
                     fo.write(bytes.toByteArray());
                     fo.close();
                     f = destination;
-                }
-                catch (IOException e)
+                } catch (IOException e)
                 {
                     e.printStackTrace();
                 }

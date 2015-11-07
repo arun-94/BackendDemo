@@ -58,48 +58,72 @@ public class LoginResponse
 
     public String getFirstName()
     {
-        return firstName;
+        if(firstName != null)
+            return firstName;
+        else
+            return "";
     }
 
     public String getLastName()
     {
-        return lastName;
+        if(lastName != null)
+            return lastName;
+        else
+            return "";
     }
 
     public String getEmail()
     {
-        return email;
+        if(email != null)
+            return email;
+        else
+            return "";
     }
 
     public String getMobile()
     {
-        return mobile;
+        if(mobile != null)
+            return mobile;
+        else
+            return "";
     }
 
     public String getLandline()
     {
-        return landline;
+        if(landline != null)
+            return landline;
+        else
+            return "";
     }
 
     public String getCompany()
     {
-        return company;
+        if(company != null)
+            return company;
+        else
+            return "";
     }
 
     public String getAddress1()
     {
-        return address1;
-    }
+        if(address1 != null)
+            return address1;
+        else
+            return "";    }
 
     public String getAddress2()
     {
-        return address2;
-    }
+        if(address2 != null)
+            return address2;
+        else
+            return "";    }
 
     public String getCity()
     {
-        return city;
-    }
+        if(city != null)
+            return city;
+        else
+            return "";    }
 
     public String getPostcode()
     {
@@ -123,7 +147,10 @@ public class LoginResponse
 
     public String getProfileImage()
     {
-        return profileImage.substring(2);
+        if(!profileImage.equals("") && profileImage.length() > 2)
+            return profileImage.substring(2);
+        else
+            return profileImage;
     }
 
     public String getActivationToken()

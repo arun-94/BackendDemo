@@ -106,10 +106,19 @@ public class BaseActivity_NavDrawer extends BaseActivity implements AsyncRespons
         resetDrawer();
 
         getLayoutInflater().inflate(getLayoutResource(), frameLayout); /*** SET ACTIVITY HERE***/
-        if (manager.loginResponse.getProfileLocalFile() == null)
-            Picasso.with(BaseActivity_NavDrawer.this).load("http://www.tisserindia.com/stores" + manager.loginResponse.getProfileImage()).placeholder(R.drawable.profile_placeholder).into(mProfileImg);
+
+
+        if (manager.loginResponse.getProfileImage().equals(""))
+        {
+            Picasso.with(BaseActivity_NavDrawer.this).load(R.drawable.profile_placeholder).into(mProfileImg);
+        }
         else
-            Picasso.with(BaseActivity_NavDrawer.this).load(manager.loginResponse.getProfileLocalFile()).placeholder(R.drawable.profile_placeholder).into(mProfileImg);
+        {
+            if (manager.loginResponse.getProfileLocalFile() == null)
+                Picasso.with(BaseActivity_NavDrawer.this).load("http://www.tisserindia.com/stores" + manager.loginResponse.getProfileImage()).placeholder(R.drawable.profile_placeholder).into(mProfileImg);
+            else
+                Picasso.with(BaseActivity_NavDrawer.this).load(manager.loginResponse.getProfileLocalFile()).placeholder(R.drawable.profile_placeholder).into(mProfileImg);
+        }
         mArtisanName.setText(manager.loginResponse.getFullName());
         mArtisanEmail.setText(manager.loginResponse.getEmail());
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener()
@@ -155,7 +164,8 @@ public class BaseActivity_NavDrawer extends BaseActivity implements AsyncRespons
                                 case "ProductListFragment":
 
                                     break;
-                                default: fm.popBackStack();
+                                default:
+                                    fm.popBackStack();
                             }
                         }
 
