@@ -1,7 +1,9 @@
 package com.tisser.puneet.tisserartisan.UI.Activity;
 
+import android.annotation.TargetApi;
 import android.content.SharedPreferences;
 import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.util.Log;
@@ -183,6 +185,13 @@ public class LoginActivity extends BaseActivity implements Validator.ValidationL
                 Toast.makeText(this, message, Toast.LENGTH_LONG).show();
             }
         }
+    }
+
+    @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
+    @Override
+    public void onBackPressed()
+    {
+        this.finishAffinity();
     }
 
     void resetButton()
