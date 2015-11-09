@@ -22,6 +22,11 @@ import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
 import com.tisser.puneet.tisserartisan.Global.AppConstants;
+import com.tisser.puneet.tisserartisan.Model.Category;
+import com.tisser.puneet.tisserartisan.Model.ProductDetailed;
+import com.tisser.puneet.tisserartisan.Model.Response.LoginResponse;
+import com.tisser.puneet.tisserartisan.Model.Subcategory;
+import com.tisser.puneet.tisserartisan.Model.Subsubcategory;
 import com.tisser.puneet.tisserartisan.Queries.AsyncResponse;
 import com.tisser.puneet.tisserartisan.R;
 import com.tisser.puneet.tisserartisan.UI.Fragment.AboutFragment;
@@ -108,7 +113,7 @@ public class BaseActivity_NavDrawer extends BaseActivity implements AsyncRespons
         getLayoutInflater().inflate(getLayoutResource(), frameLayout); /*** SET ACTIVITY HERE***/
 
 
-        if (manager.loginResponse.getProfileImage().equals(""))
+        if (manager.loginResponse.getProfileImage() == null ||  manager.loginResponse.getProfileImage().equals(""))
         {
             Picasso.with(BaseActivity_NavDrawer.this).load(R.drawable.profile_placeholder).into(mProfileImg);
         }
@@ -194,6 +199,10 @@ public class BaseActivity_NavDrawer extends BaseActivity implements AsyncRespons
                     case R.id.nav_logout:
                         SharedPreferences preferences = getSharedPreferences(AppConstants.PREFS_NAME, 0);
                         preferences.edit().remove(AppConstants.PREFS_IS_LOGGED_IN).commit();
+
+                        clearDetails();
+
+
                         navigator.openNewActivity(BaseActivity_NavDrawer.this, new LoginActivity());
                         currentCheckedItem = 4;
                         return true;
@@ -229,6 +238,19 @@ public class BaseActivity_NavDrawer extends BaseActivity implements AsyncRespons
 
         //calling sync state is necessay or else your hamburger icon wont show up
         actionBarDrawerToggle.syncState();
+    }
+
+    private void clearDetails()
+    {
+        manager.loginResponse = new LoginResponse();
+        manager.currentProductDetailed = new ProductDetailed();
+        manager.currentCategory = new Category();
+        manager.productList.clear();
+        manager.currentCategoryID = -1;
+        manager.currentImage = null;
+        manager.currentImagePath = "";
+        manager.currentSubCategory = new Subcategory();
+        manager.currentSubsubCategory = new Subsubcategory();
     }
 
     public void onSaveInstanceState(Bundle outState)

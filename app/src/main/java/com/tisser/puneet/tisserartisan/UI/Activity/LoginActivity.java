@@ -74,6 +74,13 @@ public class LoginActivity extends BaseActivity implements Validator.ValidationL
     }
 
     @Override
+    protected void onResume()
+    {
+        super.onResume();
+        //manager = new AppManager();
+    }
+
+    @Override
     protected int getLayoutResource()
     {
         return R.layout.activity_login;

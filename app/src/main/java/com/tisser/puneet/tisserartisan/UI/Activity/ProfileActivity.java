@@ -178,7 +178,7 @@ public class ProfileActivity extends BaseActivity
         mArtisanLocation.setText(manager.loginResponse.getCity() + ", " + manager.loginResponse.getRegion());
         mArtisanName.setText(manager.loginResponse.getFullName());
         mArtisanProductCount.setText(manager.productList.size() + " Products");
-        if (manager.loginResponse.getProfileImage().equals(""))
+        if (manager.loginResponse.getProfileImage() == null || manager.loginResponse.getProfileImage().equals(""))
         {
             Picasso.with(ProfileActivity.this).load(R.drawable.profile_placeholder).into(profileImage);
         }

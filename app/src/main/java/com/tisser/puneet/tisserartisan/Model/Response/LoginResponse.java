@@ -147,7 +147,7 @@ public class LoginResponse
 
     public String getProfileImage()
     {
-        if(!profileImage.equals("") && profileImage.length() > 2)
+        if(profileImage != null && !profileImage.equals("") && profileImage.length() > 2)
             return profileImage.substring(2);
         else
             return profileImage;
