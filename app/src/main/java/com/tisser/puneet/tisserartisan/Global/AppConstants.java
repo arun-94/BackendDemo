@@ -8,6 +8,10 @@ public final class AppConstants
 
     public static final String PREFS_NAME = "Tisser_Artisan_App_Preferences";
     public static final String PREFS_IS_LOGGED_IN = "isLoggedIn";
+    public static final String PREFS_LOGIN_MOBILE = "loginMobileNumber" ;
+    public static final String PREFS_LOGIN_PASSWORD = "loginPassword";
+
+
 
     public static final int GALLERY_NUM_IMGS_TO_SELECT = 8;
     public static final int REQUEST_SELECT_CATEGORY = 300;

@@ -60,17 +60,17 @@ public class LoginActivity extends BaseActivity implements Validator.ValidationL
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
-        super.onCreate(savedInstanceState);
 
         loginValidator = new Validator(this);
         loginValidator.setValidationListener(this);
 
         settings = getSharedPreferences(AppConstants.PREFS_NAME, 0);
+        super.onCreate(savedInstanceState);
 
-        if (settings.getBoolean(AppConstants.PREFS_IS_LOGGED_IN, false))
+ /*       if (settings.getBoolean(AppConstants.PREFS_IS_LOGGED_IN, false))
         {
             //openNextActivity();
-        }
+        }*/
     }
 
     @Override
@@ -95,7 +95,8 @@ public class LoginActivity extends BaseActivity implements Validator.ValidationL
     @Override
     protected void setupLayout()
     {
-
+        mCustIdEditText.setText(settings.getString(AppConstants.PREFS_LOGIN_MOBILE, ""));
+        mPasswordEditText.setText(settings.getString(AppConstants.PREFS_LOGIN_PASSWORD, ""));
     }
 
     void openNextActivity()
@@ -112,7 +113,7 @@ public class LoginActivity extends BaseActivity implements Validator.ValidationL
         loginPostCall(mCustIdEditText.getText().toString(), mPasswordEditText.getText().toString());
     }
 
-    private void loginPostCall(String userId, String password)
+    private void loginPostCall(final String userId, final String password)
     {
         getApiService().validateLogin(AppConstants.ACTION_VALIDATE_USER, userId, password, new Callback<LoginResponse>()
         {
@@ -123,8 +124,11 @@ public class LoginActivity extends BaseActivity implements Validator.ValidationL
                 if (loginData.getError() == 0)
                 {
                     Log.d("LoginSuccess", "Success. Session Id is : " + loginData.getSessionID());
+                    Log.d("LoginSuccess", "Success. Profile image is : " + loginData.getProfileImage());
                     manager.setSessionID(loginData.getSessionID());
                     manager.loginResponse = loginData;
+                    settings.edit().putString(AppConstants.PREFS_LOGIN_MOBILE, userId).commit();
+                    settings.edit().putString(AppConstants.PREFS_LOGIN_PASSWORD, password).commit();
                     openNextActivity();
                 }
                 else
